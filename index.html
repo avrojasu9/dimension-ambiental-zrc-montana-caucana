@@ -1,109 +1,407 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Dimensión Ambiental ZRC Montaña Caucana</title>
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    Dimensión Ambiental ZRC Montaña Caucana
+  </title>
+
+  <!-- MapLibre -->
 
   <link
     href="https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.css"
     rel="stylesheet"
   >
 
-  <style>
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      font-family: Arial, Helvetica, sans-serif;
-    }
+  <!-- Estilos propios -->
 
-    #map {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 100%;
-    }
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
 
-    .title-box {
-      position: absolute;
-      z-index: 10;
-      top: 30px;
-      left: 30px;
-      max-width: 420px;
-      padding: 20px 24px;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.92);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
-    }
-
-    .title-box h1 {
-      margin: 0 0 10px 0;
-      font-size: 28px;
-      line-height: 1.1;
-    }
-
-    .title-box p {
-      margin: 0;
-      font-size: 16px;
-      line-height: 1.5;
-    }
-  </style>
 </head>
 
 <body>
 
-  <div id="map"></div>
+  <!-- =========================
+       PORTADA
+  ========================== -->
 
-  <div class="title-box">
-    <h1>Dimensión Ambiental</h1>
+  <section class="hero">
 
-    <p>
-      Zona de Reserva Campesina Montaña Caucana
-    </p>
-  </div>
+    <div class="hero-content">
 
-  <script src="https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.js"></script>
+      <div class="hero-kicker">
+        Zona de Reserva Campesina
+        de la Montaña Caucana
+      </div>
 
-  <script>
-    const map = new maplibregl.Map({
-      container: "map",
+      <h1>
+        Campesinado de la ZRC - MC
+      </h1>
 
-      style: {
-        version: 8,
+      <div class="hero-subtitle">
+        Cuidadoras y cuidadores de la montaña,
+        la vida y el territorio
+      </div>
 
-        sources: {
-          osm: {
-            type: "raster",
-            tiles: [
-              "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
-            ],
-            tileSize: 256,
-            attribution: "© OpenStreetMap contributors"
-          }
-        },
+    </div>
 
-        layers: [
-          {
-            id: "osm",
-            type: "raster",
-            source: "osm"
-          }
-        ]
-      },
+  </section>
 
-      center: [-76.05, 2.55],
-      zoom: 8.5
-    });
 
-    map.addControl(
-      new maplibregl.NavigationControl(),
-      "top-right"
-    );
-  </script>
+  <!-- =========================
+       DIMENSIÓN AMBIENTAL
+  ========================== -->
+
+  <section class="content-section">
+
+    <div class="content-inner">
+
+      <div class="section-label">
+        Dimensión ambiental
+      </div>
+
+      <h2>
+        Dimensión ambiental del campesinado
+      </h2>
+
+      <p>
+        La relación del campesinado con el territorio
+        comprende prácticas cotidianas de cuidado,
+        conservación y protección de la naturaleza.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       CITA
+  ========================== -->
+
+  <section class="quote-section">
+
+    <div class="quote">
+
+      “Por la cultura ambiental pues yo la definiría
+      más como un estilo de vida, porque la cultura
+      está muy relacionada con la forma en la que uno
+      vive.”
+
+    </div>
+
+    <div class="quote-author">
+      Lideresa joven campesina
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       UBICACIÓN
+  ========================== -->
+
+  <section class="content-section">
+
+    <div class="content-inner">
+
+      <div class="section-label">
+        Territorio
+      </div>
+
+      <h2>
+        Ubicación y descripción de las potencialidades
+        como ecosistema estratégico para la vida
+      </h2>
+
+      <p>
+        La Zona de Reserva Campesina de la Montaña
+        Caucana se localiza en la subregión oriente
+        del departamento del Cauca, sobre la vertiente
+        oriental de la Cordillera Central y la cuenca
+        alta del río Magdalena.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       STORY MAP
+  ========================== -->
+
+  <section class="story-map-section">
+
+    <div class="map-container">
+
+      <div id="map"></div>
+
+    </div>
+
+
+    <div class="story-panel">
+
+
+      <!-- CAPÍTULO 1 -->
+
+      <article
+        class="chapter"
+        data-chapter="ubicacion"
+      >
+
+        <div class="chapter-card">
+
+          <h3>
+            Zona de Reserva Campesina
+            de la Montaña Caucana
+          </h3>
+
+          <p>
+            El territorio campesino está ubicado
+            sobre la vertiente oriental de la
+            Cordillera Central y hace parte de una
+            matriz de ecosistemas estratégicos.
+          </p>
+
+        </div>
+
+      </article>
+
+
+      <!-- CAPÍTULO 2 -->
+
+      <article
+        class="chapter"
+        data-chapter="juntanza"
+      >
+
+        <div class="chapter-card">
+
+          <h3>
+            Juntanza por el agua
+          </h3>
+
+          <p>
+            Recorridos y actividades comunitarias
+            permiten que niños, niñas, jóvenes y
+            comunidades conozcan y protejan
+            ecosistemas como el páramo de Guanacas.
+          </p>
+
+        </div>
+
+      </article>
+
+
+      <!-- CAPÍTULO 3 -->
+
+      <article
+        class="chapter"
+        data-chapter="agroalimentarias"
+      >
+
+        <div class="chapter-card">
+
+          <h3>
+            Prácticas Agroalimentarias
+          </h3>
+
+          <p>
+            Modelos agroecológicos familiares,
+            conservación de semillas y producción
+            basada en prácticas de agricultura
+            orgánica fortalecen la soberanía
+            alimentaria.
+          </p>
+
+        </div>
+
+      </article>
+
+
+      <!-- CAPÍTULO 4 -->
+
+      <article
+        class="chapter"
+        data-chapter="cuidadores"
+      >
+
+        <div class="chapter-card">
+
+          <h3>
+            Cuidadores de la montaña
+          </h3>
+
+          <p>
+            Niños, niñas, jóvenes y comunidades
+            desarrollan prácticas tradicionales
+            de reconocimiento, monitoreo y protección
+            de la biodiversidad.
+          </p>
+
+        </div>
+
+      </article>
+
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       EJE 1
+  ========================== -->
+
+  <section class="feature-section">
+
+    <div class="feature-card">
+
+      <div class="feature-number">
+        01
+      </div>
+
+      <h2>
+        Juntanza por el agua
+      </h2>
+
+      <p>
+        El proceso incluye recorridos,
+        educación ambiental comunitaria,
+        siembra de frailejones,
+        recuperación de semillas nativas
+        y restauración de nacimientos de agua.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       EJE 2
+  ========================== -->
+
+  <section class="content-section">
+
+    <div class="content-inner wide">
+
+      <div class="section-label">
+        Soberanía alimentaria
+      </div>
+
+      <h2>
+        Prácticas Agroalimentarias
+      </h2>
+
+      <p>
+        Las experiencias agroecológicas de las
+        familias campesinas reúnen conservación
+        de semillas, restauración de suelos,
+        producción de abonos orgánicos y
+        diversificación productiva.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       EJE 3
+  ========================== -->
+
+  <section class="feature-section">
+
+    <div class="feature-card">
+
+      <div class="feature-number">
+        03
+      </div>
+
+      <h2>
+        Cuidadores de la montaña
+      </h2>
+
+      <p>
+        Los ejercicios de monitoreo comunitario
+        permiten reconocer especies de fauna,
+        flora y ecosistemas estratégicos presentes
+        en el territorio campesino.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       CIERRE
+  ========================== -->
+
+  <section class="quote-section">
+
+    <div class="quote">
+
+      “Lo que se quiere se cuida.”
+
+    </div>
+
+    <div class="quote-author">
+      Docente campesino líder en agroecología
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       PIE
+  ========================== -->
+
+  <footer class="footer">
+
+    <div class="footer-inner">
+
+      <h3>
+        Asociación Campesina de Inzá
+        Tierradentro - ACIT
+      </h3>
+
+      <p>
+        Zona de Reserva Campesina
+        de la Montaña Caucana.
+        Cauca, Colombia.
+      </p>
+
+    </div>
+
+  </footer>
+
+
+  <!-- MapLibre -->
+
+  <script
+    src="https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.js"
+  ></script>
+
+  <!-- Código propio -->
+
+  <script
+    src="script.js"
+  ></script>
 
 </body>
+
 </html>
