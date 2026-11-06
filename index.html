@@ -9,14 +9,41 @@
     content="width=device-width, initial-scale=1.0"
   >
 
+  <meta
+    name="description"
+    content="Dimensión Ambiental de la Zona de Reserva Campesina de la Montaña Caucana."
+  >
+
   <title>
     Dimensión Ambiental | ZRC Montaña Caucana
   </title>
+
+  <!-- Fuentes -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- MapLibre -->
 
   <link
     href="https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.css"
     rel="stylesheet"
   >
+
+  <!-- Estilos propios -->
 
   <link
     rel="stylesheet"
@@ -27,10 +54,75 @@
 <body>
 
   <!-- ======================================================
+       NAVEGACIÓN
+  ======================================================= -->
+
+  <nav
+    class="top-nav"
+    id="top-nav"
+  >
+
+    <a
+      href="#inicio"
+      class="brand"
+    >
+      <span class="brand-main">
+        Dimensión Ambiental
+      </span>
+
+      <span class="brand-small">
+        ZRC Montaña Caucana
+      </span>
+    </a>
+
+
+    <button
+      class="menu-toggle"
+      id="menu-toggle"
+      type="button"
+      aria-label="Abrir menú"
+      aria-expanded="false"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+
+    <div
+      class="nav-links"
+      id="nav-links"
+    >
+
+      <a href="#territorio">
+        Territorio
+      </a>
+
+      <a href="#juntanza">
+        Juntanza
+      </a>
+
+      <a href="#agroalimentarias">
+        Agroalimentarias
+      </a>
+
+      <a href="#cuidadores">
+        Cuidadores
+      </a>
+
+    </div>
+
+  </nav>
+
+
+  <!-- ======================================================
        PORTADA
   ======================================================= -->
 
-  <header class="hero">
+  <header
+    class="hero"
+    id="inicio"
+  >
 
     <img
       class="hero-image"
@@ -40,14 +132,17 @@
 
     <div class="hero-overlay"></div>
 
-    <div class="hero-content">
+    <div
+      class="hero-content reveal"
+    >
 
       <div class="hero-kicker">
         Zona de Reserva Campesina de la Montaña Caucana
       </div>
 
       <h1>
-        Campesinado de la ZRC - MC
+        Campesinado
+        <span>de la ZRC - MC</span>
       </h1>
 
       <p class="hero-subtitle">
@@ -55,9 +150,19 @@
         la vida y el territorio
       </p>
 
-      <div class="scroll-indicator">
-        ↓
-      </div>
+      <a
+        href="#dimension"
+        class="scroll-cue"
+        aria-label="Continuar"
+      >
+        <span>
+          Explorar
+        </span>
+
+        <span class="scroll-arrow">
+          ↓
+        </span>
+      </a>
 
     </div>
 
@@ -68,9 +173,14 @@
        INTRODUCCIÓN
   ======================================================= -->
 
-  <section class="text-section">
+  <section
+    class="text-section"
+    id="dimension"
+  >
 
-    <div class="text-container">
+    <div
+      class="text-container reveal"
+    >
 
       <span class="eyebrow">
         Dimensión ambiental
@@ -98,7 +208,9 @@
 
   <section class="infographic-section">
 
-    <div class="infographic-wrapper">
+    <div
+      class="infographic-wrapper reveal"
+    >
 
       <img
         src="assets/images/02_dimension_ambiental.png"
@@ -116,13 +228,19 @@
 
   <section class="quote-section">
 
-    <div class="quote-container">
+    <div
+      class="quote-container reveal"
+    >
+
+      <span class="quote-mark">
+        “
+      </span>
 
       <blockquote>
-        “Por la cultura ambiental pues yo la definiría
+        Por la cultura ambiental pues yo la definiría
         más como un estilo de vida, porque la cultura
         está muy relacionada con la forma en la que uno
-        vive.”
+        vive.
       </blockquote>
 
       <p class="quote-author">
@@ -140,7 +258,9 @@
 
   <section class="media-section dark">
 
-    <div class="media-heading">
+    <div
+      class="media-heading reveal"
+    >
 
       <span class="eyebrow light">
         Cuidado del territorio
@@ -150,9 +270,17 @@
         Monitoreo ambiental en Guanacas
       </h2>
 
+      <p class="section-description">
+        El conocimiento territorial también se construye
+        recorriendo, observando y reconociendo los cambios
+        que ocurren en la montaña.
+      </p>
+
     </div>
 
-    <div class="video-wrapper">
+    <div
+      class="video-wrapper reveal"
+    >
 
       <video
         controls
@@ -176,12 +304,17 @@
 
 
   <!-- ======================================================
-       UBICACIÓN
+       TERRITORIO
   ======================================================= -->
 
-  <section class="text-section">
+  <section
+    class="text-section"
+    id="territorio"
+  >
 
-    <div class="text-container">
+    <div
+      class="text-container reveal"
+    >
 
       <span class="eyebrow">
         Territorio
@@ -215,7 +348,12 @@
 
       <div id="map"></div>
 
+      <div class="map-label">
+        Territorio campesino
+      </div>
+
     </div>
+
 
     <div class="story-panel">
 
@@ -274,7 +412,7 @@
 
       <article
         class="chapter"
-        data-chapter="inzá"
+        data-chapter="inza"
       >
 
         <div class="chapter-card">
@@ -303,15 +441,21 @@
 
 
   <!-- ======================================================
-       TRANSICIÓN
+       CITA TERRITORIO
   ======================================================= -->
 
-  <section class="quote-section accent">
+  <section class="quote-section quote-light">
 
-    <div class="quote-container">
+    <div
+      class="quote-container reveal"
+    >
+
+      <span class="quote-mark">
+        “
+      </span>
 
       <blockquote>
-        “La calidad de vida me la da el campo.”
+        La calidad de vida me la da el campo.
       </blockquote>
 
     </div>
@@ -320,12 +464,14 @@
 
 
   <!-- ======================================================
-       PRESENTACIÓN EJES
+       EJES
   ======================================================= -->
 
   <section class="text-section center">
 
-    <div class="text-container wide">
+    <div
+      class="text-container wide reveal"
+    >
 
       <span class="eyebrow">
         Prácticas ambientales campesinas
@@ -335,22 +481,73 @@
         Tres formas comunitarias de cuidar la montaña
       </h2>
 
+      <p class="lead centered-lead">
+        Las prácticas ambientales se articulan con la
+        organización comunitaria, la producción
+        campesina y el reconocimiento de la
+        biodiversidad.
+      </p>
+
       <div class="axis-grid">
 
-        <div class="axis-card">
-          <strong>01</strong>
-          <h3>Juntanza por el agua</h3>
-        </div>
+        <a
+          href="#juntanza"
+          class="axis-card"
+        >
 
-        <div class="axis-card">
-          <strong>02</strong>
-          <h3>Prácticas Agroalimentarias</h3>
-        </div>
+          <strong>
+            01
+          </strong>
 
-        <div class="axis-card">
-          <strong>03</strong>
-          <h3>Cuidadores de la montaña</h3>
-        </div>
+          <h3>
+            Juntanza por el agua
+          </h3>
+
+          <span class="axis-link">
+            Explorar →
+          </span>
+
+        </a>
+
+
+        <a
+          href="#agroalimentarias"
+          class="axis-card"
+        >
+
+          <strong>
+            02
+          </strong>
+
+          <h3>
+            Prácticas Agroalimentarias
+          </h3>
+
+          <span class="axis-link">
+            Explorar →
+          </span>
+
+        </a>
+
+
+        <a
+          href="#cuidadores"
+          class="axis-card"
+        >
+
+          <strong>
+            03
+          </strong>
+
+          <h3>
+            Cuidadores de la montaña
+          </h3>
+
+          <span class="axis-link">
+            Explorar →
+          </span>
+
+        </a>
 
       </div>
 
@@ -363,12 +560,21 @@
        JUNTANZA POR EL AGUA
   ======================================================= -->
 
-  <section class="section-cover water-cover">
+  <section
+    class="section-cover water-cover"
+    id="juntanza"
+  >
 
-    <div class="section-cover-content">
+    <div
+      class="section-cover-content reveal"
+    >
 
       <span class="section-index">
         01
+      </span>
+
+      <span class="eyebrow light">
+        Prácticas ambientales
       </span>
 
       <h2>
@@ -387,13 +593,17 @@
   </section>
 
 
-  <!-- ======================================================
-       JUNTANZA 1
-  ======================================================= -->
+  <!-- JUNTANZA 1 -->
 
   <section class="story-feature">
 
-    <div class="story-feature-text">
+    <div
+      class="story-feature-text reveal"
+    >
+
+      <span class="story-index">
+        01
+      </span>
 
       <span class="eyebrow">
         Juntanza por el agua
@@ -420,13 +630,17 @@
   </section>
 
 
-  <!-- ======================================================
-       JUNTANZA 2
-  ======================================================= -->
+  <!-- JUNTANZA 2 -->
 
   <section class="story-feature reverse">
 
-    <div class="story-feature-text">
+    <div
+      class="story-feature-text reveal"
+    >
+
+      <span class="story-index">
+        02
+      </span>
 
       <span class="eyebrow">
         Restauración
@@ -452,13 +666,17 @@
   </section>
 
 
-  <!-- ======================================================
-       JUNTANZA 3
-  ======================================================= -->
+  <!-- JUNTANZA 3 -->
 
   <section class="story-feature">
 
-    <div class="story-feature-text">
+    <div
+      class="story-feature-text reveal"
+    >
+
+      <span class="story-index">
+        03
+      </span>
 
       <span class="eyebrow">
         Agua
@@ -484,13 +702,17 @@
   </section>
 
 
-  <!-- ======================================================
-       JUNTANZA 4
-  ======================================================= -->
+  <!-- JUNTANZA 4 -->
 
   <section class="story-feature reverse">
 
-    <div class="story-feature-text">
+    <div
+      class="story-feature-text reveal"
+    >
+
+      <span class="story-index">
+        04
+      </span>
 
       <span class="eyebrow">
         Memoria agrícola
@@ -516,13 +738,17 @@
   </section>
 
 
-  <!-- ======================================================
-       JUNTANZA 5
-  ======================================================= -->
+  <!-- JUNTANZA 5 -->
 
   <section class="media-section">
 
-    <div class="media-heading">
+    <div
+      class="media-heading reveal"
+    >
+
+      <span class="story-index">
+        05
+      </span>
 
       <span class="eyebrow">
         Educación ambiental
@@ -535,11 +761,13 @@
     </div>
 
     <div
-      class="gallery gallery-wide"
+      class="gallery gallery-wide reveal"
       data-gallery="educacion"
     ></div>
 
-    <div class="video-wrapper compact">
+    <div
+      class="video-wrapper compact reveal"
+    >
 
       <video
         controls
@@ -563,12 +791,21 @@
        AGROALIMENTARIAS
   ======================================================= -->
 
-  <section class="section-cover agro-cover">
+  <section
+    class="section-cover agro-cover"
+    id="agroalimentarias"
+  >
 
-    <div class="section-cover-content">
+    <div
+      class="section-cover-content reveal"
+    >
 
       <span class="section-index">
         02
+      </span>
+
+      <span class="eyebrow light">
+        Producción campesina
       </span>
 
       <h2>
@@ -587,7 +824,9 @@
 
   <section class="text-section">
 
-    <div class="text-container">
+    <div
+      class="text-container reveal"
+    >
 
       <span class="eyebrow">
         Producción y soberanía alimentaria
@@ -611,6 +850,18 @@
 
   <section class="full-gallery-section">
 
+    <div class="gallery-heading reveal">
+
+      <span class="eyebrow">
+        Galería
+      </span>
+
+      <h2>
+        Prácticas agroalimentarias
+      </h2>
+
+    </div>
+
     <div
       class="masonry-gallery"
       id="agro-gallery"
@@ -619,9 +870,7 @@
   </section>
 
 
-  <!-- ======================================================
-       DESTACADOS AGRO
-  ======================================================= -->
+  <!-- DESTACADO 1 -->
 
   <section class="split-feature">
 
@@ -634,7 +883,9 @@
 
     </div>
 
-    <div class="split-text">
+    <div
+      class="split-text reveal"
+    >
 
       <span class="eyebrow">
         Semillas
@@ -655,6 +906,8 @@
   </section>
 
 
+  <!-- DESTACADO 2 -->
+
   <section class="split-feature reverse-layout">
 
     <div class="split-image">
@@ -666,7 +919,9 @@
 
     </div>
 
-    <div class="split-text">
+    <div
+      class="split-text reveal"
+    >
 
       <span class="eyebrow">
         Diversificación
@@ -691,12 +946,21 @@
        CUIDADORES
   ======================================================= -->
 
-  <section class="section-cover biodiversity-cover">
+  <section
+    class="section-cover biodiversity-cover"
+    id="cuidadores"
+  >
 
-    <div class="section-cover-content">
+    <div
+      class="section-cover-content reveal"
+    >
 
       <span class="section-index">
         03
+      </span>
+
+      <span class="eyebrow light">
+        Biodiversidad
       </span>
 
       <h2>
@@ -713,13 +977,13 @@
   </section>
 
 
-  <!-- ======================================================
-       GRANDES MAMÍFEROS
-  ======================================================= -->
+  <!-- GRANDES MAMÍFEROS -->
 
   <section class="media-section dark">
 
-    <div class="media-heading">
+    <div
+      class="media-heading reveal"
+    >
 
       <span class="eyebrow light">
         Biodiversidad
@@ -732,41 +996,71 @@
 
     </div>
 
-    <div class="video-grid">
+    <div
+      class="video-tabs reveal"
+      id="video-tabs"
+    >
 
-      <video controls playsinline preload="metadata">
-        <source
-          src="assets/videos/06_cuidadores_01_identificacion_del_oso_andino_danta_y_puma_concolor_01.mp4"
-          type="video/mp4"
-        >
-      </video>
+      <div class="video-main">
 
-      <video controls playsinline preload="metadata">
-        <source
-          src="assets/videos/06_cuidadores_01_identificacion_del_oso_andino_danta_y_puma_concolor_02.mp4"
-          type="video/mp4"
+        <video
+          id="biodiversity-video"
+          controls
+          playsinline
+          preload="metadata"
         >
-      </video>
 
-      <video controls playsinline preload="metadata">
-        <source
-          src="assets/videos/06_cuidadores_01_identificacion_del_oso_andino_danta_y_puma_concolor_03.mp4"
-          type="video/mp4"
+          <source
+            id="biodiversity-video-source"
+            src="assets/videos/06_cuidadores_01_identificacion_del_oso_andino_danta_y_puma_concolor_01.mp4"
+            type="video/mp4"
+          >
+
+        </video>
+
+      </div>
+
+
+      <div class="video-selector">
+
+        <button
+          class="video-select active"
+          type="button"
+          data-video="assets/videos/06_cuidadores_01_identificacion_del_oso_andino_danta_y_puma_concolor_01.mp4"
         >
-      </video>
+          Registro 1
+        </button>
+
+        <button
+          class="video-select"
+          type="button"
+          data-video="assets/videos/06_cuidadores_01_identificacion_del_oso_andino_danta_y_puma_concolor_02.mp4"
+        >
+          Registro 2
+        </button>
+
+        <button
+          class="video-select"
+          type="button"
+          data-video="assets/videos/06_cuidadores_01_identificacion_del_oso_andino_danta_y_puma_concolor_03.mp4"
+        >
+          Registro 3
+        </button>
+
+      </div>
 
     </div>
 
   </section>
 
 
-  <!-- ======================================================
-       RANA DE CRISTAL
-  ======================================================= -->
+  <!-- RANA -->
 
   <section class="story-feature">
 
-    <div class="story-feature-text">
+    <div
+      class="story-feature-text reveal"
+    >
 
       <span class="eyebrow">
         Anfibios
@@ -792,13 +1086,13 @@
   </section>
 
 
-  <!-- ======================================================
-       AVES
-  ======================================================= -->
+  <!-- AVES -->
 
   <section class="story-feature reverse">
 
-    <div class="story-feature-text">
+    <div
+      class="story-feature-text reveal"
+    >
 
       <span class="eyebrow">
         Aves
@@ -825,13 +1119,13 @@
   </section>
 
 
-  <!-- ======================================================
-       ANFIBIOS Y REPTILES
-  ======================================================= -->
+  <!-- ANFIBIOS -->
 
   <section class="story-feature">
 
-    <div class="story-feature-text">
+    <div
+      class="story-feature-text reveal"
+    >
 
       <span class="eyebrow">
         Herpetofauna
@@ -858,52 +1152,82 @@
   </section>
 
 
-  <!-- ======================================================
-       ESPECIES DESTACADAS
-  ======================================================= -->
+  <!-- ESPECIES -->
 
   <section class="species-grid-section">
 
+    <div
+      class="species-heading reveal"
+    >
+
+      <span class="eyebrow">
+        Especies
+      </span>
+
+      <h2>
+        Biodiversidad de la montaña
+      </h2>
+
+    </div>
+
     <div class="species-grid">
 
-      <article class="species-card">
+      <article class="species-card reveal">
 
         <img
           src="assets/images/06_cuidadores_05_aguila_de_montana_01.jpg"
           alt="Águila de montaña"
         >
 
-        <h3>
-          Águila de montaña
-        </h3>
+        <div class="species-info">
+          <span>
+            Ave
+          </span>
+
+          <h3>
+            Águila de montaña
+          </h3>
+        </div>
 
       </article>
 
 
-      <article class="species-card">
+      <article class="species-card reveal">
 
         <img
           src="assets/images/06_cuidadores_07_pollo_de_monte_sericossypha_albocristata_01.jpg"
           alt="Pollo de monte"
         >
 
-        <h3>
-          Pollo de monte
-        </h3>
+        <div class="species-info">
+          <span>
+            Ave
+          </span>
+
+          <h3>
+            Pollo de monte
+          </h3>
+        </div>
 
       </article>
 
 
-      <article class="species-card">
+      <article class="species-card reveal">
 
         <img
           src="assets/images/06_cuidadores_08_rhinella_sp_01.jpg"
           alt="Rhinella sp."
         >
 
-        <h3>
-          Rhinella sp.
-        </h3>
+        <div class="species-info">
+          <span>
+            Anfibio
+          </span>
+
+          <h3>
+            Rhinella sp.
+          </h3>
+        </div>
 
       </article>
 
@@ -912,9 +1236,7 @@
   </section>
 
 
-  <!-- ======================================================
-       RECORRIDOS BIODIVERSIDAD
-  ======================================================= -->
+  <!-- RECORRIDOS -->
 
   <section class="fullscreen-image">
 
@@ -923,7 +1245,15 @@
       alt="Recorridos para identificación de especies"
     >
 
-    <div class="fullscreen-caption">
+    <div class="fullscreen-overlay"></div>
+
+    <div
+      class="fullscreen-caption reveal"
+    >
+
+      <span class="eyebrow light">
+        Reconocimiento territorial
+      </span>
 
       <h2>
         Recorridos para identificación de especies
@@ -940,10 +1270,16 @@
 
   <section class="quote-section accent">
 
-    <div class="quote-container">
+    <div
+      class="quote-container reveal"
+    >
+
+      <span class="quote-mark">
+        “
+      </span>
 
       <blockquote>
-        “Lo que se quiere se cuida.”
+        Lo que se quiere se cuida.
       </blockquote>
 
       <p class="quote-author">
@@ -964,7 +1300,13 @@
 
     <div class="closing-overlay"></div>
 
-    <div class="closing-content">
+    <div
+      class="closing-content reveal"
+    >
+
+      <span class="eyebrow light">
+        Territorio campesino
+      </span>
 
       <h2>
         Asociación Campesina de Inzá Tierradentro
@@ -980,12 +1322,23 @@
   </section>
 
 
+  <!-- ======================================================
+       FOOTER
+  ======================================================= -->
+
   <footer>
 
-    <p>
-      Dimensión Ambiental · Zona de Reserva Campesina
-      de la Montaña Caucana
-    </p>
+    <div class="footer-inner">
+
+      <strong>
+        Dimensión Ambiental
+      </strong>
+
+      <span>
+        Zona de Reserva Campesina de la Montaña Caucana
+      </span>
+
+    </div>
 
   </footer>
 

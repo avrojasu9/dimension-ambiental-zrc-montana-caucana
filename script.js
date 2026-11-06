@@ -68,135 +68,220 @@ const chapters = {
     bearing: 0
   },
 
-  inzá: {
+  inza: {
     center: [-76.06, 2.55],
     zoom: 10.5,
     pitch: 0,
     bearing: 0
   }
+
 };
 
 
 const chapterElements =
-  document.querySelectorAll(".chapter");
+  document.querySelectorAll(
+    ".chapter"
+  );
 
 
-const observer = new IntersectionObserver(
+const chapterObserver =
+  new IntersectionObserver(
 
-  (entries) => {
+    (entries) => {
 
-    entries.forEach((entry) => {
+      entries.forEach(
+        (entry) => {
 
-      if (!entry.isIntersecting) {
-        return;
-      }
-
-
-      const chapterId =
-        entry.target.dataset.chapter;
-
-
-      const chapter =
-        chapters[chapterId];
+          if (
+            !entry.isIntersecting
+          ) {
+            return;
+          }
 
 
-      if (!chapter) {
-        return;
-      }
+          chapterElements.forEach(
+            (element) => {
+
+              element.classList.remove(
+                "active"
+              );
+
+            }
+          );
 
 
-      map.flyTo({
-        center: chapter.center,
-        zoom: chapter.zoom,
-        pitch: chapter.pitch,
-        bearing: chapter.bearing,
-        duration: 1800,
-        essential: true
-      });
+          entry.target.classList.add(
+            "active"
+          );
 
-    });
 
-  },
+          const chapterId =
+            entry.target.dataset.chapter;
 
-  {
-    threshold: 0.55
+
+          const chapter =
+            chapters[chapterId];
+
+
+          if (!chapter) {
+            return;
+          }
+
+
+          map.flyTo({
+
+            center:
+              chapter.center,
+
+            zoom:
+              chapter.zoom,
+
+            pitch:
+              chapter.pitch,
+
+            bearing:
+              chapter.bearing,
+
+            duration:
+              1700,
+
+            essential:
+              true
+
+          });
+
+        }
+
+      );
+
+    },
+
+    {
+      threshold:
+        0.55
+    }
+
+  );
+
+
+chapterElements.forEach(
+  (chapter) => {
+
+    chapterObserver.observe(
+      chapter
+    );
+
   }
-
 );
 
 
-chapterElements.forEach((chapter) => {
-  observer.observe(chapter);
-});
-
-
 /* ==========================================================
-   DATOS DE GALERÍAS
+   GALERÍAS
 ========================================================== */
 
 const galleries = {
 
   "juntanza-recorridos": [
+
     "assets/images/04_juntanza_01_recorridos_y_conscientizacion_en_territorios_estrategicos_01.jpg",
+
     "assets/images/04_juntanza_01_recorridos_y_conscientizacion_en_territorios_estrategicos_02.jpg",
+
     "assets/images/04_juntanza_01_recorridos_y_conscientizacion_en_territorios_estrategicos_03.png",
+
     "assets/images/04_juntanza_01_recorridos_y_conscientizacion_en_territorios_estrategicos_04.png",
+
     "assets/images/04_juntanza_01_recorridos_y_conscientizacion_en_territorios_estrategicos_05.jpg"
+
   ],
 
 
   frailejones: [
+
     "assets/images/04_juntanza_02_siembra_de_frailejones_01.jpg",
+
     "assets/images/04_juntanza_02_siembra_de_frailejones_02.jpg",
+
     "assets/images/04_juntanza_02_siembra_de_frailejones_03.jpg"
+
   ],
 
 
   nacimiento: [
+
     "assets/images/04_juntanza_03_restauracion_nacimiento_de_agua_guanacas_01.jpg",
+
     "assets/images/04_juntanza_03_restauracion_nacimiento_de_agua_guanacas_02.jpg",
+
     "assets/images/04_juntanza_03_restauracion_nacimiento_de_agua_guanacas_03.jpg",
+
     "assets/images/04_juntanza_03_restauracion_nacimiento_de_agua_guanacas_04.jpg",
+
     "assets/images/04_juntanza_03_restauracion_nacimiento_de_agua_guanacas_05.jpg"
+
   ],
 
 
   "semillas-nativas": [
+
     "assets/images/04_juntanza_04_recuperacion_de_semillas_nativas_01.jpg",
+
     "assets/images/04_juntanza_04_recuperacion_de_semillas_nativas_02.jpg",
+
     "assets/images/04_juntanza_04_recuperacion_de_semillas_nativas_03.jpg"
+
   ],
 
 
   educacion: [
+
     "assets/images/04_juntanza_05_educacion_ambiental_comunitaria_01.jpg",
+
     "assets/images/04_juntanza_05_educacion_ambiental_comunitaria_02.jpg",
+
     "assets/images/04_juntanza_05_educacion_ambiental_comunitaria_03.jpg",
+
     "assets/images/04_juntanza_05_educacion_ambiental_comunitaria_05.jpg"
+
   ],
 
 
   "rana-cristal": [
+
     "assets/images/06_cuidadores_02_ranita_cristal_01.jpg",
+
     "assets/images/06_cuidadores_02_ranita_cristal_02.jpg"
+
   ],
 
 
   "aves-guanacas": [
+
     "assets/images/06_cuidadores_03_identificacion_y_avistamiento_de_aves_en_guanacas_01.jpg",
+
     "assets/images/06_cuidadores_03_identificacion_y_avistamiento_de_aves_en_guanacas_02.jpg",
+
     "assets/images/06_cuidadores_03_identificacion_y_avistamiento_de_aves_en_guanacas_03.jpg",
+
     "assets/images/06_cuidadores_03_identificacion_y_avistamiento_de_aves_en_guanacas_04.jpg",
+
     "assets/images/06_cuidadores_03_identificacion_y_avistamiento_de_aves_en_guanacas_05.jpg"
+
   ],
 
 
   anfibios: [
+
     "assets/images/06_cuidadores_04_identificacion_de_anfibios_y_reptiles_en_guanacas_01.jpg",
+
     "assets/images/06_cuidadores_04_identificacion_de_anfibios_y_reptiles_en_guanacas_02.jpg",
+
     "assets/images/06_cuidadores_04_identificacion_de_anfibios_y_reptiles_en_guanacas_03.jpg",
+
     "assets/images/06_cuidadores_04_identificacion_de_anfibios_y_reptiles_en_guanacas_04.jpg",
+
     "assets/images/06_cuidadores_04_identificacion_de_anfibios_y_reptiles_en_guanacas_05.jpg"
+
   ]
 
 };
@@ -207,191 +292,240 @@ const galleries = {
 ========================================================== */
 
 document
-  .querySelectorAll("[data-gallery]")
-  .forEach((galleryElement) => {
+  .querySelectorAll(
+    "[data-gallery]"
+  )
+  .forEach(
+    (galleryElement) => {
 
-    const galleryName =
-      galleryElement.dataset.gallery;
-
-
-    const images =
-      galleries[galleryName];
-
-
-    if (!images || images.length === 0) {
-      return;
-    }
+      const galleryName =
+        galleryElement.dataset.gallery;
 
 
-    let currentIndex = 0;
+      const images =
+        galleries[galleryName];
 
 
-    images.forEach((src, index) => {
-
-      const img =
-        document.createElement("img");
-
-
-      img.src = src;
-
-      img.alt = "";
-
-      img.loading = "lazy";
-
-      img.className =
-        "gallery-image";
-
-
-      if (index === 0) {
-        img.classList.add("active");
+      if (
+        !images ||
+        images.length === 0
+      ) {
+        return;
       }
 
 
-      galleryElement.appendChild(img);
-
-    });
+      let currentIndex = 0;
 
 
-    const counter =
-      document.createElement("div");
+      images.forEach(
+        (src, index) => {
+
+          const img =
+            document.createElement(
+              "img"
+            );
 
 
-    counter.className =
-      "gallery-counter";
+          img.src =
+            src;
 
 
-    counter.textContent =
-      `1 / ${images.length}`;
+          img.alt =
+            "";
 
 
-    galleryElement.appendChild(counter);
+          img.loading =
+            "lazy";
 
 
-    const controls =
-      document.createElement("div");
+          img.className =
+            "gallery-image";
 
 
-    controls.className =
-      "gallery-controls";
+          if (
+            index === 0
+          ) {
+
+            img.classList.add(
+              "active"
+            );
+
+          }
 
 
-    const previousButton =
-      document.createElement("button");
-
-
-    previousButton.className =
-      "gallery-button";
-
-
-    previousButton.innerHTML =
-      "←";
-
-
-    previousButton.setAttribute(
-      "aria-label",
-      "Imagen anterior"
-    );
-
-
-    const nextButton =
-      document.createElement("button");
-
-
-    nextButton.className =
-      "gallery-button";
-
-
-    nextButton.innerHTML =
-      "→";
-
-
-    nextButton.setAttribute(
-      "aria-label",
-      "Imagen siguiente"
-    );
-
-
-    controls.appendChild(
-      previousButton
-    );
-
-
-    controls.appendChild(
-      nextButton
-    );
-
-
-    galleryElement.appendChild(
-      controls
-    );
-
-
-    const updateGallery = () => {
-
-      const galleryImages =
-        galleryElement.querySelectorAll(
-          ".gallery-image"
-        );
-
-
-      galleryImages.forEach(
-        (img, index) => {
-
-          img.classList.toggle(
-            "active",
-            index === currentIndex
+          galleryElement.appendChild(
+            img
           );
 
         }
       );
 
 
+      const counter =
+        document.createElement(
+          "div"
+        );
+
+
+      counter.className =
+        "gallery-counter";
+
+
       counter.textContent =
-        `${currentIndex + 1} / ${images.length}`;
-
-    };
+        `1 / ${images.length}`;
 
 
-    previousButton.addEventListener(
-      "click",
-      () => {
-
-        currentIndex--;
-
-        if (currentIndex < 0) {
-          currentIndex =
-            images.length - 1;
-        }
-
-        updateGallery();
-
-      }
-    );
+      galleryElement.appendChild(
+        counter
+      );
 
 
-    nextButton.addEventListener(
-      "click",
-      () => {
+      const controls =
+        document.createElement(
+          "div"
+        );
 
-        currentIndex++;
 
-        if (
-          currentIndex >=
-          images.length
-        ) {
-          currentIndex = 0;
-        }
+      controls.className =
+        "gallery-controls";
 
-        updateGallery();
 
-      }
-    );
+      const previousButton =
+        document.createElement(
+          "button"
+        );
 
-  });
+
+      previousButton.className =
+        "gallery-button";
+
+
+      previousButton.innerHTML =
+        "←";
+
+
+      previousButton.setAttribute(
+        "aria-label",
+        "Imagen anterior"
+      );
+
+
+      const nextButton =
+        document.createElement(
+          "button"
+        );
+
+
+      nextButton.className =
+        "gallery-button";
+
+
+      nextButton.innerHTML =
+        "→";
+
+
+      nextButton.setAttribute(
+        "aria-label",
+        "Imagen siguiente"
+      );
+
+
+      controls.appendChild(
+        previousButton
+      );
+
+
+      controls.appendChild(
+        nextButton
+      );
+
+
+      galleryElement.appendChild(
+        controls
+      );
+
+
+      const updateGallery =
+        () => {
+
+          const galleryImages =
+            galleryElement.querySelectorAll(
+              ".gallery-image"
+            );
+
+
+          galleryImages.forEach(
+            (img, index) => {
+
+              img.classList.toggle(
+                "active",
+                index === currentIndex
+              );
+
+            }
+          );
+
+
+          counter.textContent =
+            `${currentIndex + 1} / ${images.length}`;
+
+        };
+
+
+      previousButton
+        .addEventListener(
+          "click",
+          () => {
+
+            currentIndex--;
+
+
+            if (
+              currentIndex < 0
+            ) {
+
+              currentIndex =
+                images.length - 1;
+
+            }
+
+
+            updateGallery();
+
+          }
+        );
+
+
+      nextButton
+        .addEventListener(
+          "click",
+          () => {
+
+            currentIndex++;
+
+
+            if (
+              currentIndex >=
+              images.length
+            ) {
+
+              currentIndex =
+                0;
+
+            }
+
+
+            updateGallery();
+
+          }
+        );
+
+    }
+  );
 
 
 /* ==========================================================
-   GALERÍA AGROALIMENTARIA
+   GALERÍA AGRO
 ========================================================== */
 
 const agroGallery =
@@ -446,23 +580,259 @@ const agroImages = [
 
 if (agroGallery) {
 
-  agroImages.forEach((src) => {
+  agroImages.forEach(
+    (src) => {
 
-    const img =
-      document.createElement("img");
-
-
-    img.src = src;
-
-    img.alt =
-      "Práctica agroalimentaria campesina";
-
-    img.loading =
-      "lazy";
+      const img =
+        document.createElement(
+          "img"
+        );
 
 
-    agroGallery.appendChild(img);
+      img.src =
+        src;
 
-  });
+
+      img.alt =
+        "Práctica agroalimentaria campesina";
+
+
+      img.loading =
+        "lazy";
+
+
+      agroGallery.appendChild(
+        img
+      );
+
+    }
+  );
 
 }
+
+
+/* ==========================================================
+   NAVEGACIÓN
+========================================================== */
+
+const topNav =
+  document.getElementById(
+    "top-nav"
+  );
+
+
+const menuToggle =
+  document.getElementById(
+    "menu-toggle"
+  );
+
+
+const navLinks =
+  document.getElementById(
+    "nav-links"
+  );
+
+
+window.addEventListener(
+  "scroll",
+  () => {
+
+    if (
+      window.scrollY > 80
+    ) {
+
+      topNav.classList.add(
+        "scrolled"
+      );
+
+    } else {
+
+      topNav.classList.remove(
+        "scrolled"
+      );
+
+    }
+
+  }
+);
+
+
+menuToggle.addEventListener(
+  "click",
+  () => {
+
+    const isOpen =
+      navLinks.classList.toggle(
+        "open"
+      );
+
+
+    menuToggle.setAttribute(
+      "aria-expanded",
+      isOpen
+    );
+
+  }
+);
+
+
+navLinks
+  .querySelectorAll(
+    "a"
+  )
+  .forEach(
+    (link) => {
+
+      link.addEventListener(
+        "click",
+        () => {
+
+          navLinks.classList.remove(
+            "open"
+          );
+
+
+          menuToggle.setAttribute(
+            "aria-expanded",
+            "false"
+          );
+
+        }
+      );
+
+    }
+  );
+
+
+/* ==========================================================
+   ANIMACIONES DE ENTRADA
+========================================================== */
+
+const revealElements =
+  document.querySelectorAll(
+    ".reveal"
+  );
+
+
+const revealObserver =
+  new IntersectionObserver(
+
+    (entries) => {
+
+      entries.forEach(
+        (entry) => {
+
+          if (
+            entry.isIntersecting
+          ) {
+
+            entry.target.classList.add(
+              "visible"
+            );
+
+
+            revealObserver.unobserve(
+              entry.target
+            );
+
+          }
+
+        }
+      );
+
+    },
+
+    {
+      threshold:
+        0.15,
+
+      rootMargin:
+        "0px 0px -50px 0px"
+    }
+
+  );
+
+
+revealElements.forEach(
+  (element) => {
+
+    revealObserver.observe(
+      element
+    );
+
+  }
+);
+
+
+/* ==========================================================
+   SELECTOR DE VIDEOS BIODIVERSIDAD
+========================================================== */
+
+const biodiversityVideo =
+  document.getElementById(
+    "biodiversity-video"
+  );
+
+
+const biodiversityVideoSource =
+  document.getElementById(
+    "biodiversity-video-source"
+  );
+
+
+const videoButtons =
+  document.querySelectorAll(
+    ".video-select"
+  );
+
+
+videoButtons.forEach(
+  (button) => {
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        const videoPath =
+          button.dataset.video;
+
+
+        if (
+          !videoPath ||
+          !biodiversityVideo ||
+          !biodiversityVideoSource
+        ) {
+          return;
+        }
+
+
+        biodiversityVideo.pause();
+
+
+        biodiversityVideoSource.src =
+          videoPath;
+
+
+        biodiversityVideo.load();
+
+
+        videoButtons.forEach(
+          (item) => {
+
+            item.classList.remove(
+              "active"
+            );
+
+          }
+        );
+
+
+        button.classList.add(
+          "active"
+        );
+
+      }
+    );
+
+  }
+);
