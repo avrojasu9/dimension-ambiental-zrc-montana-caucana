@@ -157,8 +157,7 @@ const chapterObserver =
     },
 
     {
-      threshold:
-        0.55
+      threshold: 0.55
     }
 
   );
@@ -525,7 +524,7 @@ document
 
 
 /* ==========================================================
-   GALERÍA AGRO
+   GALERÍA AGROALIMENTARIA
 ========================================================== */
 
 const agroGallery =
@@ -705,7 +704,7 @@ navLinks
 
 
 /* ==========================================================
-   ANIMACIONES DE ENTRADA
+   ANIMACIONES
 ========================================================== */
 
 const revealElements =
@@ -743,8 +742,7 @@ const revealObserver =
     },
 
     {
-      threshold:
-        0.15,
+      threshold: 0.15,
 
       rootMargin:
         "0px 0px -50px 0px"
@@ -765,7 +763,7 @@ revealElements.forEach(
 
 
 /* ==========================================================
-   SELECTOR DE VIDEOS BIODIVERSIDAD
+   SELECTOR VIDEOS BIODIVERSIDAD
 ========================================================== */
 
 const biodiversityVideo =
