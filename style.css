@@ -27,21 +27,29 @@ body {
   align-items: flex-end;
   justify-content: center;
   padding: 60px 30px;
-  background:
-    linear-gradient(
-      to top,
-      rgba(0, 0, 0, 0.72),
-      rgba(0, 0, 0, 0.10)
-    ),
-    linear-gradient(
-      135deg,
-      #233d2c,
-      #50795a
-    );
+  background-image:
+    url("assets/images/01_portada_zrc_montana_caucana.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: white;
 }
 
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.78) 0%,
+      rgba(0, 0, 0, 0.40) 35%,
+      rgba(0, 0, 0, 0.08) 75%
+    );
+}
+
 .hero-content {
+  position: relative;
+  z-index: 2;
   width: 100%;
   max-width: 1150px;
   padding-bottom: 40px;
@@ -67,6 +75,44 @@ body {
   margin-top: 28px;
   font-size: clamp(1.2rem, 2vw, 1.7rem);
   line-height: 1.5;
+}
+
+/* =========================
+   DIMENSIÓN AMBIENTAL
+========================= */
+
+.dimension-section {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  min-height: 85vh;
+  background: #ffffff;
+}
+
+.dimension-image {
+  min-height: 70vh;
+  overflow: hidden;
+}
+
+.dimension-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.dimension-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 70px 8vw 70px 60px;
+}
+
+.dimension-text h2 {
+  max-width: 650px;
+}
+
+.dimension-text p {
+  max-width: 620px;
 }
 
 /* =========================
@@ -238,6 +284,22 @@ p {
 
 @media (max-width: 900px) {
 
+  .hero {
+    min-height: 90vh;
+  }
+
+  .dimension-section {
+    grid-template-columns: 1fr;
+  }
+
+  .dimension-image {
+    min-height: 55vh;
+  }
+
+  .dimension-text {
+    padding: 55px 25px;
+  }
+
   .story-map-section {
     display: block;
   }
@@ -259,9 +321,5 @@ p {
 
   .chapter-card {
     padding: 25px;
-  }
-
-  .hero {
-    min-height: 90vh;
   }
 }
