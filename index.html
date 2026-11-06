@@ -2,7 +2,6 @@
 <html lang="es">
 
 <head>
-
   <meta charset="UTF-8">
 
   <meta
@@ -11,74 +10,81 @@
   >
 
   <title>
-    Dimensión Ambiental ZRC Montaña Caucana
+    Dimensión Ambiental | ZRC Montaña Caucana
   </title>
-
-  <!-- MapLibre -->
 
   <link
     href="https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.css"
     rel="stylesheet"
   >
 
-  <!-- Estilos propios -->
-
   <link
     rel="stylesheet"
     href="style.css"
   >
-
 </head>
 
 <body>
 
-  <!-- =========================
+  <!-- ======================================================
        PORTADA
-  ========================== -->
+  ======================================================= -->
 
-  <section class="hero">
+  <header class="hero">
+
+    <img
+      class="hero-image"
+      src="assets/images/01_portada_zrc_montana_caucana.jpg"
+      alt="Campesinado de la Zona de Reserva Campesina de la Montaña Caucana"
+    >
+
+    <div class="hero-overlay"></div>
 
     <div class="hero-content">
 
       <div class="hero-kicker">
-        Zona de Reserva Campesina
-        de la Montaña Caucana
+        Zona de Reserva Campesina de la Montaña Caucana
       </div>
 
       <h1>
         Campesinado de la ZRC - MC
       </h1>
 
-      <div class="hero-subtitle">
+      <p class="hero-subtitle">
         Cuidadoras y cuidadores de la montaña,
         la vida y el territorio
+      </p>
+
+      <div class="scroll-indicator">
+        ↓
       </div>
 
     </div>
 
-  </section>
+  </header>
 
 
-  <!-- =========================
-       DIMENSIÓN AMBIENTAL
-  ========================== -->
+  <!-- ======================================================
+       INTRODUCCIÓN
+  ======================================================= -->
 
-  <section class="content-section">
+  <section class="text-section">
 
-    <div class="content-inner">
+    <div class="text-container">
 
-      <div class="section-label">
+      <span class="eyebrow">
         Dimensión ambiental
-      </div>
+      </span>
 
       <h2>
         Dimensión ambiental del campesinado
       </h2>
 
-      <p>
+      <p class="lead">
         La relación del campesinado con el territorio
         comprende prácticas cotidianas de cuidado,
-        conservación y protección de la naturaleza.
+        conservación, producción y protección de la
+        naturaleza.
       </p>
 
     </div>
@@ -86,39 +92,100 @@
   </section>
 
 
-  <!-- =========================
-       CITA
-  ========================== -->
+  <!-- ======================================================
+       INFOGRAFÍA
+  ======================================================= -->
 
-  <section class="quote-section">
+  <section class="infographic-section">
 
-    <div class="quote">
+    <div class="infographic-wrapper">
 
-      “Por la cultura ambiental pues yo la definiría
-      más como un estilo de vida, porque la cultura
-      está muy relacionada con la forma en la que uno
-      vive.”
+      <img
+        src="assets/images/02_dimension_ambiental.png"
+        alt="Dimensiones del territorio campesino"
+      >
 
-    </div>
-
-    <div class="quote-author">
-      Lideresa joven campesina
     </div>
 
   </section>
 
 
-  <!-- =========================
+  <!-- ======================================================
+       CITA 1
+  ======================================================= -->
+
+  <section class="quote-section">
+
+    <div class="quote-container">
+
+      <blockquote>
+        “Por la cultura ambiental pues yo la definiría
+        más como un estilo de vida, porque la cultura
+        está muy relacionada con la forma en la que uno
+        vive.”
+      </blockquote>
+
+      <p class="quote-author">
+        Lideresa joven campesina
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- ======================================================
+       VIDEO MONITOREO
+  ======================================================= -->
+
+  <section class="media-section dark">
+
+    <div class="media-heading">
+
+      <span class="eyebrow light">
+        Cuidado del territorio
+      </span>
+
+      <h2>
+        Monitoreo ambiental en Guanacas
+      </h2>
+
+    </div>
+
+    <div class="video-wrapper">
+
+      <video
+        controls
+        playsinline
+        preload="metadata"
+        poster="assets/images/03_video_monitoreo_ambiental_guanacas_portada.jpg"
+      >
+
+        <source
+          src="assets/videos/03_video_monitoreo_ambiental_guanacas.mp4"
+          type="video/mp4"
+        >
+
+        Tu navegador no puede reproducir este video.
+
+      </video>
+
+    </div>
+
+  </section>
+
+
+  <!-- ======================================================
        UBICACIÓN
-  ========================== -->
+  ======================================================= -->
 
-  <section class="content-section">
+  <section class="text-section">
 
-    <div class="content-inner">
+    <div class="text-container">
 
-      <div class="section-label">
+      <span class="eyebrow">
         Territorio
-      </div>
+      </span>
 
       <h2>
         Ubicación y descripción de las potencialidades
@@ -127,10 +194,10 @@
 
       <p>
         La Zona de Reserva Campesina de la Montaña
-        Caucana se localiza en la subregión oriente
-        del departamento del Cauca, sobre la vertiente
-        oriental de la Cordillera Central y la cuenca
-        alta del río Magdalena.
+        Caucana se encuentra sobre la vertiente oriental
+        de la Cordillera Central, en un territorio
+        caracterizado por una importante diversidad
+        ambiental, hídrica y productiva.
       </p>
 
     </div>
@@ -138,9 +205,9 @@
   </section>
 
 
-  <!-- =========================
-       STORY MAP
-  ========================== -->
+  <!-- ======================================================
+       MAPA SCROLL
+  ======================================================= -->
 
   <section class="story-map-section">
 
@@ -150,29 +217,27 @@
 
     </div>
 
-
     <div class="story-panel">
 
-
-      <!-- CAPÍTULO 1 -->
-
       <article
         class="chapter"
-        data-chapter="ubicacion"
+        data-chapter="territorio"
       >
 
         <div class="chapter-card">
 
+          <span class="chapter-number">
+            01
+          </span>
+
           <h3>
-            Zona de Reserva Campesina
-            de la Montaña Caucana
+            Montaña Caucana
           </h3>
 
           <p>
-            El territorio campesino está ubicado
-            sobre la vertiente oriental de la
-            Cordillera Central y hace parte de una
-            matriz de ecosistemas estratégicos.
+            El territorio campesino se ubica en el
+            oriente caucano y hace parte de la cuenca
+            alta del río Magdalena.
           </p>
 
         </div>
@@ -180,24 +245,26 @@
       </article>
 
 
-      <!-- CAPÍTULO 2 -->
-
       <article
         class="chapter"
-        data-chapter="juntanza"
+        data-chapter="guanacas"
       >
 
         <div class="chapter-card">
 
+          <span class="chapter-number">
+            02
+          </span>
+
           <h3>
-            Juntanza por el agua
+            Guanacas
           </h3>
 
           <p>
-            Recorridos y actividades comunitarias
-            permiten que niños, niñas, jóvenes y
-            comunidades conozcan y protejan
-            ecosistemas como el páramo de Guanacas.
+            Las zonas altas constituyen espacios
+            estratégicos para la regulación hídrica,
+            la biodiversidad y las prácticas
+            comunitarias de conservación.
           </p>
 
         </div>
@@ -205,84 +272,114 @@
       </article>
 
 
-      <!-- CAPÍTULO 3 -->
-
       <article
         class="chapter"
-        data-chapter="agroalimentarias"
+        data-chapter="inzá"
       >
 
         <div class="chapter-card">
 
+          <span class="chapter-number">
+            03
+          </span>
+
           <h3>
-            Prácticas Agroalimentarias
+            Inzá
           </h3>
 
           <p>
-            Modelos agroecológicos familiares,
-            conservación de semillas y producción
-            basada en prácticas de agricultura
-            orgánica fortalecen la soberanía
-            alimentaria.
+            El campesinado combina producción,
+            organización comunitaria y conservación
+            de ecosistemas estratégicos.
           </p>
 
         </div>
 
       </article>
-
-
-      <!-- CAPÍTULO 4 -->
-
-      <article
-        class="chapter"
-        data-chapter="cuidadores"
-      >
-
-        <div class="chapter-card">
-
-          <h3>
-            Cuidadores de la montaña
-          </h3>
-
-          <p>
-            Niños, niñas, jóvenes y comunidades
-            desarrollan prácticas tradicionales
-            de reconocimiento, monitoreo y protección
-            de la biodiversidad.
-          </p>
-
-        </div>
-
-      </article>
-
 
     </div>
 
   </section>
 
 
-  <!-- =========================
-       EJE 1
-  ========================== -->
+  <!-- ======================================================
+       TRANSICIÓN
+  ======================================================= -->
 
-  <section class="feature-section">
+  <section class="quote-section accent">
 
-    <div class="feature-card">
+    <div class="quote-container">
 
-      <div class="feature-number">
-        01
+      <blockquote>
+        “La calidad de vida me la da el campo.”
+      </blockquote>
+
+    </div>
+
+  </section>
+
+
+  <!-- ======================================================
+       PRESENTACIÓN EJES
+  ======================================================= -->
+
+  <section class="text-section center">
+
+    <div class="text-container wide">
+
+      <span class="eyebrow">
+        Prácticas ambientales campesinas
+      </span>
+
+      <h2>
+        Tres formas comunitarias de cuidar la montaña
+      </h2>
+
+      <div class="axis-grid">
+
+        <div class="axis-card">
+          <strong>01</strong>
+          <h3>Juntanza por el agua</h3>
+        </div>
+
+        <div class="axis-card">
+          <strong>02</strong>
+          <h3>Prácticas Agroalimentarias</h3>
+        </div>
+
+        <div class="axis-card">
+          <strong>03</strong>
+          <h3>Cuidadores de la montaña</h3>
+        </div>
+
       </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ======================================================
+       JUNTANZA POR EL AGUA
+  ======================================================= -->
+
+  <section class="section-cover water-cover">
+
+    <div class="section-cover-content">
+
+      <span class="section-index">
+        01
+      </span>
 
       <h2>
         Juntanza por el agua
       </h2>
 
       <p>
-        El proceso incluye recorridos,
-        educación ambiental comunitaria,
-        siembra de frailejones,
-        recuperación de semillas nativas
-        y restauración de nacimientos de agua.
+        Organización comunitaria, educación ambiental
+        y acciones colectivas para cuidar los
+        ecosistemas estratégicos y las fuentes
+        hídricas.
       </p>
 
     </div>
@@ -290,28 +387,197 @@
   </section>
 
 
-  <!-- =========================
-       EJE 2
-  ========================== -->
+  <!-- ======================================================
+       JUNTANZA 1
+  ======================================================= -->
 
-  <section class="content-section">
+  <section class="story-feature">
 
-    <div class="content-inner wide">
+    <div class="story-feature-text">
 
-      <div class="section-label">
-        Soberanía alimentaria
-      </div>
+      <span class="eyebrow">
+        Juntanza por el agua
+      </span>
+
+      <h2>
+        Recorridos y conscientización en territorios
+        estratégicos
+      </h2>
+
+      <p>
+        Los recorridos comunitarios permiten reconocer
+        el territorio, sus ecosistemas y los procesos
+        necesarios para su conservación.
+      </p>
+
+    </div>
+
+    <div
+      class="gallery"
+      data-gallery="juntanza-recorridos"
+    ></div>
+
+  </section>
+
+
+  <!-- ======================================================
+       JUNTANZA 2
+  ======================================================= -->
+
+  <section class="story-feature reverse">
+
+    <div class="story-feature-text">
+
+      <span class="eyebrow">
+        Restauración
+      </span>
+
+      <h2>
+        Siembra de frailejones
+      </h2>
+
+      <p>
+        La recuperación de especies propias del páramo
+        contribuye a fortalecer los ecosistemas de alta
+        montaña y sus funciones ambientales.
+      </p>
+
+    </div>
+
+    <div
+      class="gallery"
+      data-gallery="frailejones"
+    ></div>
+
+  </section>
+
+
+  <!-- ======================================================
+       JUNTANZA 3
+  ======================================================= -->
+
+  <section class="story-feature">
+
+    <div class="story-feature-text">
+
+      <span class="eyebrow">
+        Agua
+      </span>
+
+      <h2>
+        Restauración de nacimiento de agua en Guanacas
+      </h2>
+
+      <p>
+        Las comunidades desarrollan procesos colectivos
+        de restauración y protección de nacimientos de
+        agua.
+      </p>
+
+    </div>
+
+    <div
+      class="gallery"
+      data-gallery="nacimiento"
+    ></div>
+
+  </section>
+
+
+  <!-- ======================================================
+       JUNTANZA 4
+  ======================================================= -->
+
+  <section class="story-feature reverse">
+
+    <div class="story-feature-text">
+
+      <span class="eyebrow">
+        Memoria agrícola
+      </span>
+
+      <h2>
+        Recuperación de semillas nativas
+      </h2>
+
+      <p>
+        Las semillas representan conocimiento,
+        autonomía y continuidad de las prácticas
+        productivas campesinas.
+      </p>
+
+    </div>
+
+    <div
+      class="gallery"
+      data-gallery="semillas-nativas"
+    ></div>
+
+  </section>
+
+
+  <!-- ======================================================
+       JUNTANZA 5
+  ======================================================= -->
+
+  <section class="media-section">
+
+    <div class="media-heading">
+
+      <span class="eyebrow">
+        Educación ambiental
+      </span>
+
+      <h2>
+        Educación ambiental comunitaria
+      </h2>
+
+    </div>
+
+    <div
+      class="gallery gallery-wide"
+      data-gallery="educacion"
+    ></div>
+
+    <div class="video-wrapper compact">
+
+      <video
+        controls
+        playsinline
+        preload="metadata"
+      >
+
+        <source
+          src="assets/videos/04_juntanza_05_educacion_ambiental_comunitaria_04.mp4"
+          type="video/mp4"
+        >
+
+      </video>
+
+    </div>
+
+  </section>
+
+
+  <!-- ======================================================
+       AGROALIMENTARIAS
+  ======================================================= -->
+
+  <section class="section-cover agro-cover">
+
+    <div class="section-cover-content">
+
+      <span class="section-index">
+        02
+      </span>
 
       <h2>
         Prácticas Agroalimentarias
       </h2>
 
       <p>
-        Las experiencias agroecológicas de las
-        familias campesinas reúnen conservación
-        de semillas, restauración de suelos,
-        producción de abonos orgánicos y
-        diversificación productiva.
+        Producción campesina, semillas, diversidad
+        alimentaria y prácticas agroecológicas.
       </p>
 
     </div>
@@ -319,27 +585,127 @@
   </section>
 
 
-  <!-- =========================
-       EJE 3
-  ========================== -->
+  <section class="text-section">
 
-  <section class="feature-section">
+    <div class="text-container">
 
-    <div class="feature-card">
+      <span class="eyebrow">
+        Producción y soberanía alimentaria
+      </span>
 
-      <div class="feature-number">
+      <h2>
+        El territorio también se conserva produciendo
+      </h2>
+
+      <p>
+        Las familias campesinas combinan cultivos,
+        recuperación de semillas, manejo de suelos y
+        prácticas tradicionales que favorecen la
+        diversidad productiva.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <section class="full-gallery-section">
+
+    <div
+      class="masonry-gallery"
+      id="agro-gallery"
+    ></div>
+
+  </section>
+
+
+  <!-- ======================================================
+       DESTACADOS AGRO
+  ======================================================= -->
+
+  <section class="split-feature">
+
+    <div class="split-image">
+
+      <img
+        src="assets/images/05_agroalimentarias_semillas_cafe_tradicional.jpg"
+        alt="Semillas y café tradicional"
+      >
+
+    </div>
+
+    <div class="split-text">
+
+      <span class="eyebrow">
+        Semillas
+      </span>
+
+      <h2>
+        Semillas y café tradicional
+      </h2>
+
+      <p>
+        La conservación de semillas y variedades
+        tradicionales fortalece la autonomía
+        alimentaria y productiva de las familias.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <section class="split-feature reverse-layout">
+
+    <div class="split-image">
+
+      <img
+        src="assets/images/05_agroalimentarias_cultivo_tomate_el_descanso.jpg"
+        alt="Cultivo de tomate"
+      >
+
+    </div>
+
+    <div class="split-text">
+
+      <span class="eyebrow">
+        Diversificación
+      </span>
+
+      <h2>
+        Producción campesina diversificada
+      </h2>
+
+      <p>
+        Las experiencias productivas articulan
+        alimentación, economía familiar y cuidado
+        del suelo.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- ======================================================
+       CUIDADORES
+  ======================================================= -->
+
+  <section class="section-cover biodiversity-cover">
+
+    <div class="section-cover-content">
+
+      <span class="section-index">
         03
-      </div>
+      </span>
 
       <h2>
         Cuidadores de la montaña
       </h2>
 
       <p>
-        Los ejercicios de monitoreo comunitario
-        permiten reconocer especies de fauna,
-        flora y ecosistemas estratégicos presentes
-        en el territorio campesino.
+        Monitoreo comunitario, reconocimiento de
+        especies y conocimiento territorial.
       </p>
 
     </div>
@@ -347,60 +713,288 @@
   </section>
 
 
-  <!-- =========================
-       CIERRE
-  ========================== -->
+  <!-- ======================================================
+       GRANDES MAMÍFEROS
+  ======================================================= -->
 
-  <section class="quote-section">
+  <section class="media-section dark">
 
-    <div class="quote">
+    <div class="media-heading">
 
-      “Lo que se quiere se cuida.”
+      <span class="eyebrow light">
+        Biodiversidad
+      </span>
+
+      <h2>
+        Identificación del oso andino, danta y puma
+        concolor
+      </h2>
 
     </div>
 
-    <div class="quote-author">
-      Docente campesino líder en agroecología
+    <div class="video-grid">
+
+      <video controls playsinline preload="metadata">
+        <source
+          src="assets/videos/06_cuidadores_01_identificacion_del_oso_andino_danta_y_puma_concolor_01.mp4"
+          type="video/mp4"
+        >
+      </video>
+
+      <video controls playsinline preload="metadata">
+        <source
+          src="assets/videos/06_cuidadores_01_identificacion_del_oso_andino_danta_y_puma_concolor_02.mp4"
+          type="video/mp4"
+        >
+      </video>
+
+      <video controls playsinline preload="metadata">
+        <source
+          src="assets/videos/06_cuidadores_01_identificacion_del_oso_andino_danta_y_puma_concolor_03.mp4"
+          type="video/mp4"
+        >
+      </video>
+
     </div>
 
   </section>
 
 
-  <!-- =========================
-       PIE
-  ========================== -->
+  <!-- ======================================================
+       RANA DE CRISTAL
+  ======================================================= -->
 
-  <footer class="footer">
+  <section class="story-feature">
 
-    <div class="footer-inner">
+    <div class="story-feature-text">
 
-      <h3>
-        Asociación Campesina de Inzá
-        Tierradentro - ACIT
-      </h3>
+      <span class="eyebrow">
+        Anfibios
+      </span>
+
+      <h2>
+        Ranita de cristal
+      </h2>
+
+      <p>
+        El reconocimiento de especies permite
+        comprender la riqueza biológica presente
+        en los ecosistemas de montaña.
+      </p>
+
+    </div>
+
+    <div
+      class="gallery"
+      data-gallery="rana-cristal"
+    ></div>
+
+  </section>
+
+
+  <!-- ======================================================
+       AVES
+  ======================================================= -->
+
+  <section class="story-feature reverse">
+
+    <div class="story-feature-text">
+
+      <span class="eyebrow">
+        Aves
+      </span>
+
+      <h2>
+        Identificación y avistamiento de aves
+        en Guanacas
+      </h2>
+
+      <p>
+        Los recorridos de observación fortalecen
+        el conocimiento comunitario sobre la fauna
+        local.
+      </p>
+
+    </div>
+
+    <div
+      class="gallery"
+      data-gallery="aves-guanacas"
+    ></div>
+
+  </section>
+
+
+  <!-- ======================================================
+       ANFIBIOS Y REPTILES
+  ======================================================= -->
+
+  <section class="story-feature">
+
+    <div class="story-feature-text">
+
+      <span class="eyebrow">
+        Herpetofauna
+      </span>
+
+      <h2>
+        Identificación de anfibios y reptiles
+        en Guanacas
+      </h2>
+
+      <p>
+        Estos registros permiten reconocer especies
+        indicadoras de la calidad y conservación de
+        los ecosistemas.
+      </p>
+
+    </div>
+
+    <div
+      class="gallery"
+      data-gallery="anfibios"
+    ></div>
+
+  </section>
+
+
+  <!-- ======================================================
+       ESPECIES DESTACADAS
+  ======================================================= -->
+
+  <section class="species-grid-section">
+
+    <div class="species-grid">
+
+      <article class="species-card">
+
+        <img
+          src="assets/images/06_cuidadores_05_aguila_de_montana_01.jpg"
+          alt="Águila de montaña"
+        >
+
+        <h3>
+          Águila de montaña
+        </h3>
+
+      </article>
+
+
+      <article class="species-card">
+
+        <img
+          src="assets/images/06_cuidadores_07_pollo_de_monte_sericossypha_albocristata_01.jpg"
+          alt="Pollo de monte"
+        >
+
+        <h3>
+          Pollo de monte
+        </h3>
+
+      </article>
+
+
+      <article class="species-card">
+
+        <img
+          src="assets/images/06_cuidadores_08_rhinella_sp_01.jpg"
+          alt="Rhinella sp."
+        >
+
+        <h3>
+          Rhinella sp.
+        </h3>
+
+      </article>
+
+    </div>
+
+  </section>
+
+
+  <!-- ======================================================
+       RECORRIDOS BIODIVERSIDAD
+  ======================================================= -->
+
+  <section class="fullscreen-image">
+
+    <img
+      src="assets/images/06_cuidadores_09_recorridos_para_identificacion_de_especies_01.jpg"
+      alt="Recorridos para identificación de especies"
+    >
+
+    <div class="fullscreen-caption">
+
+      <h2>
+        Recorridos para identificación de especies
+      </h2>
+
+    </div>
+
+  </section>
+
+
+  <!-- ======================================================
+       CIERRE
+  ======================================================= -->
+
+  <section class="quote-section accent">
+
+    <div class="quote-container">
+
+      <blockquote>
+        “Lo que se quiere se cuida.”
+      </blockquote>
+
+      <p class="quote-author">
+        Docente campesino líder en agroecología
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <section class="closing-section">
+
+    <img
+      src="assets/images/07_acit_cierre.jpg"
+      alt="Asociación Campesina de Inzá Tierradentro"
+    >
+
+    <div class="closing-overlay"></div>
+
+    <div class="closing-content">
+
+      <h2>
+        Asociación Campesina de Inzá Tierradentro
+      </h2>
 
       <p>
         Zona de Reserva Campesina
-        de la Montaña Caucana.
-        Cauca, Colombia.
+        de la Montaña Caucana
       </p>
 
     </div>
 
+  </section>
+
+
+  <footer>
+
+    <p>
+      Dimensión Ambiental · Zona de Reserva Campesina
+      de la Montaña Caucana
+    </p>
+
   </footer>
 
-
-  <!-- MapLibre -->
 
   <script
     src="https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.js"
   ></script>
 
-  <!-- Código propio -->
-
-  <script
-    src="script.js"
-  ></script>
+  <script src="script.js"></script>
 
 </body>
 

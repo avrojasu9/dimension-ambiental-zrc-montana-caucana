@@ -1,158 +1,316 @@
-html,
-body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #f5f3ed;
-  color: #222;
+:root {
+  --green-dark: #10251a;
+  --green: #254d35;
+  --green-soft: #dde8de;
+  --cream: #f7f3eb;
+  --white: #ffffff;
+  --black: #181818;
+  --muted: #6d746f;
+  --max-text: 900px;
 }
 
 * {
   box-sizing: border-box;
 }
 
-body {
-  overflow-x: hidden;
+html {
+  scroll-behavior: smooth;
 }
 
-/* =========================
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  background: var(--cream);
+  color: var(--black);
+  font-family:
+    "Segoe UI",
+    Arial,
+    Helvetica,
+    sans-serif;
+}
+
+img,
+video {
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+p,
+blockquote {
+  margin-top: 0;
+}
+
+/* ======================================================
    PORTADA
-========================= */
+====================================================== */
 
 .hero {
-  min-height: 100vh;
   position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 650px;
+  overflow: hidden;
   display: flex;
   align-items: flex-end;
-  justify-content: center;
-  padding: 60px 30px;
+}
+
+.hero-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+
   background:
     linear-gradient(
       to top,
-      rgba(0, 0, 0, 0.72),
-      rgba(0, 0, 0, 0.10)
-    ),
-    linear-gradient(
-      135deg,
-      #233d2c,
-      #50795a
+      rgba(7, 20, 12, 0.95) 0%,
+      rgba(7, 20, 12, 0.70) 32%,
+      rgba(7, 20, 12, 0.20) 70%,
+      rgba(7, 20, 12, 0.05) 100%
     );
-  color: white;
 }
 
 .hero-content {
+  position: relative;
+  z-index: 2;
+
   width: 100%;
-  max-width: 1150px;
-  padding-bottom: 40px;
-}
+  max-width: 1300px;
 
-.hero-kicker {
-  margin-bottom: 16px;
-  font-size: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-}
-
-.hero h1 {
-  max-width: 1000px;
-  margin: 0;
-  font-size: clamp(3rem, 7vw, 6.5rem);
-  line-height: 0.98;
-  font-weight: 700;
-}
-
-.hero-subtitle {
-  max-width: 800px;
-  margin-top: 28px;
-  font-size: clamp(1.2rem, 2vw, 1.7rem);
-  line-height: 1.5;
-}
-
-/* =========================
-   SECCIONES GENERALES
-========================= */
-
-.content-section {
-  width: 100%;
-  padding: 90px 25px;
-}
-
-.content-inner {
-  max-width: 850px;
   margin: 0 auto;
-}
-
-.content-inner.wide {
-  max-width: 1100px;
-}
-
-.section-label {
-  margin-bottom: 15px;
-  font-size: 0.9rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: #54735c;
-}
-
-h2 {
-  margin-top: 0;
-  margin-bottom: 30px;
-  font-size: clamp(2.2rem, 5vw, 4.2rem);
-  line-height: 1.05;
-}
-
-h3 {
-  margin-top: 0;
-  margin-bottom: 20px;
-  font-size: clamp(1.7rem, 3vw, 2.7rem);
-}
-
-p {
-  font-size: 1.12rem;
-  line-height: 1.75;
-}
-
-/* =========================
-   CITAS
-========================= */
-
-.quote-section {
-  padding: 100px 25px;
-  background: #243e2e;
+  padding: 60px 50px 70px;
   color: white;
 }
 
-.quote {
-  max-width: 950px;
+.hero-kicker {
+  margin-bottom: 20px;
+
+  font-size: 0.95rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  max-width: 1100px;
+  margin-bottom: 25px;
+
+  font-size: clamp(4rem, 9vw, 8.5rem);
+  line-height: 0.88;
+  font-weight: 750;
+}
+
+.hero-subtitle {
+  max-width: 850px;
+
+  font-size: clamp(1.2rem, 2.3vw, 2rem);
+  line-height: 1.4;
+}
+
+.scroll-indicator {
+  margin-top: 35px;
+  font-size: 2rem;
+
+  animation: scrollDown 1.8s infinite;
+}
+
+@keyframes scrollDown {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(12px);
+  }
+}
+
+/* ======================================================
+   TEXTO
+====================================================== */
+
+.text-section {
+  padding: 120px 30px;
+  background: var(--cream);
+}
+
+.text-section.center {
+  text-align: center;
+}
+
+.text-container {
+  max-width: var(--max-text);
   margin: 0 auto;
-  font-size: clamp(1.8rem, 4vw, 3.4rem);
-  line-height: 1.25;
+}
+
+.text-container.wide {
+  max-width: 1200px;
+}
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 18px;
+
+  color: var(--green);
+  font-size: 0.85rem;
+  font-weight: 700;
+
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.eyebrow.light {
+  color: #d7e5db;
+}
+
+.text-section h2,
+.story-feature h2,
+.media-heading h2,
+.section-cover h2,
+.split-feature h2 {
+  margin-bottom: 25px;
+
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  line-height: 1.02;
+}
+
+.text-section p,
+.story-feature p,
+.split-feature p {
+  font-size: 1.18rem;
+  line-height: 1.75;
+}
+
+.lead {
+  font-size: clamp(1.25rem, 2vw, 1.65rem) !important;
+}
+
+/* ======================================================
+   INFOGRAFÍA
+====================================================== */
+
+.infographic-section {
+  padding: 40px 30px 110px;
+  background: var(--cream);
+}
+
+.infographic-wrapper {
+  max-width: 1050px;
+  margin: 0 auto;
+}
+
+.infographic-wrapper img {
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  object-fit: contain;
+}
+
+/* ======================================================
+   CITAS
+====================================================== */
+
+.quote-section {
+  padding: 130px 35px;
+
+  background: var(--green-dark);
+  color: white;
+}
+
+.quote-section.accent {
+  background: var(--green);
+}
+
+.quote-container {
+  max-width: 1050px;
+  margin: 0 auto;
+}
+
+blockquote {
+  margin-bottom: 30px;
+
+  font-size: clamp(2rem, 4vw, 4rem);
+  line-height: 1.22;
   font-weight: 500;
 }
 
 .quote-author {
-  max-width: 950px;
-  margin: 30px auto 0;
+  margin: 0;
+  opacity: 0.75;
+
   font-size: 1rem;
-  opacity: 0.8;
 }
 
-/* =========================
-   MAPA + SCROLL
-========================= */
+/* ======================================================
+   VIDEO
+====================================================== */
+
+.media-section {
+  padding: 110px 35px;
+  background: #ecece7;
+}
+
+.media-section.dark {
+  background: #111c15;
+  color: white;
+}
+
+.media-heading {
+  max-width: 1100px;
+  margin: 0 auto 50px;
+}
+
+.video-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.video-wrapper.compact {
+  margin-top: 50px;
+}
+
+.video-wrapper video {
+  display: block;
+
+  width: 100%;
+  max-height: 75vh;
+
+  background: #000;
+  border-radius: 6px;
+}
+
+/* ======================================================
+   MAPA
+====================================================== */
 
 .story-map-section {
-  display: flex;
   position: relative;
-  background: #eee;
+  display: flex;
+  background: #e3e3df;
 }
 
 .map-container {
   position: sticky;
   top: 0;
-  width: 60%;
+
+  width: 62%;
   height: 100vh;
 }
 
@@ -162,90 +320,520 @@ p {
 }
 
 .story-panel {
-  width: 40%;
   position: relative;
-  z-index: 3;
+  z-index: 5;
+
+  width: 38%;
 }
 
 .chapter {
   min-height: 100vh;
+
   display: flex;
   align-items: center;
-  padding: 50px 35px;
+
+  padding: 60px 35px;
 }
 
 .chapter-card {
   width: 100%;
-  padding: 32px;
-  background: rgba(255, 255, 255, 0.96);
-  border-radius: 4px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.16);
+  padding: 35px;
+
+  background: rgba(255, 255, 255, 0.94);
+
+  border-radius: 5px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+
+  backdrop-filter: blur(5px);
+}
+
+.chapter-number {
+  display: block;
+  margin-bottom: 15px;
+
+  color: var(--green);
+  font-size: 0.85rem;
+  font-weight: 800;
+
+  letter-spacing: 0.2em;
 }
 
 .chapter-card h3 {
   margin-bottom: 18px;
+
+  font-size: clamp(2rem, 3vw, 3.3rem);
 }
 
 .chapter-card p {
-  margin-bottom: 0;
+  margin: 0;
+
+  font-size: 1.05rem;
+  line-height: 1.65;
 }
 
-/* =========================
-   BLOQUES DESTACADOS
-========================= */
+/* ======================================================
+   TRES EJES
+====================================================== */
 
-.feature-section {
-  padding: 110px 25px;
-  background: #e7eadf;
+.axis-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 25px;
+
+  margin-top: 60px;
 }
 
-.feature-card {
-  max-width: 1000px;
-  margin: 0 auto;
+.axis-card {
+  padding: 40px 30px;
+
+  background: white;
+  text-align: left;
+
+  border-top: 5px solid var(--green);
 }
 
-.feature-number {
-  margin-bottom: 15px;
-  font-size: 4rem;
-  line-height: 1;
-  font-weight: bold;
-  color: #56715b;
+.axis-card strong {
+  display: block;
+  margin-bottom: 35px;
+
+  color: var(--green);
+
+  font-size: 3rem;
 }
 
-/* =========================
-   PIE
-========================= */
+.axis-card h3 {
+  margin: 0;
 
-.footer {
-  padding: 70px 25px;
-  background: #18271d;
+  font-size: 1.7rem;
+}
+
+/* ======================================================
+   PORTADAS DE EJES
+====================================================== */
+
+.section-cover {
+  min-height: 70vh;
+
+  display: flex;
+  align-items: flex-end;
+
+  padding: 80px 50px;
+
+  background: var(--green-dark);
   color: white;
 }
 
-.footer-inner {
-  max-width: 900px;
+.water-cover {
+  background:
+    linear-gradient(
+      rgba(15, 46, 29, 0.85),
+      rgba(15, 46, 29, 0.95)
+    );
+}
+
+.agro-cover {
+  background:
+    linear-gradient(
+      rgba(80, 66, 28, 0.80),
+      rgba(39, 49, 25, 0.96)
+    );
+}
+
+.biodiversity-cover {
+  background:
+    linear-gradient(
+      rgba(24, 48, 36, 0.75),
+      rgba(12, 28, 20, 0.97)
+    );
+}
+
+.section-cover-content {
+  max-width: 1050px;
   margin: 0 auto;
+  width: 100%;
 }
 
-.footer p {
-  font-size: 0.95rem;
-  opacity: 0.85;
+.section-index {
+  display: block;
+  margin-bottom: 20px;
+
+  font-size: 1.2rem;
+  letter-spacing: 0.2em;
 }
 
-/* =========================
-   MÓVIL
-========================= */
+.section-cover p {
+  max-width: 750px;
 
-@media (max-width: 900px) {
+  font-size: 1.3rem;
+  line-height: 1.6;
+}
+
+/* ======================================================
+   HISTORIAS + GALERÍA
+====================================================== */
+
+.story-feature {
+  display: grid;
+  grid-template-columns: 40% 60%;
+
+  min-height: 85vh;
+
+  background: white;
+}
+
+.story-feature.reverse {
+  grid-template-columns: 60% 40%;
+}
+
+.story-feature.reverse .story-feature-text {
+  order: 2;
+}
+
+.story-feature.reverse .gallery {
+  order: 1;
+}
+
+.story-feature-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 70px 6vw;
+}
+
+.gallery {
+  position: relative;
+
+  min-height: 650px;
+  overflow: hidden;
+
+  background: #ddd;
+}
+
+.gallery-image {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  opacity: 0;
+
+  transition: opacity 0.8s ease;
+}
+
+.gallery-image.active {
+  opacity: 1;
+}
+
+.gallery-controls {
+  position: absolute;
+  z-index: 4;
+  bottom: 25px;
+  right: 25px;
+
+  display: flex;
+  gap: 10px;
+}
+
+.gallery-button {
+  width: 46px;
+  height: 46px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.9);
+
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.gallery-counter {
+  position: absolute;
+  z-index: 4;
+  bottom: 30px;
+  left: 30px;
+
+  padding: 8px 12px;
+
+  background: rgba(0, 0, 0, 0.60);
+  color: white;
+
+  border-radius: 4px;
+
+  font-size: 0.85rem;
+}
+
+/* ======================================================
+   GALERÍA AGRO
+====================================================== */
+
+.full-gallery-section {
+  padding: 30px;
+  background: #e5e0d3;
+}
+
+.masonry-gallery {
+  columns: 4;
+  column-gap: 14px;
+}
+
+.masonry-gallery img {
+  width: 100%;
+  margin-bottom: 14px;
+
+  break-inside: avoid;
+
+  border-radius: 3px;
+}
+
+/* ======================================================
+   SPLIT
+====================================================== */
+
+.split-feature {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  min-height: 75vh;
+
+  background: white;
+}
+
+.split-feature.reverse-layout .split-image {
+  order: 2;
+}
+
+.split-image {
+  overflow: hidden;
+}
+
+.split-image img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.split-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 70px 8vw;
+}
+
+/* ======================================================
+   VIDEOS BIODIVERSIDAD
+====================================================== */
+
+.video-grid {
+  max-width: 1250px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 20px;
+}
+
+.video-grid video {
+  width: 100%;
+  height: 480px;
+
+  background: black;
+  object-fit: contain;
+}
+
+/* ======================================================
+   ESPECIES
+====================================================== */
+
+.species-grid-section {
+  padding: 100px 35px;
+
+  background: #e2e7de;
+}
+
+.species-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 25px;
+}
+
+.species-card {
+  background: white;
+}
+
+.species-card img {
+  display: block;
+
+  width: 100%;
+  height: 400px;
+
+  object-fit: cover;
+}
+
+.species-card h3 {
+  margin: 0;
+  padding: 25px;
+
+  font-size: 1.5rem;
+}
+
+/* ======================================================
+   IMAGEN FINAL
+====================================================== */
+
+.fullscreen-image {
+  position: relative;
+
+  min-height: 90vh;
+}
+
+.fullscreen-image img {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.fullscreen-caption {
+  position: absolute;
+  z-index: 2;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  padding: 90px 50px 45px;
+
+  color: white;
+
+  background:
+    linear-gradient(
+      transparent,
+      rgba(0, 0, 0, 0.85)
+    );
+}
+
+.fullscreen-caption h2 {
+  max-width: 1000px;
+
+  margin: 0 auto;
+
+  font-size: clamp(2.5rem, 5vw, 5rem);
+}
+
+/* ======================================================
+   CIERRE
+====================================================== */
+
+.closing-section {
+  position: relative;
+
+  min-height: 85vh;
+
+  display: flex;
+  align-items: flex-end;
+
+  overflow: hidden;
+}
+
+.closing-section img {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.closing-overlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      transparent 30%,
+      rgba(0, 0, 0, 0.85)
+    );
+}
+
+.closing-content {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  max-width: 1200px;
+
+  margin: 0 auto;
+
+  padding: 50px;
+
+  color: white;
+}
+
+.closing-content h2 {
+  margin-bottom: 20px;
+
+  font-size: clamp(2.8rem, 5vw, 5rem);
+}
+
+.closing-content p {
+  font-size: 1.3rem;
+}
+
+/* ======================================================
+   FOOTER
+====================================================== */
+
+footer {
+  padding: 40px 25px;
+
+  background: #0d1711;
+  color: white;
+
+  text-align: center;
+}
+
+footer p {
+  margin: 0;
+
+  opacity: 0.7;
+}
+
+/* ======================================================
+   RESPONSIVE
+====================================================== */
+
+@media (max-width: 1000px) {
+
+  .axis-grid {
+    grid-template-columns: 1fr;
+  }
 
   .story-map-section {
     display: block;
   }
 
   .map-container {
+    z-index: 2;
+
     width: 100%;
     height: 55vh;
-    z-index: 1;
   }
 
   .story-panel {
@@ -254,14 +842,59 @@ p {
 
   .chapter {
     min-height: auto;
-    padding: 45px 20px;
   }
 
-  .chapter-card {
-    padding: 25px;
+  .story-feature,
+  .story-feature.reverse {
+    display: block;
   }
 
-  .hero {
-    min-height: 90vh;
+  .story-feature.reverse .story-feature-text,
+  .story-feature.reverse .gallery {
+    order: initial;
+  }
+
+  .story-feature-text {
+    padding: 70px 30px;
+  }
+
+  .gallery {
+    min-height: 65vh;
+  }
+
+  .split-feature {
+    grid-template-columns: 1fr;
+  }
+
+  .split-feature.reverse-layout .split-image {
+    order: initial;
+  }
+
+  .split-image {
+    min-height: 60vh;
+  }
+
+  .masonry-gallery {
+    columns: 2;
+  }
+
+  .video-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .video-grid video {
+    height: auto;
+  }
+
+  .species-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-content {
+    padding: 40px 25px 55px;
+  }
+
+  .hero h1 {
+    font-size: clamp(3.2rem, 14vw, 6rem);
   }
 }
