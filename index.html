@@ -18,8 +18,6 @@
     Dimensión Ambiental | ZRC Montaña Caucana
   </title>
 
-  <!-- Fuentes -->
-
   <link
     rel="preconnect"
     href="https://fonts.googleapis.com"
@@ -36,14 +34,10 @@
     rel="stylesheet"
   >
 
-  <!-- MapLibre -->
-
   <link
     href="https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.css"
     rel="stylesheet"
   >
-
-  <!-- Estilos propios -->
 
   <link
     rel="stylesheet"
@@ -232,13 +226,19 @@
 
       <blockquote>
         Por la cultura ambiental pues yo la definiría
-        más como un estilo de vida.
+        más como un estilo de vida, porque la cultura
+        está muy relacionada con la forma en la que uno
+        vive, con la forma como uno se identifica también
+        y como decide hacer cada cosa diariamente.
       </blockquote>
 
       <p class="quote-author">
-        Luna Alejandra Medina Ortega
+        <strong>
+          Luna Alejandra Medina Ortega
+        </strong>
+
         <span>
-          Lideresa joven campesina
+          — Lideresa joven campesina
         </span>
       </p>
 
@@ -258,14 +258,20 @@
       </span>
 
       <blockquote>
-        Cultura ambiental, es como cuidamos
-        las fuentes de agua.
+        Cultura ambiental, es como cuidamos las fuentes
+        de agua, pues ese es uno de los puntos más
+        primordiales, porque la supervivencia del ser
+        humano es el agua y parte fundamental, sino hay
+        agua no hay nada.
       </blockquote>
 
       <p class="quote-author">
-        Manuel Mulcue
+        <strong>
+          Manuel Mulcue
+        </strong>
+
         <span>
-          Líder campesino
+          — Líder campesino
         </span>
       </p>
 
@@ -285,15 +291,17 @@
       </span>
 
       <blockquote>
-        Entonces es la cultura de proteger
-        el ambiente, es la cultura de proteger
-        el entorno.
+        Entonces es la cultura, de proteger el ambiente,
+        es la cultura de proteger el entorno.
       </blockquote>
 
       <p class="quote-author">
-        Gersain Medina Yara
+        <strong>
+          Gersain Medina Yara
+        </strong>
+
         <span>
-          Docente campesino líder en agroecología
+          — Docente campesino líder en agroecología
         </span>
       </p>
 
@@ -336,6 +344,7 @@
         controls
         playsinline
         preload="metadata"
+        poster="assets/images/03_video_monitoreo_ambiental_guanacas_portada.jpg"
       >
 
         <source
@@ -357,7 +366,7 @@
   ======================================================= -->
 
   <section
-    class="text-section"
+    class="text-section territory-intro"
     id="territorio"
   >
 
@@ -375,18 +384,25 @@
       </h2>
 
       <p>
-        La Zona de Reserva Campesina de la Montaña
-        Caucana se ubica en la subregión oriente
-        del departamento del Cauca, sobre la vertiente
+        Nos ubicamos en la subregión oriente del
+        departamento del Cauca, sobre la vertiente
         oriental de la Cordillera Central y la cuenca
-        alta del río Magdalena.
+        alta del río Magdalena, colindando con áreas
+        del SINAP como el Parque Nacional Natural Puracé
+        y el Complejo de Páramos Guanacas – Puracé –
+        Coconucos.
       </p>
 
       <p>
-        El territorio colinda con áreas del Sistema
-        Nacional de Áreas Protegidas como el Parque
-        Nacional Natural Puracé y el Complejo de
-        Páramos Guanacas – Puracé – Coconucos.
+        Dentro del complejo se destacan localidades
+        como los páramos de Las Delicias y Guanacas.
+        Debido a sus dimensiones, localización y
+        envergadura, el complejo es uno de los
+        principales reguladores térmicos de los Andes.
+      </p>
+
+      <p class="territory-highlight">
+        Conecta PNN Puracé y PNN Nevado del Huila.
       </p>
 
     </div>
@@ -395,7 +411,7 @@
 
 
   <!-- ======================================================
-       MAPA
+       MAPA CARTOGRÁFICO REAL
   ======================================================= -->
 
   <section class="story-map-section">
@@ -404,8 +420,102 @@
 
       <div id="map"></div>
 
-      <div class="map-label">
-        Zona de Reserva Campesina de la Montaña Caucana
+
+      <div class="map-title-card">
+
+        <span>
+          Cartografía
+        </span>
+
+        <strong>
+          Zona de Reserva Campesina de la Montaña Caucana
+        </strong>
+
+      </div>
+
+
+      <div
+        class="layer-panel"
+        id="layer-panel"
+      >
+
+        <div class="layer-panel-title">
+          Capas
+        </div>
+
+
+        <label class="layer-option">
+
+          <input
+            type="checkbox"
+            data-layer-group="municipios"
+            checked
+          >
+
+          <span class="legend-symbol line-symbol"></span>
+
+          <span>
+            Límites municipales
+          </span>
+
+        </label>
+
+
+        <label class="layer-option">
+
+          <input
+            type="checkbox"
+            data-layer-group="zrc"
+            checked
+          >
+
+          <span class="legend-symbol zrc-symbol"></span>
+
+          <span>
+            ZRC Montaña Caucana
+          </span>
+
+        </label>
+
+
+        <label class="layer-option">
+
+          <input
+            type="checkbox"
+            data-layer-group="paramo"
+            checked
+          >
+
+          <span class="legend-symbol paramo-symbol"></span>
+
+          <span>
+            Complejo de páramo
+          </span>
+
+        </label>
+
+
+        <label class="layer-option">
+
+          <input
+            type="checkbox"
+            data-layer-group="puntos"
+            checked
+          >
+
+          <span class="legend-symbol point-symbol"></span>
+
+          <span>
+            Lugares del StoryMap
+          </span>
+
+        </label>
+
+      </div>
+
+
+      <div class="map-help">
+        Haz clic sobre los puntos o polígonos para consultar información.
       </div>
 
     </div>
@@ -424,14 +534,35 @@
             01
           </span>
 
+          <span class="chapter-kicker">
+            Contexto territorial
+          </span>
+
           <h3>
-            Montaña Caucana
+            Zona de Reserva Campesina de la Montaña Caucana
           </h3>
 
           <p>
-            Subregión oriente del departamento
-            del Cauca.
+            El mapa muestra los polígonos que conforman
+            la ZRC y su relación con los municipios
+            de Inzá, Totoró y Silvia.
           </p>
+
+          <div class="chapter-legend">
+
+            <span>
+              Inzá
+            </span>
+
+            <span>
+              Totoró
+            </span>
+
+            <span>
+              Silvia
+            </span>
+
+          </div>
 
         </div>
 
@@ -440,7 +571,7 @@
 
       <article
         class="chapter"
-        data-chapter="guanacas"
+        data-chapter="paramo"
       >
 
         <div class="chapter-card">
@@ -449,13 +580,23 @@
             02
           </span>
 
+          <span class="chapter-kicker">
+            Ecosistema estratégico
+          </span>
+
           <h3>
-            Páramos de Guanacas y Las Delicias
+            Complejo de Páramos Guanacas – Puracé – Coconucos
           </h3>
 
           <p>
-            Localidades estratégicas del Complejo
-            de Páramos Guanacas – Puracé – Coconucos.
+            Esta zona de alta montaña constituye un
+            espacio estratégico para la regulación
+            hídrica y la conectividad ecológica.
+          </p>
+
+          <p>
+            Dentro de este complejo se encuentran
+            localidades como Guanacas y Las Delicias.
           </p>
 
         </div>
@@ -465,7 +606,7 @@
 
       <article
         class="chapter"
-        data-chapter="inza"
+        data-chapter="juntanza-puntos"
       >
 
         <div class="chapter-card">
@@ -474,14 +615,53 @@
             03
           </span>
 
+          <span class="chapter-kicker">
+            Lugares de las experiencias
+          </span>
+
           <h3>
-            Inzá, Cauca
+            Juntanza por el agua
           </h3>
 
           <p>
-            Territorio de organización y vida
-            campesina en la vertiente oriental
-            de la Cordillera Central.
+            Los puntos verdes corresponden a las
+            ubicaciones originales de las experiencias
+            registradas en el recorrido del StoryMap.
+          </p>
+
+          <p class="chapter-tip">
+            Haz clic en un punto para ver su fotografía
+            y descripción.
+          </p>
+
+        </div>
+
+      </article>
+
+
+      <article
+        class="chapter"
+        data-chapter="cuidadores-puntos"
+      >
+
+        <div class="chapter-card">
+
+          <span class="chapter-number">
+            04
+          </span>
+
+          <span class="chapter-kicker">
+            Monitoreo comunitario
+          </span>
+
+          <h3>
+            Cuidadores de la montaña
+          </h3>
+
+          <p>
+            También se recuperaron las ubicaciones
+            originales de las experiencias de
+            reconocimiento y monitoreo de biodiversidad.
           </p>
 
         </div>
@@ -494,7 +674,7 @@
 
 
   <!-- ======================================================
-       CITA DOÑA MARÍA PIZO
+       CITA DOÑA MARÍA
   ======================================================= -->
 
   <section class="quote-section quote-light">
@@ -512,10 +692,15 @@
       </blockquote>
 
       <p class="quote-author">
-        Doña María Pizo
+
+        <strong>
+          Doña María Pizo
+        </strong>
+
         <span>
-          Lideresa campesina ACIT
+          — Lideresa campesina ACIT
         </span>
+
       </p>
 
     </div>
@@ -542,9 +727,11 @@
       </h2>
 
       <p class="lead centered-lead">
-        Las prácticas ambientales en torno a la
-        conservación de la biodiversidad se organizan
-        en tres ejes.
+        A continuación se presentan las prácticas
+        ambientales en torno a la conservación de la
+        biodiversidad, divididas en tres ejes:
+        Juntanza por el agua, Prácticas Agroalimentarias
+        y Cuidadores de la montaña.
       </p>
 
       <div class="axis-grid">
@@ -617,7 +804,6 @@
 
   <!-- ======================================================
        JUNTANZA POR EL AGUA
-       VERSIÓN 2.2
   ======================================================= -->
 
   <section
@@ -647,12 +833,17 @@
       </p>
 
       <p>
-        Se realizan recorridos y actividades de
-        conservación al Páramo de Guanacas y a las
-        partes altas de la montaña, fortaleciendo las
-        relaciones recíprocas con la naturaleza y el
-        posicionamiento del campesinado como sujeto
-        ambiental.
+        Realizamos recorridos y actividades de
+        conservación al páramo de Guanacas y partes
+        altas de la montaña. Desde esa bonita experiencia
+        de vivir entre montañas, ríos, flora, fauna y
+        la conversa con los abuelos, que nos han heredado
+        en sus relatos la importancia de las relaciones
+        recíprocas con la naturaleza.
+      </p>
+
+      <p>
+        Posicionamiento del campesino como sujeto ambiental.
       </p>
 
     </div>
@@ -661,7 +852,7 @@
 
 
   <!-- ======================================================
-       1. RECORRIDOS
+       JUNTANZA 1
   ======================================================= -->
 
   <section class="story-feature">
@@ -691,9 +882,8 @@
       </p>
 
       <p>
-        Estos corredores conectan ecosistemas
-        estratégicos de páramo, bosque húmedo y bosque
-        seco tropical.
+        Estos corredores conectan ecosistemas estratégicos
+        de páramo, bosque húmedo y seco tropical.
       </p>
 
       <div class="context-box">
@@ -703,17 +893,9 @@
         </span>
 
         <ul>
-          <li>
-            Laguna de Guanacas
-          </li>
-
-          <li>
-            La Herradura
-          </li>
-
-          <li>
-            Las Siete Lagunas
-          </li>
+          <li>Laguna de Guanacas</li>
+          <li>La Herradura</li>
+          <li>Las Siete Lagunas</li>
         </ul>
 
       </div>
@@ -730,7 +912,7 @@
 
 
   <!-- ======================================================
-       2. FRAILEJONES
+       JUNTANZA 2
   ======================================================= -->
 
   <section class="story-feature reverse">
@@ -758,6 +940,7 @@
         </span>
 
         <div>
+
           <small>
             Lugar
           </small>
@@ -765,13 +948,13 @@
           <strong>
             Páramo de las Delicias
           </strong>
+
         </div>
 
       </div>
 
       <p>
-        Acción comunitaria de restauración realizada
-        en el Páramo de las Delicias.
+        Realizada en el Páramo de las Delicias.
       </p>
 
     </div>
@@ -786,7 +969,7 @@
 
 
   <!-- ======================================================
-       3. NACIMIENTO DE AGUA
+       JUNTANZA 3
   ======================================================= -->
 
   <section class="story-feature">
@@ -814,6 +997,7 @@
         </span>
 
         <div>
+
           <small>
             Lugar
           </small>
@@ -821,6 +1005,7 @@
           <strong>
             Guanacas
           </strong>
+
         </div>
 
       </div>
@@ -842,7 +1027,7 @@
 
 
   <!-- ======================================================
-       4. SEMILLAS NATIVAS
+       JUNTANZA 4
   ======================================================= -->
 
   <section class="story-feature reverse">
@@ -864,9 +1049,9 @@
       </h2>
 
       <p>
-        Se desarrolla un proceso comunitario de
-        recolección, germinación e intercambio
-        de semillas nativas de especies arbóreas.
+        Proceso comunitario de recolección,
+        germinación e intercambio de semillas nativas
+        de especies arbóreas.
       </p>
 
 
@@ -920,6 +1105,7 @@
         </span>
 
         <div>
+
           <small>
             Proceso realizado en
           </small>
@@ -928,6 +1114,7 @@
             Institución Educativa
             Promoción Social Guanacas
           </strong>
+
         </div>
 
       </div>
@@ -944,7 +1131,7 @@
 
 
   <!-- ======================================================
-       5. EDUCACIÓN AMBIENTAL
+       JUNTANZA 5
   ======================================================= -->
 
   <section class="juntanza-education">
@@ -966,38 +1153,21 @@
       </h2>
 
       <p>
-        Charlas, recorridos, muralismo, campañas
-        de consciencia y cultura ambiental orientadas
-        a la sensibilización y promoción de prácticas
+        Charlas, recorridos, muralismo, campañas de
+        consciencia y cultura ambiental orientadas a
+        la sensibilización y promoción de prácticas
         de conservación.
       </p>
 
 
       <div class="participant-tags">
 
-        <span>
-          Niños y niñas
-        </span>
-
-        <span>
-          Adolescentes
-        </span>
-
-        <span>
-          Jóvenes
-        </span>
-
-        <span>
-          Líderes
-        </span>
-
-        <span>
-          Lideresas
-        </span>
-
-        <span>
-          Abuelos y abuelas
-        </span>
+        <span>Niños y niñas</span>
+        <span>Adolescentes</span>
+        <span>Jóvenes</span>
+        <span>Líderes</span>
+        <span>Lideresas</span>
+        <span>Abuelos y abuelas</span>
 
       </div>
 
@@ -1025,8 +1195,6 @@
           type="video/mp4"
         >
 
-        Tu navegador no puede reproducir este video.
-
       </video>
 
     </div>
@@ -1053,11 +1221,15 @@
       </blockquote>
 
       <p class="quote-author">
-        Gersain Medina Yara
+
+        <strong>
+          Gersain Medina Yara
+        </strong>
 
         <span>
-          Docente campesino líder en agroecología
+          — Docente campesino líder en agroecología
         </span>
+
       </p>
 
     </div>
@@ -1093,7 +1265,7 @@
       <p>
         Modelos agroecológicos desde la familia
         campesina, cuidado y conservación de las
-        semillas y producción basada en la agricultura
+        semillas. Producción basada en la agricultura
         orgánica.
       </p>
 
@@ -1118,9 +1290,8 @@
 
       <p>
         Las familias campesinas combinan cultivos,
-        recuperación de semillas, manejo de suelos y
-        prácticas tradicionales que favorecen la
-        diversidad productiva.
+        recuperación de semillas, manejo de suelos
+        y prácticas tradicionales.
       </p>
 
     </div>
@@ -1209,8 +1380,7 @@
 
       <p>
         Experiencia de producción campesina
-        agroecológica en la Zona de Reserva
-        Campesina.
+        agroecológica en la Zona de Reserva Campesina.
       </p>
 
     </div>
@@ -1252,10 +1422,6 @@
 
   </section>
 
-
-  <!-- ======================================================
-       VIDEOS MAMÍFEROS
-  ======================================================= -->
 
   <section class="media-section dark">
 
@@ -1333,10 +1499,6 @@
   </section>
 
 
-  <!-- ======================================================
-       RANITA
-  ======================================================= -->
-
   <section class="story-feature">
 
     <div
@@ -1352,7 +1514,7 @@
       </h2>
 
       <p>
-        Centrolene sanchezi.
+        <em>Centrolene sanchezi</em>
       </p>
 
     </div>
@@ -1364,10 +1526,6 @@
 
   </section>
 
-
-  <!-- ======================================================
-       AVES
-  ======================================================= -->
 
   <section class="story-feature reverse">
 
@@ -1384,11 +1542,6 @@
         de aves en Guanacas
       </h2>
 
-      <p>
-        Especies observadas en la vereda Guanacas
-        a partir de recorridos de observación de aves.
-      </p>
-
     </div>
 
     <div
@@ -1398,10 +1551,6 @@
 
   </section>
 
-
-  <!-- ======================================================
-       ANFIBIOS Y REPTILES
-  ======================================================= -->
 
   <section class="story-feature">
 
@@ -1427,10 +1576,6 @@
 
   </section>
 
-
-  <!-- ======================================================
-       ESPECIES
-  ======================================================= -->
 
   <section class="species-grid-section">
 
@@ -1520,10 +1665,6 @@
   </section>
 
 
-  <!-- ======================================================
-       RECORRIDOS
-  ======================================================= -->
-
   <section class="fullscreen-image">
 
     <img
@@ -1571,10 +1712,6 @@
         en su territorio.
       </blockquote>
 
-      <p class="quote-author">
-        Asociación Campesina de Inzá Tierradentro - ACIT
-      </p>
-
     </div>
 
   </section>
@@ -1601,9 +1738,7 @@
     src="https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.js"
   ></script>
 
-  <script
-    src="script.js"
-  ></script>
+  <script src="script.js"></script>
 
 </body>
 
