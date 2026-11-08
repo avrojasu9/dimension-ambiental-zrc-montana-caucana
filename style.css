@@ -110,7 +110,6 @@ p {
 
 .top-nav {
   position: fixed;
-
   z-index: 1000;
 
   top: 0;
@@ -430,7 +429,8 @@ p {
 }
 
 .eyebrow.light {
-  color: #d9e6dd;
+  color:
+    #d9e6dd;
 }
 
 h2 {
@@ -451,7 +451,9 @@ h3 {
 
 .text-section p,
 .story-feature p,
-.split-feature p {
+.split-feature p,
+.agro-story p,
+.agro-feature-highlight p {
   font-size: 1.08rem;
 
   line-height: 1.82;
@@ -641,7 +643,9 @@ blockquote {
     1.55;
 }
 
-.quote-author strong {
+.quote-author strong,
+.agro-person strong,
+.agro-identity strong {
   font-size:
     0.95rem;
 
@@ -649,7 +653,9 @@ blockquote {
     700;
 }
 
-.quote-author span {
+.quote-author span,
+.agro-person span,
+.agro-identity span {
   color:
     inherit;
 
@@ -805,7 +811,7 @@ blockquote {
     hidden;
 
   background:
-    #dce2dc;
+    #1f2721;
 }
 
 #map {
@@ -846,10 +852,6 @@ blockquote {
 
   backdrop-filter:
     blur(10px);
-
-  box-shadow:
-    0 5px 25px
-    rgba(0, 0, 0, 0.16);
 }
 
 .map-title-card span {
@@ -909,11 +911,7 @@ blockquote {
     6px;
 
   box-shadow:
-    0 7px 28px
-    rgba(0, 0, 0, 0.15);
-
-  backdrop-filter:
-    blur(10px);
+    0 7px 28px rgba(0, 0, 0, 0.15);
 }
 
 .layer-panel-title {
@@ -977,7 +975,7 @@ blockquote {
     2px;
 
   background:
-    #494d4a;
+    #f7f2dc;
 }
 
 .zrc-symbol {
@@ -988,7 +986,7 @@ blockquote {
     rgba(52, 116, 76, 0.65);
 
   border:
-    1px solid #234f34;
+    1px solid #ffffff;
 }
 
 .paramo-symbol {
@@ -999,7 +997,7 @@ blockquote {
     rgba(69, 132, 162, 0.35);
 
   border:
-    1px dashed #356c85;
+    1px dashed #7ac4df;
 }
 
 .point-symbol {
@@ -1020,41 +1018,6 @@ blockquote {
 
   border-radius:
     50%;
-
-  box-shadow:
-    0 0 0 1px #237a4d;
-}
-
-.map-help {
-  position:
-    absolute;
-
-  z-index:
-    15;
-
-  left:
-    22px;
-
-  bottom:
-    24px;
-
-  max-width:
-    360px;
-
-  padding:
-    9px 12px;
-
-  background:
-    rgba(12, 28, 19, 0.84);
-
-  color:
-    rgba(255, 255, 255, 0.83);
-
-  border-radius:
-    4px;
-
-  font-size:
-    0.72rem;
 }
 
 .story-panel {
@@ -1100,16 +1063,12 @@ blockquote {
 
   backdrop-filter:
     blur(10px);
-
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
 }
 
 .chapter:not(.active)
 .chapter-card {
   opacity:
-    0.66;
+    0.67;
 
   transform:
     scale(0.975);
@@ -1170,48 +1129,11 @@ blockquote {
 }
 
 .chapter-card p {
-  margin-bottom:
-    15px;
-
   font-size:
     0.98rem;
 
   line-height:
     1.72;
-}
-
-.chapter-legend {
-  display:
-    flex;
-
-  flex-wrap:
-    wrap;
-
-  gap:
-    7px;
-
-  margin-top:
-    25px;
-}
-
-.chapter-legend span {
-  padding:
-    6px 10px;
-
-  background:
-    var(--green-100);
-
-  color:
-    var(--green-800);
-
-  border-radius:
-    999px;
-
-  font-size:
-    0.73rem;
-
-  font-weight:
-    600;
 }
 
 .chapter-tip {
@@ -1224,7 +1146,7 @@ blockquote {
 
 
 /* ======================================================
-   MAPLIBRE POPUPS
+   POPUPS
 ====================================================== */
 
 .maplibregl-popup {
@@ -1243,8 +1165,7 @@ blockquote {
     8px;
 
   box-shadow:
-    0 13px 40px
-    rgba(0, 0, 0, 0.23);
+    0 13px 40px rgba(0, 0, 0, 0.23);
 }
 
 .map-popup {
@@ -1310,9 +1231,6 @@ blockquote {
 
   font-size:
     1rem;
-
-  line-height:
-    1.3;
 }
 
 .map-popup p {
@@ -1389,29 +1307,6 @@ blockquote {
     var(--shadow);
 }
 
-.axis-card::before {
-  content:
-    "";
-
-  position:
-    absolute;
-
-  left:
-    0;
-
-  top:
-    0;
-
-  width:
-    100%;
-
-  height:
-    5px;
-
-  background:
-    var(--green-700);
-}
-
 .axis-card strong {
   display:
     block;
@@ -1453,7 +1348,7 @@ blockquote {
 
 
 /* ======================================================
-   PORTADAS DE EJES
+   PORTADAS
 ====================================================== */
 
 .section-cover {
@@ -1486,8 +1381,8 @@ blockquote {
   background:
     linear-gradient(
       135deg,
-      #6f6236,
-      #29351f
+      #765f2d,
+      #27331f
     );
 }
 
@@ -1546,9 +1441,6 @@ blockquote {
 }
 
 .section-cover-lead {
-  margin-bottom:
-    12px;
-
   color:
     white !important;
 
@@ -1671,14 +1563,6 @@ blockquote {
     uppercase;
 }
 
-.context-box ul {
-  margin:
-    0;
-
-  padding-left:
-    20px;
-}
-
 .context-box li {
   margin:
     8px 0;
@@ -1701,7 +1585,7 @@ blockquote {
     14px;
 
   margin:
-    5px 0 27px;
+    20px 0 27px;
 
   padding:
     18px 20px;
@@ -1716,9 +1600,6 @@ blockquote {
 .place-icon {
   color:
     var(--green-600);
-
-  font-size:
-    0.85rem;
 }
 
 .place-card small {
@@ -1744,14 +1625,6 @@ blockquote {
 .place-card strong {
   color:
     var(--green-900);
-
-  font-size:
-    1rem;
-}
-
-.institution-card {
-  margin-top:
-    30px;
 }
 
 .species-list {
@@ -1771,20 +1644,11 @@ blockquote {
 
   background:
     var(--cream);
-
-  border-radius:
-    4px;
 }
 
 .species-list span {
   display:
     block;
-
-  margin-bottom:
-    3px;
-
-  color:
-    var(--green-900);
 
   font-weight:
     600;
@@ -1797,9 +1661,6 @@ blockquote {
   font-family:
     "Lora",
     serif;
-
-  font-size:
-    0.92rem;
 }
 
 
@@ -1895,9 +1756,6 @@ blockquote {
   color:
     var(--green-900);
 
-  font-size:
-    1rem;
-
   cursor:
     pointer;
 }
@@ -1924,14 +1782,8 @@ blockquote {
   color:
     white;
 
-  border-radius:
-    3px;
-
   font-size:
     0.75rem;
-
-  letter-spacing:
-    0.06em;
 }
 
 
@@ -1953,51 +1805,6 @@ blockquote {
 
   margin:
     0 auto 55px;
-}
-
-.education-heading p {
-  max-width:
-    800px;
-
-  font-size:
-    1.1rem;
-
-  line-height:
-    1.8;
-}
-
-.participant-tags {
-  display:
-    flex;
-
-  flex-wrap:
-    wrap;
-
-  gap:
-    9px;
-
-  margin-top:
-    30px;
-}
-
-.participant-tags span {
-  padding:
-    8px 13px;
-
-  background:
-    var(--green-100);
-
-  color:
-    var(--green-800);
-
-  border-radius:
-    999px;
-
-  font-size:
-    0.78rem;
-
-  font-weight:
-    600;
 }
 
 .gallery-wide {
@@ -2024,51 +1831,187 @@ blockquote {
 
 
 /* ======================================================
-   AGRO
+   AGROALIMENTARIAS
 ====================================================== */
 
-.full-gallery-section {
-  padding:
-    100px 30px;
+.agro-story {
+  display:
+    grid;
+
+  grid-template-columns:
+    42% 58%;
+
+  min-height:
+    80vh;
 
   background:
-    #e8e1d4;
+    #f9f5ec;
 }
 
-.gallery-heading {
-  max-width:
-    1200px;
-
-  margin:
-    0 auto 45px;
+.agro-story.reverse {
+  grid-template-columns:
+    58% 42%;
 }
 
-.masonry-gallery {
-  max-width:
-    1300px;
-
-  margin:
-    0 auto;
-
-  columns:
-    4;
-
-  column-gap:
-    14px;
+.agro-story.reverse
+.agro-story-content {
+  order:
+    2;
 }
 
-.masonry-gallery img {
-  width:
-    100%;
+.agro-story.reverse
+.gallery {
+  order:
+    1;
+}
 
-  margin-bottom:
-    14px;
+.agro-story-content {
+  display:
+    flex;
 
-  break-inside:
-    avoid;
+  flex-direction:
+    column;
+
+  justify-content:
+    center;
+
+  padding:
+    75px 6vw;
+}
+
+.agro-story-content h2,
+.agro-feature-copy h2 {
+  font-size:
+    clamp(2.2rem, 4vw, 4rem);
+}
+
+.agro-gallery {
+  min-height:
+    650px;
+}
+
+.agro-gallery.large {
+  min-height:
+    760px;
+}
+
+.agro-person,
+.agro-identity {
+  display:
+    flex;
+
+  flex-wrap:
+    wrap;
+
+  gap:
+    7px;
+
+  align-items:
+    baseline;
+
+  margin-top:
+    27px;
+
+  padding-top:
+    19px;
+
+  border-top:
+    1px solid rgba(31, 70, 45, 0.18);
+
+  color:
+    var(--green-800);
+}
+
+.agro-feature-highlight {
+  display:
+    grid;
+
+  grid-template-columns:
+    45% 55%;
+
+  min-height:
+    95vh;
+
+  background:
+    #eef1e8;
+}
+
+.agro-feature-highlight.bees {
+  background:
+    #f4ead4;
+}
+
+.agro-feature-copy {
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  justify-content:
+    center;
+
+  padding:
+    80px 6vw;
+}
+
+.practice-list {
+  display:
+    flex;
+
+  flex-wrap:
+    wrap;
+
+  gap:
+    8px;
+
+  margin-top:
+    25px;
+}
+
+.practice-list span {
+  padding:
+    7px 11px;
+
+  background:
+    white;
+
+  color:
+    var(--green-800);
+
+  border:
+    1px solid rgba(33, 81, 50, 0.12);
 
   border-radius:
-    4px;
+    999px;
+
+  font-size:
+    0.75rem;
+
+  font-weight:
+    600;
+}
+
+.agro-note {
+  margin-top:
+    13px;
+
+  font-family:
+    "Lora",
+    serif;
+
+  font-style:
+    italic;
+}
+
+.agro-split {
+  background:
+    #fffdf8;
+}
+
+.agro-quote {
+  background:
+    #605224;
 }
 
 
@@ -2128,7 +2071,7 @@ blockquote {
 
 
 /* ======================================================
-   VIDEO BIODIVERSIDAD
+   VIDEOS BIODIVERSIDAD
 ====================================================== */
 
 .video-tabs {
@@ -2154,9 +2097,6 @@ blockquote {
 
   border-radius:
     var(--radius);
-
-  box-shadow:
-    var(--shadow);
 }
 
 .video-selector {
@@ -2195,9 +2135,6 @@ blockquote {
 
 .video-select.active {
   background:
-    var(--green-600);
-
-  border-color:
     var(--green-600);
 }
 
@@ -2248,10 +2185,6 @@ blockquote {
 
   border-radius:
     5px;
-
-  box-shadow:
-    0 8px 30px
-    rgba(0, 0, 0, 0.07);
 }
 
 .species-card img {
@@ -2277,9 +2210,6 @@ blockquote {
   display:
     block;
 
-  margin-bottom:
-    7px;
-
   color:
     var(--green-600);
 
@@ -2289,24 +2219,18 @@ blockquote {
   font-weight:
     700;
 
-  letter-spacing:
-    0.16em;
-
   text-transform:
     uppercase;
 }
 
 .species-info h3 {
   margin:
-    0;
-
-  font-size:
-    1.45rem;
+    7px 0 0;
 }
 
 
 /* ======================================================
-   IMAGEN FINAL
+   FINAL
 ====================================================== */
 
 .fullscreen-image {
@@ -2417,11 +2341,6 @@ footer {
     0.82rem;
 }
 
-.footer-inner span {
-  opacity:
-    0.56;
-}
-
 
 /* ======================================================
    RESPONSIVE
@@ -2471,41 +2390,17 @@ footer {
       flex;
   }
 
-  .nav-links a {
-    padding:
-      13px 0;
-  }
-
-
-  .hero-content {
-    padding:
-      80px 25px 55px;
-  }
-
-
-  .axis-grid {
-    grid-template-columns:
-      1fr;
-  }
-
-
   .story-map-section {
     display:
       block;
   }
 
   .map-container {
-    position:
-      sticky;
-
-    z-index:
-      2;
-
     width:
       100%;
 
     height:
-      58vh;
+      60vh;
   }
 
   .story-panel {
@@ -2521,50 +2416,11 @@ footer {
       35px 20px;
   }
 
-  .chapter-card {
-    opacity:
-      1 !important;
-
-    transform:
-      none !important;
-  }
-
-  .map-title-card {
-    top:
-      78px;
-
-    left:
-      14px;
-
-    right:
-      65px;
-
-    max-width:
-      none;
-  }
-
-  .layer-panel {
-    top:
-      auto;
-
-    left:
-      14px;
-
-    bottom:
-      14px;
-
-    width:
-      225px;
-  }
-
-  .map-help {
-    display:
-      none;
-  }
-
-
   .story-feature,
-  .story-feature.reverse {
+  .story-feature.reverse,
+  .agro-story,
+  .agro-story.reverse,
+  .agro-feature-highlight {
     display:
       block;
   }
@@ -2572,26 +2428,33 @@ footer {
   .story-feature.reverse
   .story-feature-text,
   .story-feature.reverse
+  .gallery,
+  .agro-story.reverse
+  .agro-story-content,
+  .agro-story.reverse
   .gallery {
     order:
       initial;
   }
 
-  .story-feature-text {
+  .story-feature-text,
+  .agro-story-content,
+  .agro-feature-copy {
     padding:
       75px 28px;
   }
 
-  .gallery {
+  .gallery,
+  .agro-gallery,
+  .agro-gallery.large {
     min-height:
-      60vh;
+      62vh;
   }
 
-  .gallery-wide {
-    min-height:
-      60vh;
+  .axis-grid {
+    grid-template-columns:
+      1fr;
   }
-
 
   .split-feature {
     grid-template-columns:
@@ -2609,22 +2472,9 @@ footer {
       60vh;
   }
 
-
-  .masonry-gallery {
-    columns:
-      2;
-  }
-
-
   .species-grid {
     grid-template-columns:
       1fr;
-  }
-
-
-  .footer-inner {
-    flex-direction:
-      column;
   }
 
 }
@@ -2645,15 +2495,9 @@ footer {
       22px;
   }
 
-  .quote-section {
-    padding-top:
-      90px;
-
-    padding-bottom:
-      90px;
-  }
-
-  .quote-author {
+  .quote-author,
+  .agro-person,
+  .agro-identity {
     flex-direction:
       column;
 
@@ -2661,53 +2505,37 @@ footer {
       2px;
   }
 
-  .infographic-section {
-    padding-left:
-      16px;
+  .layer-panel {
+    top:
+      auto;
 
-    padding-right:
-      16px;
-  }
-
-  .infographic-wrapper {
-    padding:
+    left:
       12px;
+
+    bottom:
+      12px;
+
+    width:
+      205px;
   }
 
-  .masonry-gallery {
-    columns:
-      1;
-  }
+  .map-title-card {
+    top:
+      78px;
 
-  .section-cover {
-    padding:
-      75px 25px;
-  }
+    left:
+      12px;
 
-  .fullscreen-caption {
-    padding-left:
-      25px;
+    right:
+      65px;
 
-    padding-right:
-      25px;
+    max-width:
+      none;
   }
 
   .video-selector {
     flex-wrap:
       wrap;
-  }
-
-  .layer-panel {
-    width:
-      205px;
-
-    padding:
-      10px;
-  }
-
-  .layer-option {
-    font-size:
-      0.69rem;
   }
 
 }

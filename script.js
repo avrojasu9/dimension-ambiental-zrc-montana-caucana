@@ -20,7 +20,8 @@ const DATA_PATHS = {
 
 
 /* ==========================================================
-   MAPA BASE
+   MAPA BASE SATELITAL
+   EOxCloudless Sentinel-2 2024
 ========================================================== */
 
 const map = new maplibregl.Map({
@@ -35,20 +36,28 @@ const map = new maplibregl.Map({
 
     sources: {
 
-      osm: {
+      satellite: {
 
         type:
           "raster",
 
         tiles: [
-          "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+
+          "https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2024_3857/default/GoogleMapsCompatible/{z}/{y}/{x}.jpg"
+
         ],
 
         tileSize:
           256,
 
+        minzoom:
+          0,
+
+        maxzoom:
+          16,
+
         attribution:
-          "© OpenStreetMap contributors"
+          'EOxCloudless by EOX IT Services GmbH — Contains modified Copernicus Sentinel data 2024'
 
       }
 
@@ -59,24 +68,24 @@ const map = new maplibregl.Map({
       {
 
         id:
-          "osm",
+          "satellite",
 
         type:
           "raster",
 
         source:
-          "osm",
+          "satellite",
 
         paint: {
 
+          "raster-opacity":
+            1,
+
           "raster-saturation":
-            -0.35,
+            0.08,
 
           "raster-contrast":
-            -0.05,
-
-          "raster-brightness-max":
-            0.9
+            0.06
 
         }
 
@@ -111,7 +120,7 @@ map.addControl(
 
 
 /* ==========================================================
-   VARIABLES GLOBALES
+   DATOS
 ========================================================== */
 
 let zrcData = null;
@@ -183,7 +192,6 @@ async function cargarDatosCartograficos() {
 
     agregarFuentesYCapas();
 
-
     ajustarMapaAZRC();
 
   } catch (error) {
@@ -199,14 +207,10 @@ async function cargarDatosCartograficos() {
 
 
 /* ==========================================================
-   AGREGAR FUENTES
+   FUENTES Y CAPAS
 ========================================================== */
 
 function agregarFuentesYCapas() {
-
-  /* --------------------------
-     MUNICIPIOS
-  -------------------------- */
 
   map.addSource(
     "municipios",
@@ -239,7 +243,7 @@ function agregarFuentesYCapas() {
         "#ffffff",
 
       "fill-opacity":
-        0.02
+        0.01
 
     }
 
@@ -260,22 +264,18 @@ function agregarFuentesYCapas() {
     paint: {
 
       "line-color":
-        "#3e4440",
+        "#ffffff",
 
       "line-width":
-        1.6,
+        2.2,
 
       "line-opacity":
-        0.85
+        0.9
 
     }
 
   });
 
-
-  /* --------------------------
-     PÁRAMO
-  -------------------------- */
 
   map.addSource(
     "paramo",
@@ -305,10 +305,10 @@ function agregarFuentesYCapas() {
     paint: {
 
       "fill-color":
-        "#4c91ad",
+        "#72b5cc",
 
       "fill-opacity":
-        0.18
+        0.22
 
     }
 
@@ -329,25 +329,21 @@ function agregarFuentesYCapas() {
     paint: {
 
       "line-color":
-        "#356f88",
+        "#bcecff",
 
       "line-width":
-        2,
+        2.5,
 
       "line-dasharray":
         [3, 2],
 
       "line-opacity":
-        0.9
+        0.95
 
     }
 
   });
 
-
-  /* --------------------------
-     ZRC
-  -------------------------- */
 
   map.addSource(
     "zrc",
@@ -380,47 +376,44 @@ function agregarFuentesYCapas() {
 
         "match",
 
-        [
-          "get",
-          "Zona"
-        ],
+        ["get", "Zona"],
 
         "Alta",
-        "#b94c4c",
+        "#c94e4e",
 
         "Centro",
-        "#2e8eac",
+        "#279dcc",
 
         "Occidente",
-        "#8aa735",
+        "#9cc238",
 
         "Turmina",
-        "#855483",
+        "#a35ca0",
 
         "Baja",
-        "#d98932",
+        "#f19a35",
 
         "Media",
-        "#d5bc39",
+        "#f1d640",
 
         "Pedregal",
-        "#c975ad",
+        "#e27ac2",
 
         "San Miguel",
-        "#9c7147",
+        "#a8764d",
 
         "Quebrada de Topa",
-        "#3e9f8c",
+        "#43b49d",
 
         "San Andres",
-        "#6767bd",
+        "#7777dc",
 
-        "#487958"
+        "#4d8b62"
 
       ],
 
       "fill-opacity":
-        0.46
+        0.36
 
     }
 
@@ -441,22 +434,18 @@ function agregarFuentesYCapas() {
     paint: {
 
       "line-color":
-        "#26382c",
+        "#ffffff",
 
       "line-width":
         1,
 
       "line-opacity":
-        0.82
+        0.8
 
     }
 
   });
 
-
-  /* --------------------------
-     PUNTOS STORYMAP
-  -------------------------- */
 
   map.addSource(
     "puntos-storymap",
@@ -494,13 +483,13 @@ function agregarFuentesYCapas() {
         ["zoom"],
 
         8,
-        5,
+        6,
 
         12,
-        8,
+        9,
 
-        15,
-        10
+        16,
+        12
 
       ],
 
@@ -508,18 +497,15 @@ function agregarFuentesYCapas() {
 
         "match",
 
-        [
-          "get",
-          "section"
-        ],
+        ["get", "section"],
 
         "Juntanza por el agua",
-        "#24754b",
+        "#1fa162",
 
         "Cuidadores de la montaña",
-        "#c58d34",
+        "#e0a53c",
 
-        "#4a6554"
+        "#ffffff"
 
       ],
 
@@ -527,10 +513,10 @@ function agregarFuentesYCapas() {
         "#ffffff",
 
       "circle-stroke-width":
-        2,
+        2.5,
 
       "circle-opacity":
-        0.95
+        1
 
     }
 
@@ -538,7 +524,6 @@ function agregarFuentesYCapas() {
 
 
   configurarPopups();
-
 
   configurarCursor();
 
@@ -690,22 +675,27 @@ function escapeHTML(
   return String(
     value ?? ""
   )
+
     .replaceAll(
       "&",
       "&amp;"
     )
+
     .replaceAll(
       "<",
       "&lt;"
     )
+
     .replaceAll(
       ">",
       "&gt;"
     )
+
     .replaceAll(
       '"',
       "&quot;"
     )
+
     .replaceAll(
       "'",
       "&#039;"
@@ -745,7 +735,8 @@ function construirPopupPunto(
 
 
   if (
-    media.toLowerCase()
+    media
+      .toLowerCase()
       .endsWith(".mp4")
   ) {
 
@@ -858,9 +849,7 @@ function construirPopupZRC(
           municipio
             ? `
               <p>
-                <strong>
-                  Municipio:
-                </strong>
+                <strong>Municipio:</strong>
                 ${escapeHTML(municipio)}
               </p>
             `
@@ -871,9 +860,7 @@ function construirPopupZRC(
           zona
             ? `
               <p>
-                <strong>
-                  Zona:
-                </strong>
+                <strong>Zona:</strong>
                 ${escapeHTML(zona)}
               </p>
             `
@@ -885,86 +872,19 @@ function construirPopupZRC(
           area !== null
             ? `
               <p>
-                <strong>
-                  Área:
-                </strong>
-                ${Number(area)
-                  .toLocaleString(
-                    "es-CO",
-                    {
-                      maximumFractionDigits:
-                        2
-                    }
-                  )}
+                <strong>Área:</strong>
+                ${Number(area).toLocaleString(
+                  "es-CO",
+                  {
+                    maximumFractionDigits:
+                      2
+                  }
+                )}
                 ha
               </p>
             `
             : ""
         }
-
-      </div>
-
-    </div>
-
-  `;
-
-}
-
-
-function construirPopupMunicipio(
-  properties
-) {
-
-  const municipio =
-    properties.NOM_MUNICI ||
-    "Municipio";
-
-
-  return `
-
-    <div class="map-popup">
-
-      <div class="map-popup-body">
-
-        <span class="map-popup-section">
-          Límite municipal
-        </span>
-
-        <h4>
-          ${escapeHTML(municipio)}
-        </h4>
-
-      </div>
-
-    </div>
-
-  `;
-
-}
-
-
-function construirPopupParamo(
-  properties
-) {
-
-  const nombre =
-    properties.Nombre ||
-    "Complejo de páramo";
-
-
-  return `
-
-    <div class="map-popup">
-
-      <div class="map-popup-body">
-
-        <span class="map-popup-section">
-          Ecosistema estratégico
-        </span>
-
-        <h4>
-          ${escapeHTML(nombre)}
-        </h4>
 
       </div>
 
@@ -989,23 +909,15 @@ function configurarPopups() {
         event.features[0];
 
 
-      const coordinates =
-        feature.geometry.coordinates
-          .slice();
-
-
       new maplibregl.Popup({
 
         offset:
-          16,
-
-        maxWidth:
-          "330px"
+          16
 
       })
 
         .setLngLat(
-          coordinates
+          feature.geometry.coordinates
         )
 
         .setHTML(
@@ -1064,109 +976,23 @@ function configurarPopups() {
 
   );
 
-
-  map.on(
-
-    "click",
-
-    "municipios-fill",
-
-    event => {
-
-      const feature =
-        event.features[0];
-
-
-      new maplibregl.Popup({
-
-        offset:
-          8
-
-      })
-
-        .setLngLat(
-          event.lngLat
-        )
-
-        .setHTML(
-
-          construirPopupMunicipio(
-            feature.properties
-          )
-
-        )
-
-        .addTo(
-          map
-        );
-
-    }
-
-  );
-
-
-  map.on(
-
-    "click",
-
-    "paramo-fill",
-
-    event => {
-
-      const feature =
-        event.features[0];
-
-
-      new maplibregl.Popup({
-
-        offset:
-          8
-
-      })
-
-        .setLngLat(
-          event.lngLat
-        )
-
-        .setHTML(
-
-          construirPopupParamo(
-            feature.properties
-          )
-
-        )
-
-        .addTo(
-          map
-        );
-
-    }
-
-  );
-
 }
 
 
 /* ==========================================================
-   CURSOR DEL MAPA
+   CURSOR
 ========================================================== */
 
 function configurarCursor() {
 
-  const interactiveLayers = [
+  [
 
     "puntos-storymap-circle",
-
     "zrc-fill",
-
     "municipios-fill",
-
     "paramo-fill"
 
-  ];
-
-
-  interactiveLayers.forEach(
+  ].forEach(
     layerId => {
 
       map.on(
@@ -1215,7 +1041,6 @@ const layerGroups = {
   municipios: [
 
     "municipios-fill",
-
     "municipios-line"
 
   ],
@@ -1223,7 +1048,6 @@ const layerGroups = {
   zrc: [
 
     "zrc-fill",
-
     "zrc-line"
 
   ],
@@ -1231,7 +1055,6 @@ const layerGroups = {
   paramo: [
 
     "paramo-fill",
-
     "paramo-line"
 
   ],
@@ -1298,7 +1121,9 @@ document
     checkbox => {
 
       checkbox.addEventListener(
+
         "change",
+
         () => {
 
           setGroupVisibility(
@@ -1310,6 +1135,7 @@ document
           );
 
         }
+
       );
 
     }
@@ -1317,41 +1143,10 @@ document
 
 
 /* ==========================================================
-   FILTRO DE PUNTOS
+   FILTROS DE PUNTOS
 ========================================================== */
 
-function mostrarTodosLosPuntos() {
-
-  if (
-    !map.getLayer(
-      "puntos-storymap-circle"
-    )
-  ) {
-    return;
-  }
-
-
-  map.setFilter(
-
-    "puntos-storymap-circle",
-
-    null
-
-  );
-
-}
-
-
 function mostrarPuntosJuntanza() {
-
-  if (
-    !map.getLayer(
-      "puntos-storymap-circle"
-    )
-  ) {
-    return;
-  }
-
 
   map.setFilter(
 
@@ -1361,10 +1156,7 @@ function mostrarPuntosJuntanza() {
 
       "==",
 
-      [
-        "get",
-        "section"
-      ],
+      ["get", "section"],
 
       "Juntanza por el agua"
 
@@ -1377,15 +1169,6 @@ function mostrarPuntosJuntanza() {
 
 function mostrarPuntosCuidadores() {
 
-  if (
-    !map.getLayer(
-      "puntos-storymap-circle"
-    )
-  ) {
-    return;
-  }
-
-
   map.setFilter(
 
     "puntos-storymap-circle",
@@ -1394,10 +1177,7 @@ function mostrarPuntosCuidadores() {
 
       "==",
 
-      [
-        "get",
-        "section"
-      ],
+      ["get", "section"],
 
       "Cuidadores de la montaña"
 
@@ -1408,8 +1188,30 @@ function mostrarPuntosCuidadores() {
 }
 
 
+function filtrarGeoJSONPorSeccion(
+  geojson,
+  section
+) {
+
+  return {
+
+    type:
+      "FeatureCollection",
+
+    features:
+      geojson.features.filter(
+        feature =>
+          feature.properties.section ===
+          section
+      )
+
+  };
+
+}
+
+
 /* ==========================================================
-   CAPÍTULOS DEL MAPA
+   CAPÍTULOS
 ========================================================== */
 
 const chapterElements =
@@ -1486,33 +1288,30 @@ function activarCapitulo(
     );
 
 
-    if (
-      paramoData
-    ) {
-
-      const bounds =
-        obtenerBounds(
-          paramoData
-        );
-
-
-      map.fitBounds(
-
-        bounds,
-
-        {
-
-          padding:
-            70,
-
-          duration:
-            1500
-
-        }
-
+    const bounds =
+      obtenerBounds(
+        paramoData
       );
 
-    }
+
+    map.fitBounds(
+
+      bounds,
+
+      {
+
+        padding:
+          70,
+
+        duration:
+          1500,
+
+        maxZoom:
+          11
+
+      }
+
+    );
 
   }
 
@@ -1546,22 +1345,19 @@ function activarCapitulo(
     mostrarPuntosJuntanza();
 
 
-    const juntanza =
+    const data =
       filtrarGeoJSONPorSeccion(
+
         puntosData,
+
         "Juntanza por el agua"
-      );
 
-
-    const bounds =
-      obtenerBounds(
-        juntanza
       );
 
 
     map.fitBounds(
 
-      bounds,
+      obtenerBounds(data),
 
       {
 
@@ -1572,7 +1368,7 @@ function activarCapitulo(
           1500,
 
         maxZoom:
-          12.5
+          13
 
       }
 
@@ -1610,22 +1406,19 @@ function activarCapitulo(
     mostrarPuntosCuidadores();
 
 
-    const cuidadores =
+    const data =
       filtrarGeoJSONPorSeccion(
+
         puntosData,
+
         "Cuidadores de la montaña"
-      );
 
-
-    const bounds =
-      obtenerBounds(
-        cuidadores
       );
 
 
     map.fitBounds(
 
-      bounds,
+      obtenerBounds(data),
 
       {
 
@@ -1636,7 +1429,7 @@ function activarCapitulo(
           1500,
 
         maxZoom:
-          12.5
+          13
 
       }
 
@@ -1646,36 +1439,6 @@ function activarCapitulo(
 
 }
 
-
-/* ==========================================================
-   FILTRAR GEOJSON
-========================================================== */
-
-function filtrarGeoJSONPorSeccion(
-  geojson,
-  section
-) {
-
-  return {
-
-    type:
-      "FeatureCollection",
-
-    features:
-      geojson.features.filter(
-        feature =>
-          feature.properties.section ===
-          section
-      )
-
-  };
-
-}
-
-
-/* ==========================================================
-   OBSERVADOR DE CAPÍTULOS
-========================================================== */
 
 const chapterObserver =
   new IntersectionObserver(
@@ -1739,7 +1502,7 @@ chapterElements.forEach(
 
 
 /* ==========================================================
-   INICIAR DATOS DEL MAPA
+   CARGAR MAPA
 ========================================================== */
 
 map.on(
@@ -1764,13 +1527,9 @@ const galleries = {
   "juntanza-recorridos": [
 
     "assets/images/04_juntanza_01_recorridos_y_conscientizacion_en_territorios_estrategicos_01.jpg",
-
     "assets/images/04_juntanza_01_recorridos_y_conscientizacion_en_territorios_estrategicos_02.jpg",
-
     "assets/images/04_juntanza_01_recorridos_y_conscientizacion_en_territorios_estrategicos_03.png",
-
     "assets/images/04_juntanza_01_recorridos_y_conscientizacion_en_territorios_estrategicos_04.png",
-
     "assets/images/04_juntanza_01_recorridos_y_conscientizacion_en_territorios_estrategicos_05.jpg"
 
   ],
@@ -1779,9 +1538,7 @@ const galleries = {
   frailejones: [
 
     "assets/images/04_juntanza_02_siembra_de_frailejones_01.jpg",
-
     "assets/images/04_juntanza_02_siembra_de_frailejones_02.jpg",
-
     "assets/images/04_juntanza_02_siembra_de_frailejones_03.jpg"
 
   ],
@@ -1790,13 +1547,9 @@ const galleries = {
   nacimiento: [
 
     "assets/images/04_juntanza_03_restauracion_nacimiento_de_agua_guanacas_01.jpg",
-
     "assets/images/04_juntanza_03_restauracion_nacimiento_de_agua_guanacas_02.jpg",
-
     "assets/images/04_juntanza_03_restauracion_nacimiento_de_agua_guanacas_03.jpg",
-
     "assets/images/04_juntanza_03_restauracion_nacimiento_de_agua_guanacas_04.jpg",
-
     "assets/images/04_juntanza_03_restauracion_nacimiento_de_agua_guanacas_05.jpg"
 
   ],
@@ -1805,9 +1558,7 @@ const galleries = {
   "semillas-nativas": [
 
     "assets/images/04_juntanza_04_recuperacion_de_semillas_nativas_01.jpg",
-
     "assets/images/04_juntanza_04_recuperacion_de_semillas_nativas_02.jpg",
-
     "assets/images/04_juntanza_04_recuperacion_de_semillas_nativas_03.jpg"
 
   ],
@@ -1816,12 +1567,83 @@ const galleries = {
   educacion: [
 
     "assets/images/04_juntanza_05_educacion_ambiental_comunitaria_01.jpg",
-
     "assets/images/04_juntanza_05_educacion_ambiental_comunitaria_02.jpg",
-
     "assets/images/04_juntanza_05_educacion_ambiental_comunitaria_03.jpg",
-
     "assets/images/04_juntanza_05_educacion_ambiental_comunitaria_05.jpg"
+
+  ],
+
+
+  "agro-01": [
+
+    "assets/images/05_agroalimentarias_galeria_01_01.jpg",
+    "assets/images/05_agroalimentarias_galeria_01_02.jpg",
+    "assets/images/05_agroalimentarias_galeria_01_03.jpg",
+    "assets/images/05_agroalimentarias_galeria_01_04.jpg",
+    "assets/images/05_agroalimentarias_galeria_01_05.jpg"
+
+  ],
+
+
+  "agro-02": [
+
+    "assets/images/05_agroalimentarias_galeria_02_01.jpg",
+    "assets/images/05_agroalimentarias_galeria_02_02.jpg",
+    "assets/images/05_agroalimentarias_galeria_02_03.jpg",
+    "assets/images/05_agroalimentarias_galeria_02_04.jpg"
+
+  ],
+
+
+  "agro-03": [
+
+    "assets/images/05_agroalimentarias_galeria_03_01.jpg",
+    "assets/images/05_agroalimentarias_galeria_03_02.jpg",
+    "assets/images/05_agroalimentarias_galeria_03_03.jpg",
+    "assets/images/05_agroalimentarias_galeria_03_04.jpg",
+    "assets/images/05_agroalimentarias_galeria_03_05.jpg",
+    "assets/images/05_agroalimentarias_galeria_03_06.jpg",
+    "assets/images/05_agroalimentarias_galeria_03_07.jpg",
+    "assets/images/05_agroalimentarias_galeria_03_08.jpg",
+    "assets/images/05_agroalimentarias_galeria_03_09.jpg",
+    "assets/images/05_agroalimentarias_galeria_03_10.jpg"
+
+  ],
+
+
+  "agro-04": [
+
+    "assets/images/05_agroalimentarias_galeria_04_01.jpg",
+    "assets/images/05_agroalimentarias_galeria_04_02.jpg"
+
+  ],
+
+
+  "agro-05": [
+
+    "assets/images/05_agroalimentarias_galeria_05_01.jpg",
+    "assets/images/05_agroalimentarias_galeria_05_02.jpg",
+    "assets/images/05_agroalimentarias_galeria_05_03.jpg",
+    "assets/images/05_agroalimentarias_galeria_05_04.jpg",
+    "assets/images/05_agroalimentarias_galeria_05_05.jpg"
+
+  ],
+
+
+  "agro-06": [
+
+    "assets/images/05_agroalimentarias_galeria_06_01.jpg",
+    "assets/images/05_agroalimentarias_galeria_06_02.jpg"
+
+  ],
+
+
+  "agro-07": [
+
+    "assets/images/05_agroalimentarias_galeria_07_01.jpg",
+    "assets/images/05_agroalimentarias_galeria_07_02.jpg",
+    "assets/images/05_agroalimentarias_galeria_07_03.jpg",
+    "assets/images/05_agroalimentarias_galeria_07_04.jpg"
 
   ],
 
@@ -1829,7 +1651,6 @@ const galleries = {
   "rana-cristal": [
 
     "assets/images/06_cuidadores_02_ranita_cristal_01.jpg",
-
     "assets/images/06_cuidadores_02_ranita_cristal_02.jpg"
 
   ],
@@ -1838,13 +1659,9 @@ const galleries = {
   "aves-guanacas": [
 
     "assets/images/06_cuidadores_03_identificacion_y_avistamiento_de_aves_en_guanacas_01.jpg",
-
     "assets/images/06_cuidadores_03_identificacion_y_avistamiento_de_aves_en_guanacas_02.jpg",
-
     "assets/images/06_cuidadores_03_identificacion_y_avistamiento_de_aves_en_guanacas_03.jpg",
-
     "assets/images/06_cuidadores_03_identificacion_y_avistamiento_de_aves_en_guanacas_04.jpg",
-
     "assets/images/06_cuidadores_03_identificacion_y_avistamiento_de_aves_en_guanacas_05.jpg"
 
   ],
@@ -1853,13 +1670,9 @@ const galleries = {
   anfibios: [
 
     "assets/images/06_cuidadores_04_identificacion_de_anfibios_y_reptiles_en_guanacas_01.jpg",
-
     "assets/images/06_cuidadores_04_identificacion_de_anfibios_y_reptiles_en_guanacas_02.jpg",
-
     "assets/images/06_cuidadores_04_identificacion_de_anfibios_y_reptiles_en_guanacas_03.jpg",
-
     "assets/images/06_cuidadores_04_identificacion_de_anfibios_y_reptiles_en_guanacas_04.jpg",
-
     "assets/images/06_cuidadores_04_identificacion_de_anfibios_y_reptiles_en_guanacas_05.jpg"
 
   ]
@@ -2113,95 +1926,6 @@ document
 
 
 /* ==========================================================
-   GALERÍA AGRO
-========================================================== */
-
-const agroGallery =
-  document.getElementById(
-    "agro-gallery"
-  );
-
-
-const agroImages = [
-
-  "assets/images/05_agroalimentarias_galeria_01_01.jpg",
-  "assets/images/05_agroalimentarias_galeria_01_02.jpg",
-  "assets/images/05_agroalimentarias_galeria_01_03.jpg",
-  "assets/images/05_agroalimentarias_galeria_01_04.jpg",
-  "assets/images/05_agroalimentarias_galeria_01_05.jpg",
-
-  "assets/images/05_agroalimentarias_galeria_02_01.jpg",
-  "assets/images/05_agroalimentarias_galeria_02_02.jpg",
-  "assets/images/05_agroalimentarias_galeria_02_03.jpg",
-  "assets/images/05_agroalimentarias_galeria_02_04.jpg",
-
-  "assets/images/05_agroalimentarias_galeria_03_01.jpg",
-  "assets/images/05_agroalimentarias_galeria_03_02.jpg",
-  "assets/images/05_agroalimentarias_galeria_03_03.jpg",
-  "assets/images/05_agroalimentarias_galeria_03_04.jpg",
-  "assets/images/05_agroalimentarias_galeria_03_05.jpg",
-  "assets/images/05_agroalimentarias_galeria_03_06.jpg",
-  "assets/images/05_agroalimentarias_galeria_03_07.jpg",
-  "assets/images/05_agroalimentarias_galeria_03_08.jpg",
-  "assets/images/05_agroalimentarias_galeria_03_09.jpg",
-  "assets/images/05_agroalimentarias_galeria_03_10.jpg",
-
-  "assets/images/05_agroalimentarias_galeria_04_01.jpg",
-  "assets/images/05_agroalimentarias_galeria_04_02.jpg",
-
-  "assets/images/05_agroalimentarias_galeria_05_01.jpg",
-  "assets/images/05_agroalimentarias_galeria_05_02.jpg",
-  "assets/images/05_agroalimentarias_galeria_05_03.jpg",
-  "assets/images/05_agroalimentarias_galeria_05_04.jpg",
-  "assets/images/05_agroalimentarias_galeria_05_05.jpg",
-
-  "assets/images/05_agroalimentarias_galeria_06_01.jpg",
-  "assets/images/05_agroalimentarias_galeria_06_02.jpg",
-
-  "assets/images/05_agroalimentarias_galeria_07_01.jpg",
-  "assets/images/05_agroalimentarias_galeria_07_02.jpg",
-  "assets/images/05_agroalimentarias_galeria_07_03.jpg",
-  "assets/images/05_agroalimentarias_galeria_07_04.jpg"
-
-];
-
-
-if (
-  agroGallery
-) {
-
-  agroImages.forEach(
-    src => {
-
-      const img =
-        document.createElement(
-          "img"
-        );
-
-
-      img.src =
-        src;
-
-
-      img.alt =
-        "Práctica agroalimentaria campesina";
-
-
-      img.loading =
-        "lazy";
-
-
-      agroGallery.appendChild(
-        img
-      );
-
-    }
-  );
-
-}
-
-
-/* ==========================================================
    NAVEGACIÓN
 ========================================================== */
 
@@ -2372,7 +2096,7 @@ revealElements.forEach(
 
 
 /* ==========================================================
-   SELECTOR VIDEOS
+   VIDEOS
 ========================================================== */
 
 const biodiversityVideo =
