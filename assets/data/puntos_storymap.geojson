@@ -1,0 +1,243 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.2146550546168,
+          2.5153545809533338
+        ]
+      },
+      "properties": {
+        "section": "Juntanza por el agua",
+        "order": 1,
+        "title": "Recorridos y conscientización en territorios estratégicos",
+        "description": "El territorio campesino está inmerso en una matriz de ecosistemas y corredores ecológicos sobre el costado oriental de la cordillera central,  estos corredores conectan ecosistemas estratégicos de páramo, bosque húmedo y seco tropical, en donde se destacan importantes cuerpos de agua como lo son la laguna de Guanacas, la Herradura y un conjunto de las mismas conocidas como “Las Siete Lagunas”.",
+        "media": "assets/images/04_juntanza_01_recorridos_y_conscientizacion_en_territorios_estrategicos_01.jpg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.21961892850614,
+          2.5150933175193617
+        ]
+      },
+      "properties": {
+        "section": "Juntanza por el agua",
+        "order": 2,
+        "title": "Siembra de frailejones",
+        "description": "Realizada en el Páramo de las Delicias",
+        "media": "assets/images/04_juntanza_02_siembra_de_frailejones_01.jpg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.07824999999998,
+          2.5276388888889993
+        ]
+      },
+      "properties": {
+        "section": "Juntanza por el agua",
+        "order": 3,
+        "title": "Restauración nacimiento de agua Guanacas",
+        "description": "Siembra de árboles con niños, niñas y jóvenes de la comunidad",
+        "media": "assets/images/04_juntanza_03_restauracion_nacimiento_de_agua_guanacas_01.jpg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.08586111111102,
+          2.524138888889002
+        ]
+      },
+      "properties": {
+        "section": "Juntanza por el agua",
+        "order": 4,
+        "title": "Recuperación de semillas nativas",
+        "description": "Recuperación de semilla de Roble. Se ha implementado un proceso de recolección, germinación e intercambio con semillas nativas de especies arbóreas como pino colombiano (Retrophyllum rospigliosii), roble (Quercus humboldtii) y cedro (Acrocarpus fraxinifolius), este proceso es realizado en la Institución Educativa Promoción Social Guanacas.",
+        "media": "assets/images/04_juntanza_04_recuperacion_de_semillas_nativas_01.jpg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.04886111111101,
+          2.4986111111109994
+        ]
+      },
+      "properties": {
+        "section": "Juntanza por el agua",
+        "order": 5,
+        "title": "Educación ambiental comunitaria",
+        "description": "Charlas, recorridos, muralismo, campañas de consciencia y cultura ambiental para la sensibilización y promoción de prácticas de conservación ambiental con niños, niñas, adolescentes, jóvenes, líderes, lideresas y la conversa con los abuelos.",
+        "media": "assets/images/04_juntanza_05_educacion_ambiental_comunitaria_01.jpg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.1041397591388,
+          2.4931225046420233
+        ]
+      },
+      "properties": {
+        "section": "Cuidadores de la montaña",
+        "order": 1,
+        "title": "Identificación del Oso Andino, Danta y Puma Concolor",
+        "description": "Especies identificadas en la observación realizada en la finca Miranda, en la parte alta de la vereda del Cabuyo en el municipio de Inzá, por medio de fototrampeo en coordinación con la Alcaldía Municipal 2020 - 2023 - CRC. Oso Andino (Tremarctos ornatus): clasificado como una especie vulnerable a la extinción (VU) y clasificado como especie emblemática.Danta (Tapirus pinchaque): Clasificado como una especie vulnerable a la extinción (VU)Puma Concolor: especie en categoría de Preocupación Menor (LC), caracterizado por ser territorial y por presentar una baja densidad poblacional.",
+        "media": "assets/videos/06_cuidadores_01_identificacion_del_oso_andino_danta_y_puma_concolor_01.mp4"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.09549999999999,
+          2.5199444444439973
+        ]
+      },
+      "properties": {
+        "section": "Cuidadores de la montaña",
+        "order": 2,
+        "title": "Ranita cristal",
+        "description": "Centrolene sanchezi. Se encuentra en peligro ( EN). Se observó en territorio por el grupo de monitoreo de la montaña a una altura de 1815 m.s.n.m. Nombre común: Rana de cristal gigante de Sánchez. Categoría de amenaza: En Peligro (EN).\nNo fue posible obtener registros de esta especie durante los recorridos realizados. Los únicos registros conocidos fueron obtenidos por Pedro M. Ruiz-Carranza en 1982 y corresponden a los especímenes con los cuales fue descrita la especie bajo el nombre de Centrolene guanacarum, nombre asignado por Ruiz-Carranza & Lynch (1995) haciendo alusión al grupo étnico “guanaca” de los indígenas Guanacos, así como a la localidad en la cual fue descubierta la especie: Cauca, Inzá, km 84 carretera Popayán-Inzá, quebrada afluente del Río Guanacas, Internado Indígena Río Guanacas. Posteriormente, por medio de comparaciones morfológicos se asigna esta especie a Centrolene sanchezi (Guayasamin et al., 2020), sin embargo, es necesario validar esta asignación por medio de estudios moleculares y bioacústicos, por lo tanto es prioritario realizar más búsquedas que permitan obtener registros recientes de esta especie amenazada y poco conocida.",
+        "media": "assets/images/06_cuidadores_02_ranita_cristal_01.jpg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.08489953685265,
+          2.5281213145950328
+        ]
+      },
+      "properties": {
+        "section": "Cuidadores de la montaña",
+        "order": 3,
+        "title": "Identificación y avistamiento de aves en Guanacas",
+        "description": "Especies observadas en la vereda de Guanacas a una altura de  1851 m.s.n.m. a partir de los recorridos de observación de aves. Toche pico de plata -Ramphocelus dimidiatusAnguilla - Vanellus chilensisGavilán - Rupornis magnirostris",
+        "media": "assets/images/06_cuidadores_03_identificacion_y_avistamiento_de_aves_en_guanacas_01.jpg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.08110414353506,
+          2.523411920570279
+        ]
+      },
+      "properties": {
+        "section": "Cuidadores de la montaña",
+        "order": 4,
+        "title": "Identificación de anfibios y reptiles en Guanacas",
+        "description": "Identificación de especies en la vereda Guanacas: Chironius monticola - Jueteadora verde en su nombre común. Se encuentra en categoría de amenaza preocupación Menor (LC).Rana gladiadora - Boana platanera.Rana W de lluvia - Pristimantis w-nigrum.Anolis del Huila - Anolis huilae: representa el primer registro de esta especie para el departamento del Cauca, razón por la cual las observaciones obtenidas durante estas actividades de monitoreo permitieron generar un artículo de investigación que fue publicado en el próximo volumen de la  Revista Novedades Colombianas de la Universidad del Cauca.",
+        "media": "assets/images/06_cuidadores_04_identificacion_de_anfibios_y_reptiles_en_guanacas_01.jpg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.214611111111,
+          2.479944444443987
+        ]
+      },
+      "properties": {
+        "section": "Cuidadores de la montaña",
+        "order": 5,
+        "title": "Águila de montaña",
+        "description": "Águila crestada o águila de montaña (Spizaetus Isidori) Observada en la vereda Riosucio.  Parte alta de la montaña. Se encuentra en peligro de extinción (EN).",
+        "media": "assets/images/06_cuidadores_05_aguila_de_montana_01.jpg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.07080893247317,
+          2.498872158439805
+        ]
+      },
+      "properties": {
+        "section": "Cuidadores de la montaña",
+        "order": 6,
+        "title": "Identificación de aves - Colectivo Turmas Turminá",
+        "description": "Atlapetes fuscoolivaceus Especie de ave endémica de Colombia, con carácter de especie amenazada, y que para el caso de la zona de Turminá en el municipio de Inzá, ha sido escuchada y observada por pajareros que visitan Turminá y que han recorrido rutas de observación de aves que se han venido trabajando en el corregimiento",
+        "media": "assets/images/06_cuidadores_06_identificacion_de_aves_colectivo_turmas_turmina_01.jpg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.10374914236101,
+          2.4935643197749204
+        ]
+      },
+      "properties": {
+        "section": "Cuidadores de la montaña",
+        "order": 7,
+        "title": "Pollo de monte - sericossypha albocristata",
+        "description": "Especie identificada en avistamiento de aves en la finca Miranda, en la parte alta de la vereda del Cabuyo en el municipio de Inzá, considerada como especie vulnerable.",
+        "media": "assets/images/06_cuidadores_07_pollo_de_monte_sericossypha_albocristata_01.jpg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.08492361310132,
+          2.5300626899073584
+        ]
+      },
+      "properties": {
+        "section": "Cuidadores de la montaña",
+        "order": 8,
+        "title": "Rhinella sp.",
+        "description": "Ejercicios de monitoreo de esta especie en particular  Rhinella sp. Por una niña integrante del grupo Oriana Isabel Medina Ortega. Tratando de identificar si es una nueva especie. Vereda Guanacas. Finca Orilu. Altura 1856 m.s.n.m.",
+        "media": "assets/images/06_cuidadores_08_rhinella_sp_01.jpg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.12931197222221,
+          2.541100972222222
+        ]
+      },
+      "properties": {
+        "section": "Cuidadores de la montaña",
+        "order": 9,
+        "title": "Recorridos para identificación de especies",
+        "description": "Las fotografías muestran los recorridos libres realizados empleando la técnica de búsqueda por encuentros visuales, la cual consiste en realizar inspecciones detalladas en los hábitats propicios para la presencia de anfibios y reptiles durante los horarios de mayor actividad de estos organismos (07:00 – 10:00 y 19:00 – 23:00). En estos recorridos se emplearon herramientas como linternas y rastrillos, los cuales permitieron buscar anfibios y reptiles en hábitats asociados a los diferentes estratos de la vegetación riparia de diferentes quebradas presentes en las dos veredas.",
+        "media": "assets/images/06_cuidadores_09_recorridos_para_identificacion_de_especies_01.jpg"
+      }
+    }
+  ]
+}
