@@ -4,7 +4,6 @@
   --green-800: #183424;
   --green-700: #285139;
   --green-600: #3c6b4d;
-  --green-500: #4c805f;
   --green-100: #e2ebe4;
 
   --cream: #f5f0e7;
@@ -16,7 +15,6 @@
   --black: #171a18;
 
   --gray-700: #555d58;
-  --gray-500: #7a817d;
   --gray-300: #d8ddd9;
 
   --max-text: 860px;
@@ -29,17 +27,15 @@
 }
 
 
-/* ======================================================
-   BASE
-====================================================== */
-
 * {
   box-sizing: border-box;
 }
 
+
 html {
   scroll-behavior: smooth;
 }
+
 
 html,
 body {
@@ -47,6 +43,7 @@ body {
   padding: 0;
   width: 100%;
 }
+
 
 body {
   overflow-x: hidden;
@@ -63,18 +60,22 @@ body {
   line-height: 1.6;
 }
 
+
 img,
 video {
   max-width: 100%;
 }
 
+
 a {
   color: inherit;
 }
 
+
 button {
   font-family: inherit;
 }
+
 
 p {
   color: var(--gray-700);
@@ -82,7 +83,7 @@ p {
 
 
 /* ======================================================
-   ANIMACIONES
+   REVEAL
 ====================================================== */
 
 .reveal {
@@ -95,6 +96,7 @@ p {
     opacity 0.75s ease,
     transform 0.75s ease;
 }
+
 
 .reveal.visible {
   opacity: 1;
@@ -110,6 +112,7 @@ p {
 
 .top-nav {
   position: fixed;
+
   z-index: 1000;
 
   top: 0;
@@ -141,6 +144,7 @@ p {
     border-color 0.35s ease;
 }
 
+
 .top-nav.scrolled {
   background:
     rgba(11, 23, 16, 0.94);
@@ -152,6 +156,7 @@ p {
     blur(14px);
 }
 
+
 .brand {
   display: flex;
 
@@ -160,11 +165,13 @@ p {
   text-decoration: none;
 }
 
+
 .brand-main {
   font-size: 0.98rem;
 
   font-weight: 700;
 }
+
 
 .brand-small {
   margin-top: 2px;
@@ -174,6 +181,7 @@ p {
   opacity: 0.68;
 }
 
+
 .nav-links {
   display: flex;
 
@@ -181,6 +189,7 @@ p {
 
   gap: 26px;
 }
+
 
 .nav-links a {
   padding:
@@ -195,9 +204,6 @@ p {
   opacity: 0.83;
 }
 
-.nav-links a:hover {
-  opacity: 1;
-}
 
 .menu-toggle {
   display: none;
@@ -215,14 +221,17 @@ p {
   border-radius: 6px;
 }
 
+
 .menu-toggle span {
   display: block;
 
   height: 2px;
 
-  margin: 4px 0;
+  margin:
+    4px 0;
 
-  background: white;
+  background:
+    white;
 }
 
 
@@ -245,6 +254,7 @@ p {
   align-items: flex-end;
 }
 
+
 .hero-image {
   position: absolute;
 
@@ -255,6 +265,7 @@ p {
 
   object-fit: cover;
 }
+
 
 .hero-overlay {
   position: absolute;
@@ -275,6 +286,7 @@ p {
     );
 }
 
+
 .hero-content {
   position: relative;
 
@@ -283,13 +295,16 @@ p {
   width: 100%;
   max-width: var(--max-wide);
 
-  margin: 0 auto;
+  margin:
+    0 auto;
 
   padding:
     80px 48px 72px;
 
-  color: white;
+  color:
+    white;
 }
+
 
 .hero-kicker {
   max-width: 800px;
@@ -304,8 +319,10 @@ p {
 
   line-height: 1.55;
 
-  text-transform: uppercase;
+  text-transform:
+    uppercase;
 }
+
 
 .hero h1 {
   max-width: 880px;
@@ -323,9 +340,11 @@ p {
   font-weight: 800;
 }
 
+
 .hero h1 span {
   display: block;
 }
+
 
 .hero-subtitle {
   max-width: 760px;
@@ -341,6 +360,7 @@ p {
 
   font-weight: 300;
 }
+
 
 .scroll-cue {
   display: inline-flex;
@@ -364,6 +384,7 @@ p {
   letter-spacing: 0.12em;
 }
 
+
 .scroll-arrow {
   display: flex;
 
@@ -381,7 +402,7 @@ p {
 
 
 /* ======================================================
-   TIPOGRAFÍA
+   TEXTO
 ====================================================== */
 
 .text-section {
@@ -392,9 +413,11 @@ p {
     var(--cream-light);
 }
 
+
 .text-section.center {
   text-align: center;
 }
+
 
 .text-container {
   max-width:
@@ -404,10 +427,12 @@ p {
     0 auto;
 }
 
+
 .text-container.wide {
   max-width:
     var(--max-wide);
 }
+
 
 .eyebrow {
   display: inline-block;
@@ -428,10 +453,12 @@ p {
   text-transform: uppercase;
 }
 
+
 .eyebrow.light {
   color:
     #d9e6dd;
 }
+
 
 h2 {
   margin:
@@ -445,19 +472,21 @@ h2 {
   letter-spacing: -0.03em;
 }
 
+
 h3 {
   letter-spacing: -0.02em;
 }
 
+
 .text-section p,
-.story-feature p,
-.split-feature p,
 .agro-story p,
+.split-feature p,
 .agro-feature-highlight p {
   font-size: 1.08rem;
 
   line-height: 1.82;
 }
+
 
 .lead {
   font-size:
@@ -466,6 +495,7 @@ h3 {
   line-height:
     1.7 !important;
 }
+
 
 .centered-lead {
   max-width: 780px;
@@ -487,6 +517,7 @@ h3 {
     var(--cream-light);
 }
 
+
 .infographic-wrapper {
   max-width:
     920px;
@@ -504,15 +535,12 @@ h3 {
     var(--shadow);
 }
 
+
 .infographic-wrapper img {
-  display:
-    block;
+  display: block;
 
-  width:
-    100%;
-
-  height:
-    auto;
+  width: 100%;
+  height: auto;
 }
 
 
@@ -521,14 +549,12 @@ h3 {
 ====================================================== */
 
 .quote-section {
-  position:
-    relative;
+  position: relative;
 
   padding:
     115px 40px;
 
-  overflow:
-    hidden;
+  overflow: hidden;
 
   background:
     var(--green-900);
@@ -537,10 +563,12 @@ h3 {
     white;
 }
 
+
 .quote-section.quote-secondary {
   background:
     #203e2d;
 }
+
 
 .quote-section.quote-light {
   background:
@@ -550,14 +578,15 @@ h3 {
     var(--green-900);
 }
 
+
 .quote-section.accent {
   background:
     var(--green-700);
 }
 
+
 .quote-container {
-  position:
-    relative;
+  position: relative;
 
   max-width:
     900px;
@@ -566,9 +595,9 @@ h3 {
     0 auto;
 }
 
+
 .quote-mark {
-  position:
-    absolute;
+  position: absolute;
 
   top:
     -85px;
@@ -593,12 +622,11 @@ h3 {
     0.28;
 }
 
-blockquote {
-  position:
-    relative;
 
-  z-index:
-    2;
+blockquote {
+  position: relative;
+
+  z-index: 2;
 
   max-width:
     880px;
@@ -620,28 +648,24 @@ blockquote {
     400;
 }
 
+
 .quote-author {
-  display:
-    flex;
+  display: flex;
 
-  flex-wrap:
-    wrap;
+  flex-wrap: wrap;
 
-  align-items:
-    baseline;
+  align-items: baseline;
 
-  gap:
-    8px;
+  gap: 8px;
 
-  margin:
-    0;
+  margin: 0;
 
   color:
     inherit;
 
-  line-height:
-    1.55;
+  line-height: 1.55;
 }
+
 
 .quote-author strong,
 .agro-person strong,
@@ -649,9 +673,9 @@ blockquote {
   font-size:
     0.95rem;
 
-  font-weight:
-    700;
+  font-weight: 700;
 }
+
 
 .quote-author span,
 .agro-person span,
@@ -662,8 +686,7 @@ blockquote {
   font-size:
     0.88rem;
 
-  font-weight:
-    400;
+  font-weight: 400;
 
   opacity:
     0.72;
@@ -671,7 +694,7 @@ blockquote {
 
 
 /* ======================================================
-   MEDIA
+   VIDEO
 ====================================================== */
 
 .media-section {
@@ -682,6 +705,7 @@ blockquote {
     #ebece8;
 }
 
+
 .media-section.dark {
   background:
     var(--green-950);
@@ -690,6 +714,7 @@ blockquote {
     white;
 }
 
+
 .media-heading {
   max-width:
     1040px;
@@ -697,6 +722,7 @@ blockquote {
   margin:
     0 auto 48px;
 }
+
 
 .section-description {
   max-width:
@@ -715,6 +741,7 @@ blockquote {
     1.75;
 }
 
+
 .video-wrapper {
   max-width:
     1150px;
@@ -723,17 +750,9 @@ blockquote {
     0 auto;
 }
 
-.video-wrapper.compact {
-  max-width:
-    1000px;
-
-  margin-top:
-    55px;
-}
 
 .video-wrapper video {
-  display:
-    block;
+  display: block;
 
   width:
     100%;
@@ -756,11 +775,6 @@ blockquote {
    TERRITORIO
 ====================================================== */
 
-.territory-intro {
-  padding-bottom:
-    100px;
-}
-
 .territory-highlight {
   margin-top:
     30px;
@@ -779,67 +793,53 @@ blockquote {
 }
 
 
-/* ======================================================
-   MAPA
-====================================================== */
+.overview-map-section {
+  background:
+    #dfe4de;
 
-.story-map-section {
+  padding: 0;
+}
+
+
+.overview-map-wrap {
   position:
     relative;
 
-  display:
-    flex;
-
-  background:
-    #e7e9e6;
-}
-
-.map-container {
-  position:
-    sticky;
-
-  top:
-    0;
-
-  width:
-    64%;
-
   height:
-    100vh;
+    78vh;
 
-  overflow:
-    hidden;
-
-  background:
-    #1f2721;
+  min-height:
+    620px;
 }
 
-#map {
+
+.overview-map {
   width:
     100%;
 
   height:
     100%;
 }
+
 
 .map-title-card {
   position:
     absolute;
 
   z-index:
-    15;
+    10;
 
   top:
-    88px;
+    26px;
 
   left:
-    22px;
+    26px;
 
   max-width:
-    360px;
+    390px;
 
   padding:
-    13px 16px;
+    14px 16px;
 
   background:
     rgba(12, 28, 19, 0.88);
@@ -848,18 +848,23 @@ blockquote {
     white;
 
   border-radius:
-    5px;
+    6px;
 
   backdrop-filter:
     blur(10px);
+
+  box-shadow:
+    0 8px 28px rgba(0, 0, 0, 0.2);
 }
 
-.map-title-card span {
+
+.map-title-card span,
+.guided-map-label span {
   display:
     block;
 
   margin-bottom:
-    3px;
+    4px;
 
   color:
     rgba(255, 255, 255, 0.62);
@@ -874,45 +879,49 @@ blockquote {
     uppercase;
 }
 
-.map-title-card strong {
+
+.map-title-card strong,
+.guided-map-label strong {
   display:
     block;
 
   font-size:
-    0.88rem;
+    0.95rem;
 
   line-height:
     1.4;
 }
+
 
 .layer-panel {
   position:
     absolute;
 
   z-index:
-    15;
+    10;
 
   top:
-    178px;
+    116px;
 
   left:
-    22px;
+    26px;
 
   width:
-    245px;
+    255px;
 
   padding:
     14px;
 
   background:
-    rgba(255, 255, 255, 0.94);
+    rgba(255, 255, 255, 0.95);
 
   border-radius:
-    6px;
+    7px;
 
   box-shadow:
     0 7px 28px rgba(0, 0, 0, 0.15);
 }
+
 
 .layer-panel-title {
   margin-bottom:
@@ -933,6 +942,7 @@ blockquote {
   text-transform:
     uppercase;
 }
+
 
 .layer-option {
   display:
@@ -960,291 +970,43 @@ blockquote {
     pointer;
 }
 
-.layer-option input {
-  margin:
-    0;
-}
 
 .legend-symbol {
   display:
     block;
 }
 
+
 .line-symbol {
   height:
     2px;
 
   background:
-    #f7f2dc;
+    #f4e66d;
 }
+
 
 .zrc-symbol {
   height:
     12px;
 
   background:
-    rgba(52, 116, 76, 0.65);
+    rgba(84, 161, 109, 0.7);
 
   border:
-    1px solid #ffffff;
+    1px solid white;
 }
+
 
 .paramo-symbol {
   height:
     12px;
 
   background:
-    rgba(69, 132, 162, 0.35);
+    rgba(98, 201, 223, 0.38);
 
   border:
-    1px dashed #7ac4df;
-}
-
-.point-symbol {
-  width:
-    11px;
-
-  height:
-    11px;
-
-  margin-left:
-    3px;
-
-  background:
-    #237a4d;
-
-  border:
-    2px solid white;
-
-  border-radius:
-    50%;
-}
-
-.story-panel {
-  position:
-    relative;
-
-  z-index:
-    5;
-
-  width:
-    36%;
-}
-
-.chapter {
-  min-height:
-    100vh;
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  padding:
-    60px 36px;
-}
-
-.chapter-card {
-  width:
-    100%;
-
-  padding:
-    36px;
-
-  background:
-    rgba(255, 255, 255, 0.95);
-
-  border-radius:
-    var(--radius);
-
-  box-shadow:
-    var(--shadow);
-
-  backdrop-filter:
-    blur(10px);
-}
-
-.chapter:not(.active)
-.chapter-card {
-  opacity:
-    0.67;
-
-  transform:
-    scale(0.975);
-}
-
-.chapter-number {
-  display:
-    block;
-
-  margin-bottom:
-    10px;
-
-  color:
-    var(--gold);
-
-  font-size:
-    0.72rem;
-
-  font-weight:
-    800;
-
-  letter-spacing:
-    0.2em;
-}
-
-.chapter-kicker {
-  display:
-    block;
-
-  margin-bottom:
-    13px;
-
-  color:
-    var(--green-600);
-
-  font-size:
-    0.69rem;
-
-  font-weight:
-    700;
-
-  letter-spacing:
-    0.12em;
-
-  text-transform:
-    uppercase;
-}
-
-.chapter-card h3 {
-  margin:
-    0 0 18px;
-
-  font-size:
-    clamp(1.7rem, 2.45vw, 2.8rem);
-
-  line-height:
-    1.13;
-}
-
-.chapter-card p {
-  font-size:
-    0.98rem;
-
-  line-height:
-    1.72;
-}
-
-.chapter-tip {
-  color:
-    var(--green-700) !important;
-
-  font-weight:
-    600;
-}
-
-
-/* ======================================================
-   POPUPS
-====================================================== */
-
-.maplibregl-popup {
-  max-width:
-    330px !important;
-}
-
-.maplibregl-popup-content {
-  padding:
-    0;
-
-  overflow:
-    hidden;
-
-  border-radius:
-    8px;
-
-  box-shadow:
-    0 13px 40px rgba(0, 0, 0, 0.23);
-}
-
-.map-popup {
-  min-width:
-    240px;
-
-  background:
-    white;
-}
-
-.map-popup img,
-.map-popup video {
-  display:
-    block;
-
-  width:
-    100%;
-
-  max-height:
-    190px;
-
-  object-fit:
-    cover;
-
-  background:
-    #111;
-}
-
-.map-popup-body {
-  padding:
-    16px 17px 17px;
-}
-
-.map-popup-section {
-  display:
-    block;
-
-  margin-bottom:
-    5px;
-
-  color:
-    var(--green-600);
-
-  font-size:
-    0.62rem;
-
-  font-weight:
-    700;
-
-  letter-spacing:
-    0.12em;
-
-  text-transform:
-    uppercase;
-}
-
-.map-popup h4 {
-  margin:
-    0 0 8px;
-
-  color:
-    var(--green-900);
-
-  font-size:
-    1rem;
-}
-
-.map-popup p {
-  margin:
-    0;
-
-  color:
-    var(--gray-700);
-
-  font-size:
-    0.78rem;
-
-  line-height:
-    1.55;
+    1px dashed #a7ebfa;
 }
 
 
@@ -1265,6 +1027,7 @@ blockquote {
   margin-top:
     60px;
 }
+
 
 .axis-card {
   position:
@@ -1299,6 +1062,7 @@ blockquote {
     box-shadow 0.3s ease;
 }
 
+
 .axis-card:hover {
   transform:
     translateY(-7px);
@@ -1306,6 +1070,7 @@ blockquote {
   box-shadow:
     var(--shadow);
 }
+
 
 .axis-card strong {
   display:
@@ -1321,6 +1086,7 @@ blockquote {
     2.8rem;
 }
 
+
 .axis-card h3 {
   margin:
     0;
@@ -1328,6 +1094,7 @@ blockquote {
   font-size:
     1.55rem;
 }
+
 
 .axis-link {
   margin-top:
@@ -1368,6 +1135,7 @@ blockquote {
     white;
 }
 
+
 .water-cover {
   background:
     linear-gradient(
@@ -1376,6 +1144,7 @@ blockquote {
       #0c261b
     );
 }
+
 
 .agro-cover {
   background:
@@ -1386,6 +1155,7 @@ blockquote {
     );
 }
 
+
 .biodiversity-cover {
   background:
     linear-gradient(
@@ -1394,6 +1164,7 @@ blockquote {
       #0b1b12
     );
 }
+
 
 .section-cover-content {
   width:
@@ -1405,6 +1176,7 @@ blockquote {
   margin:
     0 auto;
 }
+
 
 .section-index {
   display:
@@ -1426,6 +1198,7 @@ blockquote {
     0.2em;
 }
 
+
 .section-cover p {
   max-width:
     760px;
@@ -1440,6 +1213,7 @@ blockquote {
     1.78;
 }
 
+
 .section-cover-lead {
   color:
     white !important;
@@ -1453,10 +1227,447 @@ blockquote {
 
 
 /* ======================================================
-   HISTORIAS
+   GUIDED TOUR
 ====================================================== */
 
-.story-feature {
+.guided-tour-section {
+  display:
+    grid;
+
+  grid-template-columns:
+    58% 42%;
+
+  align-items:
+    start;
+
+  background:
+    #e9ece8;
+}
+
+
+.guided-map-column {
+  position:
+    sticky;
+
+  top:
+    68px;
+
+  height:
+    calc(100vh - 68px);
+
+  min-height:
+    600px;
+
+  background:
+    #18241b;
+}
+
+
+.guided-map {
+  width:
+    100%;
+
+  height:
+    100%;
+}
+
+
+.guided-map-label {
+  position:
+    absolute;
+
+  z-index:
+    12;
+
+  left:
+    24px;
+
+  top:
+    24px;
+
+  max-width:
+    330px;
+
+  padding:
+    13px 16px;
+
+  background:
+    rgba(12, 28, 19, 0.88);
+
+  color:
+    white;
+
+  border-radius:
+    6px;
+
+  backdrop-filter:
+    blur(10px);
+
+  box-shadow:
+    0 7px 28px rgba(0, 0, 0, 0.2);
+}
+
+
+.guided-story-column {
+  padding:
+    12vh 4vw 12vh 3vw;
+}
+
+
+.tour-card {
+  min-height:
+    76vh;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  padding:
+    5vh 0;
+}
+
+
+.tour-card-inner {
+  width:
+    100%;
+
+  overflow:
+    hidden;
+
+  background:
+    white;
+
+  border-radius:
+    12px;
+
+  box-shadow:
+    0 18px 55px rgba(0, 0, 0, 0.1);
+
+  opacity:
+    0.56;
+
+  transform:
+    scale(0.97);
+
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+
+.tour-card.active
+.tour-card-inner {
+  opacity:
+    1;
+
+  transform:
+    scale(1);
+
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.16);
+}
+
+
+.tour-media {
+  position:
+    relative;
+
+  background:
+    #101510;
+
+  min-height:
+    310px;
+}
+
+
+.tour-media img,
+.tour-media video {
+  display:
+    block;
+
+  width:
+    100%;
+
+  height:
+    100%;
+
+  min-height:
+    310px;
+
+  max-height:
+    430px;
+
+  object-fit:
+    cover;
+}
+
+
+.tour-content {
+  padding:
+    30px 32px 34px;
+}
+
+
+.tour-number {
+  display:
+    inline-flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  width:
+    42px;
+
+  height:
+    42px;
+
+  margin-bottom:
+    16px;
+
+  border-radius:
+    50%;
+
+  background:
+    var(--green-700);
+
+  color:
+    white;
+
+  font-weight:
+    800;
+
+  font-size:
+    0.9rem;
+}
+
+
+.tour-section-label {
+  display:
+    block;
+
+  margin-bottom:
+    10px;
+
+  color:
+    var(--green-600);
+
+  font-size:
+    0.68rem;
+
+  font-weight:
+    700;
+
+  letter-spacing:
+    0.14em;
+
+  text-transform:
+    uppercase;
+}
+
+
+.tour-content h3 {
+  margin:
+    0 0 16px;
+
+  color:
+    var(--green-950);
+
+  font-size:
+    clamp(1.7rem, 2.4vw, 2.65rem);
+
+  line-height:
+    1.15;
+}
+
+
+.tour-content p {
+  margin:
+    0;
+
+  color:
+    #5a625d;
+
+  font-size:
+    0.97rem;
+
+  line-height:
+    1.72;
+}
+
+
+.tour-gallery-controls {
+  position:
+    absolute;
+
+  right:
+    16px;
+
+  bottom:
+    16px;
+
+  display:
+    flex;
+
+  gap:
+    8px;
+}
+
+
+.tour-gallery-btn {
+  width:
+    42px;
+
+  height:
+    42px;
+
+  border:
+    0;
+
+  border-radius:
+    50%;
+
+  background:
+    rgba(255, 255, 255, 0.93);
+
+  color:
+    var(--green-900);
+
+  font-size:
+    1rem;
+
+  cursor:
+    pointer;
+}
+
+
+.tour-counter {
+  position:
+    absolute;
+
+  left:
+    16px;
+
+  bottom:
+    16px;
+
+  padding:
+    7px 10px;
+
+  background:
+    rgba(10, 18, 13, 0.72);
+
+  color:
+    white;
+
+  border-radius:
+    4px;
+
+  font-size:
+    0.73rem;
+}
+
+
+/* ======================================================
+   MARCADORES
+====================================================== */
+
+.tour-marker {
+  width:
+    31px;
+
+  height:
+    31px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  border-radius:
+    50%;
+
+  background:
+    #f6f1e8;
+
+  color:
+    #173526;
+
+  border:
+    3px solid #285139;
+
+  font-weight:
+    800;
+
+  font-size:
+    0.75rem;
+
+  box-shadow:
+    0 4px 14px rgba(0, 0, 0, 0.3);
+
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    color 0.25s ease;
+}
+
+
+.tour-marker.active {
+  transform:
+    scale(1.32);
+
+  background:
+    #285139;
+
+  color:
+    white;
+
+  border-color:
+    white;
+}
+
+
+.tour-marker.cuidadores {
+  border-color:
+    #b27b24;
+
+  color:
+    #76520f;
+}
+
+
+.tour-marker.cuidadores.active {
+  background:
+    #c89437;
+
+  color:
+    white;
+
+  border-color:
+    white;
+}
+
+
+.juntanza-quote {
+  background:
+    #173828;
+}
+
+
+/* ======================================================
+   AGRO
+====================================================== */
+
+.agro-story {
   display:
     grid;
 
@@ -1464,30 +1675,34 @@ blockquote {
     42% 58%;
 
   min-height:
-    82vh;
+    80vh;
 
   background:
-    white;
+    #f9f5ec;
 }
 
-.story-feature.reverse {
+
+.agro-story.reverse {
   grid-template-columns:
     58% 42%;
 }
 
-.story-feature.reverse
-.story-feature-text {
+
+.agro-story.reverse
+.agro-story-content {
   order:
     2;
 }
 
-.story-feature.reverse
+
+.agro-story.reverse
 .gallery {
   order:
     1;
 }
 
-.story-feature-text {
+
+.agro-story-content {
   display:
     flex;
 
@@ -1500,6 +1715,115 @@ blockquote {
   padding:
     75px 6vw;
 }
+
+
+.agro-story-content h2,
+.agro-feature-copy h2 {
+  font-size:
+    clamp(2.2rem, 4vw, 4rem);
+}
+
+
+.agro-gallery {
+  min-height:
+    650px;
+}
+
+
+.agro-gallery.large {
+  min-height:
+    760px;
+}
+
+
+.agro-person,
+.agro-identity {
+  display:
+    flex;
+
+  flex-wrap:
+    wrap;
+
+  gap:
+    7px;
+
+  align-items:
+    baseline;
+
+  margin-top:
+    27px;
+
+  padding-top:
+    19px;
+
+  border-top:
+    1px solid rgba(31, 70, 45, 0.18);
+
+  color:
+    var(--green-800);
+}
+
+
+.agro-feature-highlight {
+  display:
+    grid;
+
+  grid-template-columns:
+    45% 55%;
+
+  min-height:
+    95vh;
+
+  background:
+    #eef1e8;
+}
+
+
+.agro-feature-highlight.bees {
+  background:
+    #f4ead4;
+}
+
+
+.agro-feature-copy {
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  justify-content:
+    center;
+
+  padding:
+    80px 6vw;
+}
+
+
+.agro-note {
+  margin-top:
+    13px;
+
+  font-family:
+    "Lora",
+    serif;
+
+  font-style:
+    italic;
+}
+
+
+.agro-split {
+  background:
+    #fffdf8;
+}
+
+
+.agro-quote {
+  background:
+    #605224;
+}
+
 
 .story-index {
   display:
@@ -1521,58 +1845,6 @@ blockquote {
     0.18em;
 }
 
-
-/* ======================================================
-   CONTEXTOS
-====================================================== */
-
-.context-box {
-  margin-top:
-    30px;
-
-  padding:
-    25px;
-
-  background:
-    var(--green-100);
-
-  border-left:
-    4px solid var(--green-700);
-}
-
-.context-title {
-  display:
-    block;
-
-  margin-bottom:
-    15px;
-
-  color:
-    var(--green-800);
-
-  font-size:
-    0.78rem;
-
-  font-weight:
-    700;
-
-  letter-spacing:
-    0.12em;
-
-  text-transform:
-    uppercase;
-}
-
-.context-box li {
-  margin:
-    8px 0;
-
-  color:
-    var(--green-900);
-
-  font-weight:
-    500;
-}
 
 .place-card {
   display:
@@ -1597,10 +1869,12 @@ blockquote {
     5px;
 }
 
+
 .place-icon {
   color:
     var(--green-600);
 }
+
 
 .place-card small {
   display:
@@ -1622,45 +1896,10 @@ blockquote {
     0.12em;
 }
 
+
 .place-card strong {
   color:
     var(--green-900);
-}
-
-.species-list {
-  display:
-    grid;
-
-  gap:
-    10px;
-
-  margin-top:
-    25px;
-}
-
-.species-list article {
-  padding:
-    15px 18px;
-
-  background:
-    var(--cream);
-}
-
-.species-list span {
-  display:
-    block;
-
-  font-weight:
-    600;
-}
-
-.species-list em {
-  color:
-    var(--green-600);
-
-  font-family:
-    "Lora",
-    serif;
 }
 
 
@@ -1681,6 +1920,7 @@ blockquote {
   background:
     #d8d9d5;
 }
+
 
 .gallery-image {
   position:
@@ -1709,6 +1949,7 @@ blockquote {
     transform 1s ease;
 }
 
+
 .gallery-image.active {
   opacity:
     1;
@@ -1716,6 +1957,44 @@ blockquote {
   transform:
     scale(1);
 }
+
+
+/* ======================================================
+   VILLA ELENA
+   MOSTRAR FOTOS COMPLETAS SIN RECORTE
+====================================================== */
+
+.agro-feature-highlight
+.agro-gallery[data-gallery="agro-03"] {
+  background:
+    #172019;
+}
+
+
+.agro-feature-highlight
+.agro-gallery[data-gallery="agro-03"]
+.gallery-image {
+  object-fit:
+    contain;
+
+  object-position:
+    center;
+
+  padding:
+    14px;
+
+  transform:
+    scale(1);
+}
+
+
+.agro-feature-highlight
+.agro-gallery[data-gallery="agro-03"]
+.gallery-image.active {
+  transform:
+    scale(1);
+}
+
 
 .gallery-controls {
   position:
@@ -1737,6 +2016,7 @@ blockquote {
     9px;
 }
 
+
 .gallery-button {
   width:
     44px;
@@ -1745,7 +2025,7 @@ blockquote {
     44px;
 
   border:
-    none;
+    0;
 
   border-radius:
     50%;
@@ -1759,6 +2039,7 @@ blockquote {
   cursor:
     pointer;
 }
+
 
 .gallery-counter {
   position:
@@ -1788,234 +2069,6 @@ blockquote {
 
 
 /* ======================================================
-   EDUCACIÓN
-====================================================== */
-
-.juntanza-education {
-  padding:
-    115px 36px;
-
-  background:
-    var(--cream-light);
-}
-
-.education-heading {
-  max-width:
-    950px;
-
-  margin:
-    0 auto 55px;
-}
-
-.gallery-wide {
-  max-width:
-    1150px;
-
-  min-height:
-    680px;
-
-  margin:
-    0 auto;
-
-  border-radius:
-    var(--radius);
-
-  box-shadow:
-    var(--shadow);
-}
-
-.juntanza-quote {
-  background:
-    #173828;
-}
-
-
-/* ======================================================
-   AGROALIMENTARIAS
-====================================================== */
-
-.agro-story {
-  display:
-    grid;
-
-  grid-template-columns:
-    42% 58%;
-
-  min-height:
-    80vh;
-
-  background:
-    #f9f5ec;
-}
-
-.agro-story.reverse {
-  grid-template-columns:
-    58% 42%;
-}
-
-.agro-story.reverse
-.agro-story-content {
-  order:
-    2;
-}
-
-.agro-story.reverse
-.gallery {
-  order:
-    1;
-}
-
-.agro-story-content {
-  display:
-    flex;
-
-  flex-direction:
-    column;
-
-  justify-content:
-    center;
-
-  padding:
-    75px 6vw;
-}
-
-.agro-story-content h2,
-.agro-feature-copy h2 {
-  font-size:
-    clamp(2.2rem, 4vw, 4rem);
-}
-
-.agro-gallery {
-  min-height:
-    650px;
-}
-
-.agro-gallery.large {
-  min-height:
-    760px;
-}
-
-.agro-person,
-.agro-identity {
-  display:
-    flex;
-
-  flex-wrap:
-    wrap;
-
-  gap:
-    7px;
-
-  align-items:
-    baseline;
-
-  margin-top:
-    27px;
-
-  padding-top:
-    19px;
-
-  border-top:
-    1px solid rgba(31, 70, 45, 0.18);
-
-  color:
-    var(--green-800);
-}
-
-.agro-feature-highlight {
-  display:
-    grid;
-
-  grid-template-columns:
-    45% 55%;
-
-  min-height:
-    95vh;
-
-  background:
-    #eef1e8;
-}
-
-.agro-feature-highlight.bees {
-  background:
-    #f4ead4;
-}
-
-.agro-feature-copy {
-  display:
-    flex;
-
-  flex-direction:
-    column;
-
-  justify-content:
-    center;
-
-  padding:
-    80px 6vw;
-}
-
-.practice-list {
-  display:
-    flex;
-
-  flex-wrap:
-    wrap;
-
-  gap:
-    8px;
-
-  margin-top:
-    25px;
-}
-
-.practice-list span {
-  padding:
-    7px 11px;
-
-  background:
-    white;
-
-  color:
-    var(--green-800);
-
-  border:
-    1px solid rgba(33, 81, 50, 0.12);
-
-  border-radius:
-    999px;
-
-  font-size:
-    0.75rem;
-
-  font-weight:
-    600;
-}
-
-.agro-note {
-  margin-top:
-    13px;
-
-  font-family:
-    "Lora",
-    serif;
-
-  font-style:
-    italic;
-}
-
-.agro-split {
-  background:
-    #fffdf8;
-}
-
-.agro-quote {
-  background:
-    #605224;
-}
-
-
-/* ======================================================
    SPLIT
 ====================================================== */
 
@@ -2033,16 +2086,19 @@ blockquote {
     white;
 }
 
+
 .split-feature.reverse-layout
 .split-image {
   order:
     2;
 }
 
+
 .split-image {
   overflow:
     hidden;
 }
+
 
 .split-image img {
   width:
@@ -2054,6 +2110,7 @@ blockquote {
   object-fit:
     cover;
 }
+
 
 .split-text {
   display:
@@ -2071,166 +2128,7 @@ blockquote {
 
 
 /* ======================================================
-   VIDEOS BIODIVERSIDAD
-====================================================== */
-
-.video-tabs {
-  max-width:
-    1080px;
-
-  margin:
-    0 auto;
-}
-
-.video-main video {
-  display:
-    block;
-
-  width:
-    100%;
-
-  max-height:
-    70vh;
-
-  background:
-    #000;
-
-  border-radius:
-    var(--radius);
-}
-
-.video-selector {
-  display:
-    flex;
-
-  justify-content:
-    center;
-
-  gap:
-    10px;
-
-  margin-top:
-    25px;
-}
-
-.video-select {
-  padding:
-    11px 18px;
-
-  color:
-    white;
-
-  background:
-    transparent;
-
-  border:
-    1px solid rgba(255, 255, 255, 0.28);
-
-  border-radius:
-    999px;
-
-  cursor:
-    pointer;
-}
-
-.video-select.active {
-  background:
-    var(--green-600);
-}
-
-
-/* ======================================================
-   ESPECIES
-====================================================== */
-
-.species-grid-section {
-  padding:
-    115px 35px;
-
-  background:
-    var(--green-100);
-}
-
-.species-heading {
-  max-width:
-    var(--max-wide);
-
-  margin:
-    0 auto 50px;
-}
-
-.species-grid {
-  max-width:
-    var(--max-wide);
-
-  margin:
-    0 auto;
-
-  display:
-    grid;
-
-  grid-template-columns:
-    repeat(3, 1fr);
-
-  gap:
-    22px;
-}
-
-.species-card {
-  overflow:
-    hidden;
-
-  background:
-    white;
-
-  border-radius:
-    5px;
-}
-
-.species-card img {
-  display:
-    block;
-
-  width:
-    100%;
-
-  height:
-    390px;
-
-  object-fit:
-    cover;
-}
-
-.species-info {
-  padding:
-    25px;
-}
-
-.species-info span {
-  display:
-    block;
-
-  color:
-    var(--green-600);
-
-  font-size:
-    0.72rem;
-
-  font-weight:
-    700;
-
-  text-transform:
-    uppercase;
-}
-
-.species-info h3 {
-  margin:
-    7px 0 0;
-}
-
-
-/* ======================================================
-   FINAL
+   CIERRE
 ====================================================== */
 
 .fullscreen-image {
@@ -2243,6 +2141,7 @@ blockquote {
   overflow:
     hidden;
 }
+
 
 .fullscreen-image img {
   position:
@@ -2261,6 +2160,7 @@ blockquote {
     cover;
 }
 
+
 .fullscreen-overlay {
   position:
     absolute;
@@ -2275,6 +2175,7 @@ blockquote {
       rgba(0, 0, 0, 0.04) 65%
     );
 }
+
 
 .fullscreen-caption {
   position:
@@ -2306,10 +2207,6 @@ blockquote {
 }
 
 
-/* ======================================================
-   FOOTER
-====================================================== */
-
 footer {
   padding:
     42px 30px;
@@ -2320,6 +2217,7 @@ footer {
   color:
     white;
 }
+
 
 .footer-inner {
   max-width:
@@ -2343,6 +2241,55 @@ footer {
 
 
 /* ======================================================
+   POPUP
+====================================================== */
+
+.maplibregl-popup-content {
+  padding:
+    0;
+
+  overflow:
+    hidden;
+
+  border-radius:
+    8px;
+}
+
+
+.map-popup {
+  min-width:
+    230px;
+
+  background:
+    white;
+}
+
+
+.map-popup-body {
+  padding:
+    15px;
+}
+
+
+.map-popup h4 {
+  margin:
+    0 0 7px;
+}
+
+
+.map-popup p {
+  margin:
+    0;
+
+  font-size:
+    0.78rem;
+
+  line-height:
+    1.5;
+}
+
+
+/* ======================================================
    RESPONSIVE
 ====================================================== */
 
@@ -2354,10 +2301,12 @@ footer {
       0 22px;
   }
 
+
   .menu-toggle {
     display:
       block;
   }
+
 
   .nav-links {
     position:
@@ -2385,96 +2334,103 @@ footer {
       rgba(11, 23, 16, 0.98);
   }
 
+
   .nav-links.open {
     display:
       flex;
   }
 
-  .story-map-section {
-    display:
-      block;
-  }
-
-  .map-container {
-    width:
-      100%;
-
-    height:
-      60vh;
-  }
-
-  .story-panel {
-    width:
-      100%;
-  }
-
-  .chapter {
-    min-height:
-      auto;
-
-    padding:
-      35px 20px;
-  }
-
-  .story-feature,
-  .story-feature.reverse,
-  .agro-story,
-  .agro-story.reverse,
-  .agro-feature-highlight {
-    display:
-      block;
-  }
-
-  .story-feature.reverse
-  .story-feature-text,
-  .story-feature.reverse
-  .gallery,
-  .agro-story.reverse
-  .agro-story-content,
-  .agro-story.reverse
-  .gallery {
-    order:
-      initial;
-  }
-
-  .story-feature-text,
-  .agro-story-content,
-  .agro-feature-copy {
-    padding:
-      75px 28px;
-  }
-
-  .gallery,
-  .agro-gallery,
-  .agro-gallery.large {
-    min-height:
-      62vh;
-  }
 
   .axis-grid {
     grid-template-columns:
       1fr;
   }
 
-  .split-feature {
+
+  .guided-tour-section {
     grid-template-columns:
       1fr;
   }
 
+
+  .guided-map-column {
+    top:
+      68px;
+
+    height:
+      52vh;
+
+    min-height:
+      410px;
+
+    z-index:
+      5;
+  }
+
+
+  .guided-story-column {
+    padding:
+      4vh 22px 8vh;
+  }
+
+
+  .tour-card {
+    min-height:
+      auto;
+
+    padding:
+      28px 0;
+  }
+
+
+  .tour-card-inner {
+    opacity:
+      1;
+
+    transform:
+      none;
+  }
+
+
+  .agro-story,
+  .agro-story.reverse,
+  .agro-feature-highlight,
+  .split-feature {
+    display:
+      block;
+  }
+
+
+  .agro-story.reverse
+  .agro-story-content,
+  .agro-story.reverse
+  .gallery,
   .split-feature.reverse-layout
   .split-image {
     order:
       initial;
   }
 
-  .split-image {
+
+  .agro-story-content,
+  .agro-feature-copy,
+  .split-text {
+    padding:
+      70px 28px;
+  }
+
+
+  .gallery,
+  .agro-gallery,
+  .agro-gallery.large {
     min-height:
       60vh;
   }
 
-  .species-grid {
-    grid-template-columns:
-      1fr;
+
+  .split-image {
+    min-height:
+      60vh;
   }
 
 }
@@ -2485,15 +2441,14 @@ footer {
 
   .text-section,
   .quote-section,
-  .media-section,
-  .juntanza-education,
-  .species-grid-section {
+  .media-section {
     padding-left:
       22px;
 
     padding-right:
       22px;
   }
+
 
   .quote-author,
   .agro-person,
@@ -2505,37 +2460,57 @@ footer {
       2px;
   }
 
-  .layer-panel {
-    top:
-      auto;
 
+  .layer-panel {
     left:
       12px;
+
+    top:
+      auto;
 
     bottom:
       12px;
 
     width:
-      205px;
+      230px;
   }
+
 
   .map-title-card {
     top:
-      78px;
+      14px;
 
     left:
       12px;
 
     right:
-      65px;
+      70px;
 
     max-width:
       none;
   }
 
-  .video-selector {
-    flex-wrap:
-      wrap;
+
+  .overview-map-wrap {
+    height:
+      68vh;
+
+    min-height:
+      500px;
+  }
+
+
+  .tour-content {
+    padding:
+      24px 22px 28px;
+  }
+
+
+  .tour-media,
+  .tour-media img,
+  .tour-media video {
+    min-height:
+      260px;
   }
 
 }

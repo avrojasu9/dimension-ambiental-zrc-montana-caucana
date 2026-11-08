@@ -1,1691 +1,2199 @@
 /* ==========================================================
-   RUTAS DE DATOS
+   DIMENSIÓN AMBIENTAL ZRC MONTAÑA CAUCANA
+   GUIDED TOURS: JUNTANZA + CUIDADORES
+   BASE SATELITAL: ESRI WORLD IMAGERY
 ========================================================== */
+
+const RAW_BASE =
+  "https://raw.githubusercontent.com/avrojasu9/dimension-ambiental-zrc-montana-caucana/main/";
+
 
 const DATA_PATHS = {
-  zrc: "assets/data/zrc_mc.geojson",
-  paramo: "assets/data/paramo_guanacas_purace_coconucos.geojson",
-  puntos: "assets/data/puntos_storymap.geojson",
-  municipios: "assets/data/limite_municipal_inza_totoro_silvia.geojson"
+
+  zrc:
+    RAW_BASE +
+    "assets/data/zrc_mc.geojson",
+
+  paramo:
+    RAW_BASE +
+    "assets/data/paramo_guanacas_purace_coconucos.geojson",
+
+  puntos:
+    RAW_BASE +
+    "assets/data/puntos_storymap.geojson",
+
+  municipios:
+    RAW_BASE +
+    "assets/data/limite_municipal_inza_totoro_silvia.geojson"
+
 };
 
 
 /* ==========================================================
-   MAPA BASE SATELITAL
-   EOxCloudless Sentinel-2 2024
+   ESTILO SATELITAL
+   ESRI WORLD IMAGERY
 ========================================================== */
 
-const map = new maplibregl.Map({
-  container: "map",
+const SATELLITE_STYLE = {
 
-  style: {
-    version: 8,
+  version: 8,
 
-    sources: {
-      satellite: {
-        type: "raster",
+  sources: {
 
-        tiles: [
-          "https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2024_3857/default/GoogleMapsCompatible/{z}/{y}/{x}.jpg"
-        ],
+    satellite: {
 
-        tileSize: 256,
-        minzoom: 0,
-        maxzoom: 16,
+      type:
+        "raster",
 
-        attribution:
-          "EOxCloudless — Contains modified Copernicus Sentinel data 2024"
+      tiles: [
+        "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+      ],
+
+      tileSize:
+        256,
+
+      minzoom:
+        0,
+
+      maxzoom:
+        19,
+
+      attribution:
+        "Esri, Maxar, Earthstar Geographics, and the GIS User Community"
+
+    }
+
+  },
+
+  layers: [
+
+    {
+
+      id:
+        "satellite",
+
+      type:
+        "raster",
+
+      source:
+        "satellite",
+
+      paint: {
+
+        "raster-opacity":
+          1,
+
+        "raster-saturation":
+          0,
+
+        "raster-contrast":
+          0.04,
+
+        "raster-brightness-min":
+          0.02,
+
+        "raster-brightness-max":
+          0.98
+
       }
-    },
 
-    layers: [
-      {
-        id: "satellite",
-        type: "raster",
-        source: "satellite",
-
-        paint: {
-          "raster-opacity": 1,
-          "raster-saturation": 0.08,
-          "raster-contrast": 0.06
-        }
-      }
-    ]
-  },
-
-  center: [-76.135, 2.515],
-  zoom: 9.2,
-  pitch: 0,
-  bearing: 0
-});
-
-
-map.addControl(
-  new maplibregl.NavigationControl(),
-  "top-right"
-);
-
-
-/* ==========================================================
-   ESTADO
-========================================================== */
-
-let cartografiaLista = false;
-let currentChapter = null;
-let scrollTicking = false;
-
-
-/* ==========================================================
-   VISTAS EXPLÍCITAS DE CADA CAPÍTULO
-========================================================== */
-
-const CHAPTER_VIEWS = {
-  territorio: {
-    center: [-76.135, 2.515],
-    zoom: 9.15,
-    duration: 1600
-  },
-
-  paramo: {
-    center: [-76.205, 2.515],
-    zoom: 11.15,
-    duration: 1800
-  },
-
-  "juntanza-puntos": {
-    center: [-76.13424, 2.51313],
-    zoom: 10.65,
-    duration: 1800
-  },
-
-  "cuidadores-puntos": {
-    center: [-76.14271, 2.51052],
-    zoom: 10.65,
-    duration: 1800
-  }
-};
-
-
-/* ==========================================================
-   AGREGAR FUENTES Y CAPAS
-========================================================== */
-
-function agregarFuentesYCapas() {
-
-  map.addSource("municipios", {
-    type: "geojson",
-    data: DATA_PATHS.municipios
-  });
-
-  map.addLayer({
-    id: "municipios-fill",
-    type: "fill",
-    source: "municipios",
-
-    paint: {
-      "fill-color": "#ffffff",
-      "fill-opacity": 0.01
     }
-  });
 
-  map.addLayer({
-    id: "municipios-line",
-    type: "line",
-    source: "municipios",
-
-    paint: {
-      "line-color": "#ffffff",
-      "line-width": 2.3,
-      "line-opacity": 0.95
-    }
-  });
-
-
-  map.addSource("paramo", {
-    type: "geojson",
-    data: DATA_PATHS.paramo
-  });
-
-  map.addLayer({
-    id: "paramo-fill",
-    type: "fill",
-    source: "paramo",
-
-    layout: {
-      visibility: "none"
-    },
-
-    paint: {
-      "fill-color": "#72b5cc",
-      "fill-opacity": 0.23
-    }
-  });
-
-  map.addLayer({
-    id: "paramo-line",
-    type: "line",
-    source: "paramo",
-
-    layout: {
-      visibility: "none"
-    },
-
-    paint: {
-      "line-color": "#bcecff",
-      "line-width": 2.6,
-      "line-dasharray": [3, 2],
-      "line-opacity": 0.96
-    }
-  });
-
-
-  map.addSource("zrc", {
-    type: "geojson",
-    data: DATA_PATHS.zrc
-  });
-
-  map.addLayer({
-    id: "zrc-fill",
-    type: "fill",
-    source: "zrc",
-
-    paint: {
-      "fill-color": [
-        "match",
-        ["get", "Zona"],
-
-        "Alta", "#c94e4e",
-        "Centro", "#279dcc",
-        "Occidente", "#9cc238",
-        "Turmina", "#a35ca0",
-        "Turminá", "#a35ca0",
-        "Baja", "#f19a35",
-        "Media", "#f1d640",
-        "Pedregal", "#e27ac2",
-        "San Miguel", "#a8764d",
-        "Quebrada de Topa", "#43b49d",
-        "San Andres", "#7777dc",
-        "San Andrés", "#7777dc",
-
-        "#4d8b62"
-      ],
-
-      "fill-opacity": 0.42
-    }
-  });
-
-  map.addLayer({
-    id: "zrc-line",
-    type: "line",
-    source: "zrc",
-
-    paint: {
-      "line-color": "#ffffff",
-      "line-width": 1.2,
-      "line-opacity": 0.9
-    }
-  });
-
-
-  map.addSource("puntos-storymap", {
-    type: "geojson",
-    data: DATA_PATHS.puntos
-  });
-
-  map.addLayer({
-    id: "puntos-storymap-circle",
-    type: "circle",
-    source: "puntos-storymap",
-
-    layout: {
-      visibility: "none"
-    },
-
-    paint: {
-      "circle-radius": [
-        "interpolate",
-        ["linear"],
-        ["zoom"],
-        8, 6,
-        12, 9,
-        16, 12
-      ],
-
-      "circle-color": [
-        "match",
-        ["get", "section"],
-
-        "Juntanza por el agua",
-        "#1fa162",
-
-        "Cuidadores de la montaña",
-        "#e0a53c",
-
-        "#ffffff"
-      ],
-
-      "circle-stroke-color": "#ffffff",
-      "circle-stroke-width": 2.5,
-      "circle-opacity": 1
-    }
-  });
-
-
-  configurarPopups();
-  configurarCursor();
-
-  cartografiaLista = true;
-
-  console.log("Capas cartográficas registradas en MapLibre.");
-
-  sincronizarCapituloConScroll(true);
-}
-
-
-/* ==========================================================
-   VISIBILIDAD DE GRUPOS
-========================================================== */
-
-const layerGroups = {
-  municipios: [
-    "municipios-fill",
-    "municipios-line"
-  ],
-
-  zrc: [
-    "zrc-fill",
-    "zrc-line"
-  ],
-
-  paramo: [
-    "paramo-fill",
-    "paramo-line"
-  ],
-
-  puntos: [
-    "puntos-storymap-circle"
   ]
+
 };
 
 
-function setGroupVisibility(
-  groupName,
-  visible
-) {
+/* ==========================================================
+   DATOS
+========================================================== */
 
-  const layers =
-    layerGroups[groupName];
-
-
-  if (!layers) {
-    return;
-  }
+let municipiosInza =
+  null;
 
 
-  layers.forEach(
-    layerId => {
-
-      if (
-        map.getLayer(
-          layerId
-        )
-      ) {
-
-        map.setLayoutProperty(
-          layerId,
-          "visibility",
-          visible
-            ? "visible"
-            : "none"
-        );
-
-      }
-
-    }
-  );
-
-}
+let zrcInza =
+  null;
 
 
-function actualizarCheckbox(
-  groupName,
-  checked
-) {
-
-  const checkbox =
-    document.querySelector(
-      `[data-layer-group="${groupName}"]`
-    );
+let paramoData =
+  null;
 
 
-  if (checkbox) {
-    checkbox.checked = checked;
-  }
-
-}
+let puntosData =
+  null;
 
 
 /* ==========================================================
-   CHECKBOXES MANUALES
+   MEDIOS DE JUNTANZA Y CUIDADORES
 ========================================================== */
 
-document
-  .querySelectorAll(
-    "[data-layer-group]"
-  )
-  .forEach(
-    checkbox => {
+const TOUR_MEDIA = {
 
-      checkbox.addEventListener(
-        "change",
-        () => {
+  juntanza: {
 
-          if (!cartografiaLista) {
-            return;
-          }
+    1: [
 
+      "assets/images/04_juntanza_01_recorridos_y_conscientizacion_en_territorios_estrategicos_01.jpg",
 
-          setGroupVisibility(
-            checkbox.dataset.layerGroup,
-            checkbox.checked
-          );
+      "assets/images/04_juntanza_01_recorridos_y_conscientizacion_en_territorios_estrategicos_02.jpg",
 
-        }
-      );
+      "assets/images/04_juntanza_01_recorridos_y_conscientizacion_en_territorios_estrategicos_03.png",
 
-    }
-  );
+      "assets/images/04_juntanza_01_recorridos_y_conscientizacion_en_territorios_estrategicos_04.png",
+
+      "assets/images/04_juntanza_01_recorridos_y_conscientizacion_en_territorios_estrategicos_05.jpg"
+
+    ],
 
 
-/* ==========================================================
-   FILTROS DE PUNTOS
-========================================================== */
+    2: [
 
-function mostrarPuntosJuntanza() {
+      "assets/images/04_juntanza_02_siembra_de_frailejones_01.jpg",
 
-  if (
-    !map.getLayer(
-      "puntos-storymap-circle"
-    )
-  ) {
-    return;
-  }
+      "assets/images/04_juntanza_02_siembra_de_frailejones_02.jpg",
+
+      "assets/images/04_juntanza_02_siembra_de_frailejones_03.jpg"
+
+    ],
 
 
-  map.setFilter(
-    "puntos-storymap-circle",
-    [
-      "==",
-      ["get", "section"],
-      "Juntanza por el agua"
+    3: [
+
+      "assets/images/04_juntanza_03_restauracion_nacimiento_de_agua_guanacas_01.jpg",
+
+      "assets/images/04_juntanza_03_restauracion_nacimiento_de_agua_guanacas_02.jpg",
+
+      "assets/images/04_juntanza_03_restauracion_nacimiento_de_agua_guanacas_03.jpg",
+
+      "assets/images/04_juntanza_03_restauracion_nacimiento_de_agua_guanacas_04.jpg",
+
+      "assets/images/04_juntanza_03_restauracion_nacimiento_de_agua_guanacas_05.jpg"
+
+    ],
+
+
+    4: [
+
+      "assets/images/04_juntanza_04_recuperacion_de_semillas_nativas_01.jpg",
+
+      "assets/images/04_juntanza_04_recuperacion_de_semillas_nativas_02.jpg",
+
+      "assets/images/04_juntanza_04_recuperacion_de_semillas_nativas_03.jpg"
+
+    ],
+
+
+    5: [
+
+      "assets/images/04_juntanza_05_educacion_ambiental_comunitaria_01.jpg",
+
+      "assets/images/04_juntanza_05_educacion_ambiental_comunitaria_02.jpg",
+
+      "assets/images/04_juntanza_05_educacion_ambiental_comunitaria_03.jpg",
+
+      "assets/videos/04_juntanza_05_educacion_ambiental_comunitaria_04.mp4",
+
+      "assets/images/04_juntanza_05_educacion_ambiental_comunitaria_05.jpg"
+
     ]
-  );
-
-}
-
-
-function mostrarPuntosCuidadores() {
-
-  if (
-    !map.getLayer(
-      "puntos-storymap-circle"
-    )
-  ) {
-    return;
-  }
-
-
-  map.setFilter(
-    "puntos-storymap-circle",
-    [
-      "==",
-      ["get", "section"],
-      "Cuidadores de la montaña"
-    ]
-  );
-
-}
-
-
-/* ==========================================================
-   CAMBIAR CÁMARA
-========================================================== */
-
-function moverCamara(
-  chapterId
-) {
-
-  const view =
-    CHAPTER_VIEWS[chapterId];
-
-
-  if (!view) {
-    return;
-  }
-
-
-  map.stop();
-
-
-  map.easeTo({
-    center: view.center,
-    zoom: view.zoom,
-    pitch: 0,
-    bearing: 0,
-    duration: view.duration,
-    essential: true
-  });
-
-}
-
-
-/* ==========================================================
-   CAPÍTULO 01
-========================================================== */
-
-function mostrarTerritorio() {
-
-  setGroupVisibility(
-    "municipios",
-    true
-  );
-
-  setGroupVisibility(
-    "zrc",
-    true
-  );
-
-  setGroupVisibility(
-    "paramo",
-    false
-  );
-
-  setGroupVisibility(
-    "puntos",
-    false
-  );
-
-
-  actualizarCheckbox(
-    "municipios",
-    true
-  );
-
-  actualizarCheckbox(
-    "zrc",
-    true
-  );
-
-  actualizarCheckbox(
-    "paramo",
-    false
-  );
-
-  actualizarCheckbox(
-    "puntos",
-    false
-  );
-
-
-  moverCamara(
-    "territorio"
-  );
-
-}
-
-
-/* ==========================================================
-   CAPÍTULO 02
-========================================================== */
-
-function mostrarParamo() {
-
-  setGroupVisibility(
-    "municipios",
-    true
-  );
-
-  setGroupVisibility(
-    "zrc",
-    true
-  );
-
-  setGroupVisibility(
-    "paramo",
-    true
-  );
-
-  setGroupVisibility(
-    "puntos",
-    false
-  );
-
-
-  actualizarCheckbox(
-    "municipios",
-    true
-  );
-
-  actualizarCheckbox(
-    "zrc",
-    true
-  );
-
-  actualizarCheckbox(
-    "paramo",
-    true
-  );
-
-  actualizarCheckbox(
-    "puntos",
-    false
-  );
-
-
-  moverCamara(
-    "paramo"
-  );
-
-}
-
-
-/* ==========================================================
-   CAPÍTULO 03
-========================================================== */
-
-function mostrarJuntanza() {
-
-  setGroupVisibility(
-    "municipios",
-    false
-  );
-
-  setGroupVisibility(
-    "zrc",
-    true
-  );
-
-  setGroupVisibility(
-    "paramo",
-    true
-  );
-
-  setGroupVisibility(
-    "puntos",
-    true
-  );
-
-
-  actualizarCheckbox(
-    "municipios",
-    false
-  );
-
-  actualizarCheckbox(
-    "zrc",
-    true
-  );
-
-  actualizarCheckbox(
-    "paramo",
-    true
-  );
-
-  actualizarCheckbox(
-    "puntos",
-    true
-  );
-
-
-  mostrarPuntosJuntanza();
-
-
-  moverCamara(
-    "juntanza-puntos"
-  );
-
-}
-
-
-/* ==========================================================
-   CAPÍTULO 04
-========================================================== */
-
-function mostrarCuidadores() {
-
-  setGroupVisibility(
-    "municipios",
-    false
-  );
-
-  setGroupVisibility(
-    "zrc",
-    true
-  );
-
-  setGroupVisibility(
-    "paramo",
-    true
-  );
-
-  setGroupVisibility(
-    "puntos",
-    true
-  );
-
-
-  actualizarCheckbox(
-    "municipios",
-    false
-  );
-
-  actualizarCheckbox(
-    "zrc",
-    true
-  );
-
-  actualizarCheckbox(
-    "paramo",
-    true
-  );
-
-  actualizarCheckbox(
-    "puntos",
-    true
-  );
-
-
-  mostrarPuntosCuidadores();
-
-
-  moverCamara(
-    "cuidadores-puntos"
-  );
-
-}
-
-
-/* ==========================================================
-   ACTIVAR CAPÍTULO
-========================================================== */
-
-function activarCapitulo(
-  chapterId,
-  force = false
-) {
-
-  if (
-    !cartografiaLista
-  ) {
-    return;
-  }
-
-
-  if (
-    !force &&
-    chapterId === currentChapter
-  ) {
-    return;
-  }
-
-
-  currentChapter =
-    chapterId;
-
-
-  console.log(
-    "Capítulo activo:",
-    chapterId
-  );
-
-
-  document
-    .querySelectorAll(
-      ".chapter"
-    )
-    .forEach(
-      element => {
-
-        element.classList.toggle(
-          "active",
-          element.dataset.chapter ===
-            chapterId
-        );
-
-      }
-    );
-
-
-  switch (
-    chapterId
-  ) {
-
-    case "territorio":
-
-      mostrarTerritorio();
-
-      break;
-
-
-    case "paramo":
-
-      mostrarParamo();
-
-      break;
-
-
-    case "juntanza-puntos":
-
-      mostrarJuntanza();
-
-      break;
-
-
-    case "cuidadores-puntos":
-
-      mostrarCuidadores();
-
-      break;
-
-  }
-
-}
-
-
-/* ==========================================================
-   DETERMINAR CAPÍTULO VISIBLE
-========================================================== */
-
-function obtenerCapituloVisible() {
-
-  const chapters =
-    Array.from(
-      document.querySelectorAll(
-        ".chapter"
-      )
-    );
-
-
-  if (
-    chapters.length === 0
-  ) {
-    return null;
-  }
-
-
-  const viewportCenter =
-    window.innerHeight * 0.5;
-
-
-  let closestChapter =
-    null;
-
-  let closestDistance =
-    Infinity;
-
-
-  chapters.forEach(
-    chapter => {
-
-      const rect =
-        chapter.getBoundingClientRect();
-
-
-      const chapterCenter =
-        rect.top +
-        rect.height / 2;
-
-
-      const distance =
-        Math.abs(
-          chapterCenter -
-          viewportCenter
-        );
-
-
-      if (
-        distance <
-        closestDistance
-      ) {
-
-        closestDistance =
-          distance;
-
-
-        closestChapter =
-          chapter;
-
-      }
-
-    }
-  );
-
-
-  return closestChapter;
-
-}
-
-
-/* ==========================================================
-   SINCRONIZAR CON SCROLL
-========================================================== */
-
-function sincronizarCapituloConScroll(
-  force = false
-) {
-
-  if (
-    !cartografiaLista
-  ) {
-    return;
-  }
-
-
-  const mapSection =
-    document.querySelector(
-      ".story-map-section"
-    );
-
-
-  if (
-    !mapSection
-  ) {
-    return;
-  }
-
-
-  const sectionRect =
-    mapSection.getBoundingClientRect();
-
-
-  if (
-    sectionRect.bottom <= 0 ||
-    sectionRect.top >= window.innerHeight
-  ) {
-    return;
-  }
-
-
-  const visibleChapter =
-    obtenerCapituloVisible();
-
-
-  if (
-    !visibleChapter
-  ) {
-    return;
-  }
-
-
-  activarCapitulo(
-    visibleChapter.dataset.chapter,
-    force
-  );
-
-}
-
-
-/* ==========================================================
-   SCROLL
-========================================================== */
-
-window.addEventListener(
-  "scroll",
-  () => {
-
-    if (
-      scrollTicking
-    ) {
-      return;
-    }
-
-
-    scrollTicking =
-      true;
-
-
-    window.requestAnimationFrame(
-      () => {
-
-        sincronizarCapituloConScroll();
-
-        scrollTicking =
-          false;
-
-      }
-    );
 
   },
-  {
-    passive: true
+
+
+  cuidadores: {
+
+    1: [
+
+      "assets/videos/06_cuidadores_01_identificacion_del_oso_andino_danta_y_puma_concolor_01.mp4",
+
+      "assets/videos/06_cuidadores_01_identificacion_del_oso_andino_danta_y_puma_concolor_02.mp4",
+
+      "assets/videos/06_cuidadores_01_identificacion_del_oso_andino_danta_y_puma_concolor_03.mp4"
+
+    ],
+
+
+    2: [
+
+      "assets/images/06_cuidadores_02_ranita_cristal_01.jpg",
+
+      "assets/images/06_cuidadores_02_ranita_cristal_02.jpg"
+
+    ],
+
+
+    3: [
+
+      "assets/images/06_cuidadores_03_identificacion_y_avistamiento_de_aves_en_guanacas_01.jpg",
+
+      "assets/images/06_cuidadores_03_identificacion_y_avistamiento_de_aves_en_guanacas_02.jpg",
+
+      "assets/images/06_cuidadores_03_identificacion_y_avistamiento_de_aves_en_guanacas_03.jpg",
+
+      "assets/images/06_cuidadores_03_identificacion_y_avistamiento_de_aves_en_guanacas_04.jpg",
+
+      "assets/images/06_cuidadores_03_identificacion_y_avistamiento_de_aves_en_guanacas_05.jpg"
+
+    ],
+
+
+    4: [
+
+      "assets/images/06_cuidadores_04_identificacion_de_anfibios_y_reptiles_en_guanacas_01.jpg",
+
+      "assets/images/06_cuidadores_04_identificacion_de_anfibios_y_reptiles_en_guanacas_02.jpg",
+
+      "assets/images/06_cuidadores_04_identificacion_de_anfibios_y_reptiles_en_guanacas_03.jpg",
+
+      "assets/images/06_cuidadores_04_identificacion_de_anfibios_y_reptiles_en_guanacas_04.jpg",
+
+      "assets/images/06_cuidadores_04_identificacion_de_anfibios_y_reptiles_en_guanacas_05.jpg"
+
+    ],
+
+
+    5: [
+
+      "assets/images/06_cuidadores_05_aguila_de_montana_01.jpg"
+
+    ],
+
+
+    6: [
+
+      "assets/images/06_cuidadores_06_identificacion_de_aves_colectivo_turmas_turmina_01.jpg"
+
+    ],
+
+
+    7: [
+
+      "assets/images/06_cuidadores_07_pollo_de_monte_sericossypha_albocristata_01.jpg"
+
+    ],
+
+
+    8: [
+
+      "assets/images/06_cuidadores_08_rhinella_sp_01.jpg",
+
+      "assets/images/06_cuidadores_08_rhinella_sp_02.jpg"
+
+    ],
+
+
+    9: [
+
+      "assets/images/06_cuidadores_09_recorridos_para_identificacion_de_especies_01.jpg"
+
+    ]
+
   }
-);
+
+};
 
 
 /* ==========================================================
-   RESIZE
+   GALERÍAS AGRO
 ========================================================== */
 
-window.addEventListener(
-  "resize",
-  () => {
+const AGRO_GALLERIES = {
 
-    map.resize();
+  "agro-01": [
 
-    sincronizarCapituloConScroll(
-      true
-    );
+    "assets/images/05_agroalimentarias_galeria_01_01.jpg",
 
-  }
-);
+    "assets/images/05_agroalimentarias_galeria_01_02.jpg",
+
+    "assets/images/05_agroalimentarias_galeria_01_03.jpg",
+
+    "assets/images/05_agroalimentarias_galeria_01_04.jpg",
+
+    "assets/images/05_agroalimentarias_galeria_01_05.jpg"
+
+  ],
+
+
+  "agro-02": [
+
+    "assets/images/05_agroalimentarias_galeria_02_01.jpg",
+
+    "assets/images/05_agroalimentarias_galeria_02_02.jpg",
+
+    "assets/images/05_agroalimentarias_galeria_02_03.jpg",
+
+    "assets/images/05_agroalimentarias_galeria_02_04.jpg"
+
+  ],
+
+
+  "agro-03": [
+
+    "assets/images/05_agroalimentarias_galeria_03_01.jpg",
+
+    "assets/images/05_agroalimentarias_galeria_03_02.jpg",
+
+    "assets/images/05_agroalimentarias_galeria_03_03.jpg",
+
+    "assets/images/05_agroalimentarias_galeria_03_04.jpg",
+
+    "assets/images/05_agroalimentarias_galeria_03_05.jpg",
+
+    "assets/images/05_agroalimentarias_galeria_03_06.jpg",
+
+    "assets/images/05_agroalimentarias_galeria_03_07.jpg",
+
+    "assets/images/05_agroalimentarias_galeria_03_08.jpg",
+
+    "assets/images/05_agroalimentarias_galeria_03_09.jpg",
+
+    "assets/images/05_agroalimentarias_galeria_03_10.jpg"
+
+  ],
+
+
+  "agro-04": [
+
+    "assets/images/05_agroalimentarias_galeria_04_01.jpg",
+
+    "assets/images/05_agroalimentarias_galeria_04_02.jpg"
+
+  ],
+
+
+  "agro-05": [
+
+    "assets/images/05_agroalimentarias_galeria_05_01.jpg",
+
+    "assets/images/05_agroalimentarias_galeria_05_02.jpg",
+
+    "assets/images/05_agroalimentarias_galeria_05_03.jpg",
+
+    "assets/images/05_agroalimentarias_galeria_05_04.jpg",
+
+    "assets/images/05_agroalimentarias_galeria_05_05.jpg"
+
+  ],
+
+
+  "agro-06": [
+
+    "assets/images/05_agroalimentarias_galeria_06_01.jpg",
+
+    "assets/images/05_agroalimentarias_galeria_06_02.jpg"
+
+  ],
+
+
+  "agro-07": [
+
+    "assets/images/05_agroalimentarias_galeria_07_01.jpg",
+
+    "assets/images/05_agroalimentarias_galeria_07_02.jpg",
+
+    "assets/images/05_agroalimentarias_galeria_07_03.jpg",
+
+    "assets/images/05_agroalimentarias_galeria_07_04.jpg"
+
+  ]
+
+};
 
 
 /* ==========================================================
-   POPUPS
+   NORMALIZAR TEXTO
 ========================================================== */
 
-function escapeHTML(
+function normalizarTexto(
   value
 ) {
 
   return String(
     value ?? ""
   )
-    .replaceAll(
-      "&",
-      "&amp;"
+
+    .normalize(
+      "NFD"
     )
-    .replaceAll(
-      "<",
-      "&lt;"
+
+    .replace(
+      /[\u0300-\u036f]/g,
+      ""
     )
-    .replaceAll(
-      ">",
-      "&gt;"
-    )
-    .replaceAll(
-      '"',
-      "&quot;"
-    )
-    .replaceAll(
-      "'",
-      "&#039;"
-    );
+
+    .trim()
+
+    .toUpperCase();
 
 }
 
 
-function construirPopupPunto(
-  properties
+/* ==========================================================
+   CARGAR GEOJSON
+========================================================== */
+
+async function cargarGeoJSON(
+  url
 ) {
 
-  const section =
-    escapeHTML(
-      properties.section
+  const response =
+    await fetch(
+
+      url,
+
+      {
+
+        mode:
+          "cors",
+
+        cache:
+          "no-store"
+
+      }
+
     );
 
 
-  const title =
-    escapeHTML(
-      properties.title
+  if (
+    !response.ok
+  ) {
+
+    throw new Error(
+      `HTTP ${response.status}: ${url}`
+    );
+
+  }
+
+
+  const data =
+    await response.json();
+
+
+  if (
+    !data ||
+    data.type !==
+      "FeatureCollection" ||
+    !Array.isArray(
+      data.features
+    )
+  ) {
+
+    throw new Error(
+      `GeoJSON inválido: ${url}`
+    );
+
+  }
+
+
+  return data;
+
+}
+
+
+/* ==========================================================
+   FILTRAR INZÁ
+========================================================== */
+
+function filtrarMunicipioInza(
+  data
+) {
+
+  return {
+
+    type:
+      "FeatureCollection",
+
+    features:
+      data.features.filter(
+        feature =>
+          normalizarTexto(
+            feature.properties
+              ?.NOM_MUNICI
+          ) ===
+          "INZA"
+      )
+
+  };
+
+}
+
+
+function filtrarZRCInza(
+  data
+) {
+
+  return {
+
+    type:
+      "FeatureCollection",
+
+    features:
+      data.features.filter(
+        feature =>
+          normalizarTexto(
+            feature.properties
+              ?.NOMB_MPIO
+          ) ===
+          "INZA"
+      )
+
+  };
+
+}
+
+
+/* ==========================================================
+   CREAR MAPA
+========================================================== */
+
+function crearMapa(
+  containerId,
+  center,
+  zoom
+) {
+
+  const map =
+    new maplibregl.Map({
+
+      container:
+        containerId,
+
+      style:
+        JSON.parse(
+          JSON.stringify(
+            SATELLITE_STYLE
+          )
+        ),
+
+      center:
+        center,
+
+      zoom:
+        zoom,
+
+      pitch:
+        0,
+
+      bearing:
+        0
+
+    });
+
+
+  map.addControl(
+
+    new maplibregl.NavigationControl(),
+
+    "top-right"
+
+  );
+
+
+  return map;
+
+}
+
+
+/* ==========================================================
+   CAPAS DE CONTEXTO
+========================================================== */
+
+function addContextLayers(
+  map
+) {
+
+  if (
+    municipiosInza
+  ) {
+
+    map.addSource(
+      "municipios",
+
+      {
+
+        type:
+          "geojson",
+
+        data:
+          municipiosInza
+
+      }
+
     );
 
 
-  const description =
-    escapeHTML(
-      properties.description
+    map.addLayer({
+
+      id:
+        "municipios-fill",
+
+      type:
+        "fill",
+
+      source:
+        "municipios",
+
+      paint: {
+
+        "fill-color":
+          "#ffffff",
+
+        "fill-opacity":
+          0.01
+
+      }
+
+    });
+
+
+    map.addLayer({
+
+      id:
+        "municipios-line",
+
+      type:
+        "line",
+
+      source:
+        "municipios",
+
+      paint: {
+
+        "line-color":
+          "#f4e66d",
+
+        "line-width":
+          2.2,
+
+        "line-opacity":
+          0.95
+
+      }
+
+    });
+
+  }
+
+
+  if (
+    zrcInza
+  ) {
+
+    map.addSource(
+      "zrc",
+
+      {
+
+        type:
+          "geojson",
+
+        data:
+          zrcInza
+
+      }
+
+    );
+
+
+    map.addLayer({
+
+      id:
+        "zrc-fill",
+
+      type:
+        "fill",
+
+      source:
+        "zrc",
+
+      paint: {
+
+        "fill-color":
+          "#4f9465",
+
+        "fill-opacity":
+          0.22
+
+      }
+
+    });
+
+
+    map.addLayer({
+
+      id:
+        "zrc-line",
+
+      type:
+        "line",
+
+      source:
+        "zrc",
+
+      paint: {
+
+        "line-color":
+          "#ffffff",
+
+        "line-width":
+          1.1,
+
+        "line-opacity":
+          0.8
+
+      }
+
+    });
+
+  }
+
+}
+
+
+/* ==========================================================
+   MAPA GENERAL
+========================================================== */
+
+function initTerritoryMap() {
+
+  const map =
+    crearMapa(
+
+      "territory-map",
+
+      [-76.075, 2.55],
+
+      9.8
+
+    );
+
+
+  map.on(
+
+    "load",
+
+    () => {
+
+      addContextLayers(
+        map
+      );
+
+
+      if (
+        paramoData
+      ) {
+
+        map.addSource(
+          "paramo",
+
+          {
+
+            type:
+              "geojson",
+
+            data:
+              paramoData
+
+          }
+
+        );
+
+
+        map.addLayer({
+
+          id:
+            "paramo-fill",
+
+          type:
+            "fill",
+
+          source:
+            "paramo",
+
+          paint: {
+
+            "fill-color":
+              "#62c9df",
+
+            "fill-opacity":
+              0.22
+
+          }
+
+        });
+
+
+        map.addLayer({
+
+          id:
+            "paramo-line",
+
+          type:
+            "line",
+
+          source:
+            "paramo",
+
+          paint: {
+
+            "line-color":
+              "#a7ebfa",
+
+            "line-width":
+              2.2,
+
+            "line-opacity":
+              0.9
+
+          }
+
+        });
+
+      }
+
+
+      document
+        .querySelectorAll(
+          "[data-overview-layer]"
+        )
+        .forEach(
+          checkbox => {
+
+            checkbox.addEventListener(
+
+              "change",
+
+              () => {
+
+                const group =
+                  checkbox.dataset
+                    .overviewLayer;
+
+
+                const ids = {
+
+                  municipios: [
+
+                    "municipios-fill",
+
+                    "municipios-line"
+
+                  ],
+
+
+                  zrc: [
+
+                    "zrc-fill",
+
+                    "zrc-line"
+
+                  ],
+
+
+                  paramo: [
+
+                    "paramo-fill",
+
+                    "paramo-line"
+
+                  ]
+
+                }[
+                  group
+                ];
+
+
+                (
+                  ids ||
+                  []
+                )
+                  .forEach(
+                    id => {
+
+                      if (
+                        map.getLayer(
+                          id
+                        )
+                      ) {
+
+                        map
+                          .setLayoutProperty(
+
+                            id,
+
+                            "visibility",
+
+                            checkbox.checked
+                              ? "visible"
+                              : "none"
+
+                          );
+
+                      }
+
+                    }
+                  );
+
+              }
+
+            );
+
+          }
+        );
+
+    }
+
+  );
+
+}
+
+
+/* ==========================================================
+   CREAR MEDIO
+========================================================== */
+
+function createMediaElement(
+  path
+) {
+
+  const isVideo =
+    path
+      .toLowerCase()
+      .endsWith(
+        ".mp4"
+      );
+
+
+  if (
+    isVideo
+  ) {
+
+    const video =
+      document.createElement(
+        "video"
+      );
+
+
+    video.controls =
+      true;
+
+
+    video.playsInline =
+      true;
+
+
+    video.preload =
+      "metadata";
+
+
+    const source =
+      document.createElement(
+        "source"
+      );
+
+
+    source.src =
+      path;
+
+
+    source.type =
+      "video/mp4";
+
+
+    video.appendChild(
+      source
+    );
+
+
+    return video;
+
+  }
+
+
+  const img =
+    document.createElement(
+      "img"
+    );
+
+
+  img.src =
+    path;
+
+
+  img.alt =
+    "";
+
+
+  img.loading =
+    "lazy";
+
+
+  return img;
+
+}
+
+
+/* ==========================================================
+   TARJETA DE RECORRIDO
+========================================================== */
+
+function createTourCard(
+  feature,
+  type
+) {
+
+  const order =
+    Number(
+      feature.properties
+        .order
     );
 
 
   const media =
-    properties.media || "";
+    TOUR_MEDIA[type][order] ||
+    [
+      feature.properties.media
+    ];
 
 
-  let mediaHTML =
-    "";
+  const article =
+    document.createElement(
+      "article"
+    );
 
 
-  if (
-    media
-      .toLowerCase()
-      .endsWith(".mp4")
-  ) {
+  article.className =
+    "tour-card";
 
-    mediaHTML = `
-      <video
-        controls
-        playsinline
-        preload="metadata"
-      >
-        <source
-          src="${escapeHTML(media)}"
-          type="video/mp4"
-        >
-      </video>
-    `;
 
-  } else if (
-    media
-  ) {
+  article.dataset.order =
+    String(
+      order
+    );
 
-    mediaHTML = `
-      <img
-        src="${escapeHTML(media)}"
-        alt="${title}"
-      >
-    `;
+
+  const inner =
+    document.createElement(
+      "div"
+    );
+
+
+  inner.className =
+    "tour-card-inner";
+
+
+  const mediaWrap =
+    document.createElement(
+      "div"
+    );
+
+
+  mediaWrap.className =
+    "tour-media";
+
+
+  let currentIndex =
+    0;
+
+
+/* ==========================================================
+   CAMBIAR FOTO/VIDEO
+========================================================== */
+
+  function renderMedia() {
+
+    mediaWrap
+      .querySelectorAll(
+        "img, video"
+      )
+      .forEach(
+        item =>
+          item.remove()
+      );
+
+
+    const element =
+      createMediaElement(
+
+        media[
+          currentIndex
+        ]
+
+      );
+
+
+    mediaWrap.prepend(
+      element
+    );
+
+
+    const counter =
+      mediaWrap
+        .querySelector(
+          ".tour-counter"
+        );
+
+
+    if (
+      counter
+    ) {
+
+      counter.textContent =
+        `${currentIndex + 1} / ${media.length}`;
+
+    }
 
   }
 
 
-  return `
-    <div class="map-popup">
-
-      ${mediaHTML}
-
-      <div class="map-popup-body">
-
-        <span class="map-popup-section">
-          ${section}
-        </span>
-
-        <h4>
-          ${title}
-        </h4>
-
-        ${
-          description
-            ? `
-              <p>
-                ${description}
-              </p>
-            `
-            : ""
-        }
-
-      </div>
-
-    </div>
-  `;
-
-}
-
-
-function construirPopupZRC(
-  properties
-) {
-
-  const vereda =
-    properties.NOMBRE_VER ||
-    "Zona de Reserva Campesina";
-
-
-  const municipio =
-    properties.NOMB_MPIO ||
-    "";
-
-
-  const zona =
-    properties.Zona ||
-    "";
-
-
-  const area =
-    properties.AREA_HA;
-
-
-  return `
-    <div class="map-popup">
-
-      <div class="map-popup-body">
-
-        <span class="map-popup-section">
-          Zona de Reserva Campesina
-        </span>
-
-        <h4>
-          ${escapeHTML(vereda)}
-        </h4>
-
-        ${
-          municipio
-            ? `
-              <p>
-                <strong>
-                  Municipio:
-                </strong>
-                ${escapeHTML(municipio)}
-              </p>
-            `
-            : ""
-        }
-
-        ${
-          zona
-            ? `
-              <p>
-                <strong>
-                  Zona:
-                </strong>
-                ${escapeHTML(zona)}
-              </p>
-            `
-            : ""
-        }
-
-        ${
-          area !== undefined &&
-          area !== null
-            ? `
-              <p>
-                <strong>
-                  Área:
-                </strong>
-                ${Number(area).toLocaleString(
-                  "es-CO",
-                  {
-                    maximumFractionDigits: 2
-                  }
-                )}
-                ha
-              </p>
-            `
-            : ""
-        }
-
-      </div>
-
-    </div>
-  `;
-
-}
-
-
-function configurarPopups() {
-
-  map.on(
-    "click",
-    "puntos-storymap-circle",
-    event => {
-
-      const feature =
-        event.features[0];
-
-
-      new maplibregl.Popup({
-        offset: 16
-      })
-        .setLngLat(
-          feature.geometry.coordinates
-        )
-        .setHTML(
-          construirPopupPunto(
-            feature.properties
-          )
-        )
-        .addTo(
-          map
-        );
-
-    }
-  );
-
-
-  map.on(
-    "click",
-    "zrc-fill",
-    event => {
-
-      const feature =
-        event.features[0];
-
-
-      new maplibregl.Popup({
-        offset: 8
-      })
-        .setLngLat(
-          event.lngLat
-        )
-        .setHTML(
-          construirPopupZRC(
-            feature.properties
-          )
-        )
-        .addTo(
-          map
-        );
-
-    }
-  );
-
-}
-
-
 /* ==========================================================
-   CURSOR
+   CONTROLES
 ========================================================== */
 
-function configurarCursor() {
+  if (
+    media.length >
+      1
+  ) {
 
-  [
-    "puntos-storymap-circle",
-    "zrc-fill",
-    "municipios-fill",
-    "paramo-fill"
-  ].forEach(
-    layerId => {
-
-      map.on(
-        "mouseenter",
-        layerId,
-        () => {
-
-          map.getCanvas().style.cursor =
-            "pointer";
-
-        }
+    const counter =
+      document.createElement(
+        "div"
       );
 
 
-      map.on(
-        "mouseleave",
-        layerId,
-        () => {
+    counter.className =
+      "tour-counter";
 
-          map.getCanvas().style.cursor =
-            "";
 
-        }
+    const controls =
+      document.createElement(
+        "div"
       );
 
-    }
-  );
 
-}
+    controls.className =
+      "tour-gallery-controls";
 
 
-/* ==========================================================
-   ERRORES DEL MAPA
-========================================================== */
+    const prev =
+      document.createElement(
+        "button"
+      );
 
-map.on(
-  "error",
-  event => {
 
-    console.warn(
-      "Aviso MapLibre:",
-      event?.error?.message || event
+    prev.type =
+      "button";
+
+
+    prev.className =
+      "tour-gallery-btn";
+
+
+    prev.textContent =
+      "←";
+
+
+    const next =
+      document.createElement(
+        "button"
+      );
+
+
+    next.type =
+      "button";
+
+
+    next.className =
+      "tour-gallery-btn";
+
+
+    next.textContent =
+      "→";
+
+
+    prev.addEventListener(
+
+      "click",
+
+      () => {
+
+        currentIndex =
+          (
+            currentIndex -
+            1 +
+            media.length
+          ) %
+          media.length;
+
+
+        renderMedia();
+
+      }
+
+    );
+
+
+    next.addEventListener(
+
+      "click",
+
+      () => {
+
+        currentIndex =
+          (
+            currentIndex +
+            1
+          ) %
+          media.length;
+
+
+        renderMedia();
+
+      }
+
+    );
+
+
+    controls.append(
+
+      prev,
+
+      next
+
+    );
+
+
+    mediaWrap.append(
+
+      counter,
+
+      controls
+
     );
 
   }
-);
+
+
+  renderMedia();
 
 
 /* ==========================================================
-   INICIAR MAPA
+   TEXTO
 ========================================================== */
 
-map.on(
-  "load",
-  () => {
+  const content =
+    document.createElement(
+      "div"
+    );
 
-    agregarFuentesYCapas();
 
-  }
-);
+  content.className =
+    "tour-content";
+
+
+  const number =
+    document.createElement(
+      "span"
+    );
+
+
+  number.className =
+    "tour-number";
+
+
+  number.textContent =
+    String(
+      order
+    )
+      .padStart(
+        2,
+        "0"
+      );
+
+
+  const label =
+    document.createElement(
+      "span"
+    );
+
+
+  label.className =
+    "tour-section-label";
+
+
+  label.textContent =
+    type ===
+      "juntanza"
+
+      ? "Juntanza por el agua"
+
+      : "Cuidadores de la montaña";
+
+
+  const title =
+    document.createElement(
+      "h3"
+    );
+
+
+  title.textContent =
+    feature.properties
+      .title;
+
+
+  const description =
+    document.createElement(
+      "p"
+    );
+
+
+  description.textContent =
+    feature.properties
+      .description;
+
+
+  content.append(
+
+    number,
+
+    label,
+
+    title,
+
+    description
+
+  );
+
+
+  inner.append(
+
+    mediaWrap,
+
+    content
+
+  );
+
+
+  article.append(
+    inner
+  );
+
+
+  return article;
+
+}
 
 
 /* ==========================================================
-   GALERÍAS
+   MARCADOR NUMERADO
 ========================================================== */
 
-const galleries = {
+function createNumberMarker(
+  order,
+  type
+) {
 
-  "juntanza-recorridos": [
-    "assets/images/04_juntanza_01_recorridos_y_conscientizacion_en_territorios_estrategicos_01.jpg",
-    "assets/images/04_juntanza_01_recorridos_y_conscientizacion_en_territorios_estrategicos_02.jpg",
-    "assets/images/04_juntanza_01_recorridos_y_conscientizacion_en_territorios_estrategicos_03.png",
-    "assets/images/04_juntanza_01_recorridos_y_conscientizacion_en_territorios_estrategicos_04.png",
-    "assets/images/04_juntanza_01_recorridos_y_conscientizacion_en_territorios_estrategicos_05.jpg"
-  ],
+  const element =
+    document.createElement(
+      "div"
+    );
 
-  frailejones: [
-    "assets/images/04_juntanza_02_siembra_de_frailejones_01.jpg",
-    "assets/images/04_juntanza_02_siembra_de_frailejones_02.jpg",
-    "assets/images/04_juntanza_02_siembra_de_frailejones_03.jpg"
-  ],
 
-  nacimiento: [
-    "assets/images/04_juntanza_03_restauracion_nacimiento_de_agua_guanacas_01.jpg",
-    "assets/images/04_juntanza_03_restauracion_nacimiento_de_agua_guanacas_02.jpg",
-    "assets/images/04_juntanza_03_restauracion_nacimiento_de_agua_guanacas_03.jpg",
-    "assets/images/04_juntanza_03_restauracion_nacimiento_de_agua_guanacas_04.jpg",
-    "assets/images/04_juntanza_03_restauracion_nacimiento_de_agua_guanacas_05.jpg"
-  ],
+  element.className =
+    `tour-marker ${
+      type ===
+      "cuidadores"
 
-  "semillas-nativas": [
-    "assets/images/04_juntanza_04_recuperacion_de_semillas_nativas_01.jpg",
-    "assets/images/04_juntanza_04_recuperacion_de_semillas_nativas_02.jpg",
-    "assets/images/04_juntanza_04_recuperacion_de_semillas_nativas_03.jpg"
-  ],
+        ? "cuidadores"
 
-  educacion: [
-    "assets/images/04_juntanza_05_educacion_ambiental_comunitaria_01.jpg",
-    "assets/images/04_juntanza_05_educacion_ambiental_comunitaria_02.jpg",
-    "assets/images/04_juntanza_05_educacion_ambiental_comunitaria_03.jpg",
-    "assets/images/04_juntanza_05_educacion_ambiental_comunitaria_05.jpg"
-  ],
+        : ""
+    }`;
 
-  "agro-01": [
-    "assets/images/05_agroalimentarias_galeria_01_01.jpg",
-    "assets/images/05_agroalimentarias_galeria_01_02.jpg",
-    "assets/images/05_agroalimentarias_galeria_01_03.jpg",
-    "assets/images/05_agroalimentarias_galeria_01_04.jpg",
-    "assets/images/05_agroalimentarias_galeria_01_05.jpg"
-  ],
 
-  "agro-02": [
-    "assets/images/05_agroalimentarias_galeria_02_01.jpg",
-    "assets/images/05_agroalimentarias_galeria_02_02.jpg",
-    "assets/images/05_agroalimentarias_galeria_02_03.jpg",
-    "assets/images/05_agroalimentarias_galeria_02_04.jpg"
-  ],
+  element.textContent =
+    String(
+      order
+    );
 
-  "agro-03": [
-    "assets/images/05_agroalimentarias_galeria_03_01.jpg",
-    "assets/images/05_agroalimentarias_galeria_03_02.jpg",
-    "assets/images/05_agroalimentarias_galeria_03_03.jpg",
-    "assets/images/05_agroalimentarias_galeria_03_04.jpg",
-    "assets/images/05_agroalimentarias_galeria_03_05.jpg",
-    "assets/images/05_agroalimentarias_galeria_03_06.jpg",
-    "assets/images/05_agroalimentarias_galeria_03_07.jpg",
-    "assets/images/05_agroalimentarias_galeria_03_08.jpg",
-    "assets/images/05_agroalimentarias_galeria_03_09.jpg",
-    "assets/images/05_agroalimentarias_galeria_03_10.jpg"
-  ],
 
-  "agro-04": [
-    "assets/images/05_agroalimentarias_galeria_04_01.jpg",
-    "assets/images/05_agroalimentarias_galeria_04_02.jpg"
-  ],
+  return element;
 
-  "agro-05": [
-    "assets/images/05_agroalimentarias_galeria_05_01.jpg",
-    "assets/images/05_agroalimentarias_galeria_05_02.jpg",
-    "assets/images/05_agroalimentarias_galeria_05_03.jpg",
-    "assets/images/05_agroalimentarias_galeria_05_04.jpg",
-    "assets/images/05_agroalimentarias_galeria_05_05.jpg"
-  ],
-
-  "agro-06": [
-    "assets/images/05_agroalimentarias_galeria_06_01.jpg",
-    "assets/images/05_agroalimentarias_galeria_06_02.jpg"
-  ],
-
-  "agro-07": [
-    "assets/images/05_agroalimentarias_galeria_07_01.jpg",
-    "assets/images/05_agroalimentarias_galeria_07_02.jpg",
-    "assets/images/05_agroalimentarias_galeria_07_03.jpg",
-    "assets/images/05_agroalimentarias_galeria_07_04.jpg"
-  ],
-
-  "rana-cristal": [
-    "assets/images/06_cuidadores_02_ranita_cristal_01.jpg",
-    "assets/images/06_cuidadores_02_ranita_cristal_02.jpg"
-  ],
-
-  "aves-guanacas": [
-    "assets/images/06_cuidadores_03_identificacion_y_avistamiento_de_aves_en_guanacas_01.jpg",
-    "assets/images/06_cuidadores_03_identificacion_y_avistamiento_de_aves_en_guanacas_02.jpg",
-    "assets/images/06_cuidadores_03_identificacion_y_avistamiento_de_aves_en_guanacas_03.jpg",
-    "assets/images/06_cuidadores_03_identificacion_y_avistamiento_de_aves_en_guanacas_04.jpg",
-    "assets/images/06_cuidadores_03_identificacion_y_avistamiento_de_aves_en_guanacas_05.jpg"
-  ],
-
-  anfibios: [
-    "assets/images/06_cuidadores_04_identificacion_de_anfibios_y_reptiles_en_guanacas_01.jpg",
-    "assets/images/06_cuidadores_04_identificacion_de_anfibios_y_reptiles_en_guanacas_02.jpg",
-    "assets/images/06_cuidadores_04_identificacion_de_anfibios_y_reptiles_en_guanacas_03.jpg",
-    "assets/images/06_cuidadores_04_identificacion_de_anfibios_y_reptiles_en_guanacas_04.jpg",
-    "assets/images/06_cuidadores_04_identificacion_de_anfibios_y_reptiles_en_guanacas_05.jpg"
-  ]
-
-};
+}
 
 
 /* ==========================================================
-   CREAR GALERÍAS
+   INICIAR RECORRIDO
 ========================================================== */
 
-document
-  .querySelectorAll(
-    "[data-gallery]"
-  )
-  .forEach(
-    galleryElement => {
+function initGuidedTour({
+  type,
+  mapId,
+  cardsId,
+  sectionName,
+  defaultCenter,
+  defaultZoom
+}) {
 
-      const galleryName =
-        galleryElement.dataset.gallery;
-
-
-      const images =
-        galleries[galleryName];
-
-
-      if (
-        !images ||
-        images.length === 0
-      ) {
-        return;
-      }
-
-
-      let currentIndex =
-        0;
-
-
-      images.forEach(
-        (src, index) => {
-
-          const img =
-            document.createElement(
-              "img"
-            );
-
-
-          img.src =
-            src;
-
-
-          img.alt =
-            "";
-
-
-          img.loading =
-            "lazy";
-
-
-          img.className =
-            "gallery-image";
-
-
-          if (
-            index === 0
-          ) {
-
-            img.classList.add(
-              "active"
-            );
-
-          }
-
-
-          galleryElement.appendChild(
-            img
-          );
-
-        }
+  const features =
+    puntosData
+      .features
+      .filter(
+        feature =>
+          feature.properties
+            .section ===
+          sectionName
+      )
+      .sort(
+        (
+          a,
+          b
+        ) =>
+          Number(
+            a.properties.order
+          ) -
+          Number(
+            b.properties.order
+          )
       );
 
 
-      const counter =
-        document.createElement(
-          "div"
+  const cardsContainer =
+    document
+      .getElementById(
+        cardsId
+      );
+
+
+  features.forEach(
+    feature => {
+
+      cardsContainer
+        .appendChild(
+
+          createTourCard(
+            feature,
+            type
+          )
+
         );
-
-
-      counter.className =
-        "gallery-counter";
-
-
-      counter.textContent =
-        `1 / ${images.length}`;
-
-
-      galleryElement.appendChild(
-        counter
-      );
-
-
-      const controls =
-        document.createElement(
-          "div"
-        );
-
-
-      controls.className =
-        "gallery-controls";
-
-
-      const previousButton =
-        document.createElement(
-          "button"
-        );
-
-
-      previousButton.className =
-        "gallery-button";
-
-
-      previousButton.innerHTML =
-        "←";
-
-
-      previousButton.setAttribute(
-        "aria-label",
-        "Imagen anterior"
-      );
-
-
-      const nextButton =
-        document.createElement(
-          "button"
-        );
-
-
-      nextButton.className =
-        "gallery-button";
-
-
-      nextButton.innerHTML =
-        "→";
-
-
-      nextButton.setAttribute(
-        "aria-label",
-        "Imagen siguiente"
-      );
-
-
-      controls.appendChild(
-        previousButton
-      );
-
-
-      controls.appendChild(
-        nextButton
-      );
-
-
-      galleryElement.appendChild(
-        controls
-      );
-
-
-      function updateGallery() {
-
-        const galleryImages =
-          galleryElement.querySelectorAll(
-            ".gallery-image"
-          );
-
-
-        galleryImages.forEach(
-          (img, index) => {
-
-            img.classList.toggle(
-              "active",
-              index === currentIndex
-            );
-
-          }
-        );
-
-
-        counter.textContent =
-          `${currentIndex + 1} / ${images.length}`;
-
-      }
-
-
-      previousButton.addEventListener(
-        "click",
-        () => {
-
-          currentIndex--;
-
-
-          if (
-            currentIndex < 0
-          ) {
-
-            currentIndex =
-              images.length - 1;
-
-          }
-
-
-          updateGallery();
-
-        }
-      );
-
-
-      nextButton.addEventListener(
-        "click",
-        () => {
-
-          currentIndex++;
-
-
-          if (
-            currentIndex >=
-            images.length
-          ) {
-
-            currentIndex =
-              0;
-
-          }
-
-
-          updateGallery();
-
-        }
-      );
 
     }
   );
+
+
+  const map =
+    crearMapa(
+
+      mapId,
+
+      defaultCenter,
+
+      defaultZoom
+
+    );
+
+
+  const markers =
+    new Map();
+
+
+/* ==========================================================
+   MAPA CARGADO
+========================================================== */
+
+  map.on(
+
+    "load",
+
+    () => {
+
+      addContextLayers(
+        map
+      );
+
+
+      features.forEach(
+        feature => {
+
+          const order =
+            Number(
+              feature.properties
+                .order
+            );
+
+
+          const markerElement =
+            createNumberMarker(
+
+              order,
+
+              type
+
+            );
+
+
+          const marker =
+            new maplibregl.Marker({
+
+              element:
+                markerElement,
+
+              anchor:
+                "center"
+
+            })
+
+              .setLngLat(
+                feature.geometry
+                  .coordinates
+              )
+
+              .addTo(
+                map
+              );
+
+
+          markers.set(
+
+            order,
+
+            {
+
+              marker,
+
+              element:
+                markerElement
+
+            }
+
+          );
+
+
+          markerElement
+            .addEventListener(
+
+              "click",
+
+              () => {
+
+                const card =
+                  cardsContainer
+                    .querySelector(
+
+                      `.tour-card[data-order="${order}"]`
+
+                    );
+
+
+                card
+                  ?.scrollIntoView({
+
+                    behavior:
+                      "smooth",
+
+                    block:
+                      "center"
+
+                  });
+
+              }
+
+            );
+
+        }
+      );
+
+
+      activateTourStep(
+
+        features[0],
+
+        cardsContainer,
+
+        map,
+
+        markers
+
+      );
+
+    }
+
+  );
+
+
+/* ==========================================================
+   OBSERVADOR DEL SCROLL
+========================================================== */
+
+  const observer =
+    new IntersectionObserver(
+
+      entries => {
+
+        entries.forEach(
+          entry => {
+
+            if (
+              !entry
+                .isIntersecting
+            ) {
+
+              return;
+
+            }
+
+
+            const order =
+              Number(
+                entry.target
+                  .dataset
+                  .order
+              );
+
+
+            const feature =
+              features.find(
+                item =>
+                  Number(
+                    item.properties
+                      .order
+                  ) ===
+                  order
+              );
+
+
+            if (
+              !feature
+            ) {
+
+              return;
+
+            }
+
+
+            activateTourStep(
+
+              feature,
+
+              cardsContainer,
+
+              map,
+
+              markers
+
+            );
+
+          }
+        );
+
+      },
+
+      {
+
+        root:
+          null,
+
+        threshold:
+          0,
+
+        rootMargin:
+          "-43% 0px -43% 0px"
+
+      }
+
+    );
+
+
+  cardsContainer
+    .querySelectorAll(
+      ".tour-card"
+    )
+    .forEach(
+      card => {
+
+        observer.observe(
+          card
+        );
+
+      }
+    );
+
+}
+
+
+/* ==========================================================
+   ACTIVAR PUNTO
+========================================================== */
+
+function activateTourStep(
+  feature,
+  cardsContainer,
+  map,
+  markers
+) {
+
+  const order =
+    Number(
+      feature.properties
+        .order
+    );
+
+
+  cardsContainer
+    .querySelectorAll(
+      ".tour-card"
+    )
+    .forEach(
+      card => {
+
+        card.classList.toggle(
+
+          "active",
+
+          Number(
+            card.dataset
+              .order
+          ) ===
+          order
+
+        );
+
+      }
+    );
+
+
+  markers.forEach(
+    (
+      value,
+      key
+    ) => {
+
+      value.element
+        .classList.toggle(
+
+          "active",
+
+          key ===
+          order
+
+        );
+
+    }
+  );
+
+
+  const coordinates =
+    feature.geometry
+      .coordinates;
+
+
+  map.stop();
+
+
+  map.flyTo({
+
+    center:
+      coordinates,
+
+    zoom:
+      order ===
+        1
+
+        ? 12
+
+        : 12.8,
+
+    duration:
+      1400,
+
+    essential:
+      true
+
+  });
+
+}
+
+
+/* ==========================================================
+   GALERÍAS AGRO
+========================================================== */
+
+function initAgroGalleries() {
+
+  document
+    .querySelectorAll(
+      "[data-gallery]"
+    )
+    .forEach(
+      galleryElement => {
+
+        const name =
+          galleryElement
+            .dataset
+            .gallery;
+
+
+        const images =
+          AGRO_GALLERIES[
+            name
+          ];
+
+
+        if (
+          !images ||
+          images.length ===
+            0
+        ) {
+
+          return;
+
+        }
+
+
+        let currentIndex =
+          0;
+
+
+        images.forEach(
+          (
+            src,
+            index
+          ) => {
+
+            const img =
+              document
+                .createElement(
+                  "img"
+                );
+
+
+            img.src =
+              src;
+
+
+            img.alt =
+              "";
+
+
+            img.loading =
+              "lazy";
+
+
+            img.className =
+              "gallery-image";
+
+
+            if (
+              index ===
+                0
+            ) {
+
+              img.classList
+                .add(
+                  "active"
+                );
+
+            }
+
+
+            galleryElement
+              .appendChild(
+                img
+              );
+
+          }
+        );
+
+
+        const counter =
+          document
+            .createElement(
+              "div"
+            );
+
+
+        counter.className =
+          "gallery-counter";
+
+
+        const controls =
+          document
+            .createElement(
+              "div"
+            );
+
+
+        controls.className =
+          "gallery-controls";
+
+
+        const prev =
+          document
+            .createElement(
+              "button"
+            );
+
+
+        prev.type =
+          "button";
+
+
+        prev.className =
+          "gallery-button";
+
+
+        prev.textContent =
+          "←";
+
+
+        const next =
+          document
+            .createElement(
+              "button"
+            );
+
+
+        next.type =
+          "button";
+
+
+        next.className =
+          "gallery-button";
+
+
+        next.textContent =
+          "→";
+
+
+        function update() {
+
+          galleryElement
+            .querySelectorAll(
+              ".gallery-image"
+            )
+            .forEach(
+              (
+                img,
+                index
+              ) => {
+
+                img.classList
+                  .toggle(
+
+                    "active",
+
+                    index ===
+                    currentIndex
+
+                  );
+
+              }
+            );
+
+
+          counter.textContent =
+            `${currentIndex + 1} / ${images.length}`;
+
+        }
+
+
+        prev.addEventListener(
+
+          "click",
+
+          () => {
+
+            currentIndex =
+              (
+                currentIndex -
+                1 +
+                images.length
+              ) %
+              images.length;
+
+
+            update();
+
+          }
+
+        );
+
+
+        next.addEventListener(
+
+          "click",
+
+          () => {
+
+            currentIndex =
+              (
+                currentIndex +
+                1
+              ) %
+              images.length;
+
+
+            update();
+
+          }
+
+        );
+
+
+        controls.append(
+
+          prev,
+
+          next
+
+        );
+
+
+        galleryElement.append(
+
+          counter,
+
+          controls
+
+        );
+
+
+        update();
+
+      }
+    );
+
+}
+
+
+/* ==========================================================
+   INICIAR TODO
+========================================================== */
+
+async function init() {
+
+  try {
+
+    const [
+      municipiosOriginal,
+      zrcOriginal,
+      loadedParamo,
+      loadedPuntos
+    ] =
+      await Promise.all(
+        [
+
+          cargarGeoJSON(
+            DATA_PATHS
+              .municipios
+          ),
+
+          cargarGeoJSON(
+            DATA_PATHS
+              .zrc
+          ),
+
+          cargarGeoJSON(
+            DATA_PATHS
+              .paramo
+          ),
+
+          cargarGeoJSON(
+            DATA_PATHS
+              .puntos
+          )
+
+        ]
+      );
+
+
+    municipiosInza =
+      filtrarMunicipioInza(
+        municipiosOriginal
+      );
+
+
+    zrcInza =
+      filtrarZRCInza(
+        zrcOriginal
+      );
+
+
+    paramoData =
+      loadedParamo;
+
+
+    puntosData =
+      loadedPuntos;
+
+
+    initTerritoryMap();
+
+
+    initGuidedTour({
+
+      type:
+        "juntanza",
+
+      mapId:
+        "juntanza-map",
+
+      cardsId:
+        "juntanza-cards",
+
+      sectionName:
+        "Juntanza por el agua",
+
+      defaultCenter:
+        [-76.13, 2.515],
+
+      defaultZoom:
+        10.5
+
+    });
+
+
+    initGuidedTour({
+
+      type:
+        "cuidadores",
+
+      mapId:
+        "cuidadores-map",
+
+      cardsId:
+        "cuidadores-cards",
+
+      sectionName:
+        "Cuidadores de la montaña",
+
+      defaultCenter:
+        [-76.12, 2.515],
+
+      defaultZoom:
+        10.3
+
+    });
+
+
+    initAgroGalleries();
+
+  } catch (
+    error
+  ) {
+
+    console.error(
+
+      "Error inicializando la experiencia:",
+
+      error
+
+    );
+
+  }
+
+}
 
 
 /* ==========================================================
@@ -1693,220 +2201,203 @@ document
 ========================================================== */
 
 const topNav =
-  document.getElementById(
-    "top-nav"
-  );
+  document
+    .getElementById(
+      "top-nav"
+    );
 
 
 const menuToggle =
-  document.getElementById(
-    "menu-toggle"
-  );
+  document
+    .getElementById(
+      "menu-toggle"
+    );
 
 
 const navLinks =
-  document.getElementById(
-    "nav-links"
-  );
+  document
+    .getElementById(
+      "nav-links"
+    );
 
 
 window.addEventListener(
+
   "scroll",
+
   () => {
 
     if (
-      window.scrollY > 80
+      topNav
     ) {
 
-      topNav.classList.add(
-        "scrolled"
-      );
+      topNav.classList
+        .toggle(
 
-    } else {
+          "scrolled",
 
-      topNav.classList.remove(
-        "scrolled"
-      );
+          window.scrollY >
+            80
+
+        );
 
     }
 
   },
+
   {
-    passive: true
+    passive:
+      true
   }
+
 );
 
 
-menuToggle.addEventListener(
-  "click",
-  () => {
+if (
+  menuToggle &&
+  navLinks
+) {
 
-    const isOpen =
-      navLinks.classList.toggle(
-        "open"
-      );
+  menuToggle
+    .addEventListener(
+
+      "click",
+
+      () => {
+
+        const isOpen =
+          navLinks.classList
+            .toggle(
+              "open"
+            );
 
 
-    menuToggle.setAttribute(
-      "aria-expanded",
-      isOpen
+        menuToggle
+          .setAttribute(
+
+            "aria-expanded",
+
+            String(
+              isOpen
+            )
+
+          );
+
+      }
+
     );
 
-  }
-);
+
+  navLinks
+    .querySelectorAll(
+      "a"
+    )
+    .forEach(
+      link => {
+
+        link
+          .addEventListener(
+
+            "click",
+
+            () => {
+
+              navLinks
+                .classList
+                .remove(
+                  "open"
+                );
 
 
-navLinks
-  .querySelectorAll(
-    "a"
-  )
-  .forEach(
-    link => {
+              menuToggle
+                .setAttribute(
 
-      link.addEventListener(
-        "click",
-        () => {
+                  "aria-expanded",
 
-          navLinks.classList.remove(
-            "open"
+                  "false"
+
+                );
+
+            }
+
           );
 
+      }
+    );
 
-          menuToggle.setAttribute(
-            "aria-expanded",
-            "false"
-          );
-
-        }
-      );
-
-    }
-  );
+}
 
 
 /* ==========================================================
    ANIMACIONES
 ========================================================== */
 
-const revealElements =
-  document.querySelectorAll(
-    ".reveal"
-  );
-
-
 const revealObserver =
   new IntersectionObserver(
+
     entries => {
 
       entries.forEach(
         entry => {
 
           if (
-            entry.isIntersecting
+            !entry
+              .isIntersecting
           ) {
 
-            entry.target.classList.add(
+            return;
+
+          }
+
+
+          entry.target
+            .classList
+            .add(
               "visible"
             );
 
 
-            revealObserver.unobserve(
+          revealObserver
+            .unobserve(
               entry.target
             );
-
-          }
 
         }
       );
 
     },
+
     {
-      threshold: 0.15,
-      rootMargin: "0px 0px -50px 0px"
+
+      threshold:
+        0.15,
+
+      rootMargin:
+        "0px 0px -50px 0px"
+
+    }
+
+  );
+
+
+document
+  .querySelectorAll(
+    ".reveal"
+  )
+  .forEach(
+    element => {
+
+      revealObserver
+        .observe(
+          element
+        );
+
     }
   );
 
 
-revealElements.forEach(
-  element => {
-
-    revealObserver.observe(
-      element
-    );
-
-  }
-);
-
-
 /* ==========================================================
-   SELECTOR DE VIDEOS
+   EJECUTAR
 ========================================================== */
 
-const biodiversityVideo =
-  document.getElementById(
-    "biodiversity-video"
-  );
-
-
-const biodiversityVideoSource =
-  document.getElementById(
-    "biodiversity-video-source"
-  );
-
-
-const videoButtons =
-  document.querySelectorAll(
-    ".video-select"
-  );
-
-
-videoButtons.forEach(
-  button => {
-
-    button.addEventListener(
-      "click",
-      () => {
-
-        const videoPath =
-          button.dataset.video;
-
-
-        if (
-          !videoPath ||
-          !biodiversityVideo ||
-          !biodiversityVideoSource
-        ) {
-          return;
-        }
-
-
-        biodiversityVideo.pause();
-
-
-        biodiversityVideoSource.src =
-          videoPath;
-
-
-        biodiversityVideo.load();
-
-
-        videoButtons.forEach(
-          item => {
-
-            item.classList.remove(
-              "active"
-            );
-
-          }
-        );
-
-
-        button.classList.add(
-          "active"
-        );
-
-      }
-    );
-
-  }
-);
+init();
