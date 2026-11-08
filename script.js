@@ -57,7 +57,7 @@ const map = new maplibregl.Map({
           16,
 
         attribution:
-          'EOxCloudless by EOX IT Services GmbH — Contains modified Copernicus Sentinel data 2024'
+          "EOxCloudless — Contains modified Copernicus Sentinel data 2024"
 
       }
 
@@ -120,13 +120,19 @@ map.addControl(
 
 
 /* ==========================================================
-   DATOS
+   VARIABLES GLOBALES
 ========================================================== */
 
 let zrcData = null;
 let paramoData = null;
 let puntosData = null;
 let municipiosData = null;
+
+let cartografiaLista = false;
+
+let currentChapter = null;
+
+let scrollTicking = false;
 
 
 /* ==========================================================
@@ -192,7 +198,26 @@ async function cargarDatosCartograficos() {
 
     agregarFuentesYCapas();
 
-    ajustarMapaAZRC();
+
+    cartografiaLista =
+      true;
+
+
+    console.log(
+      "Cartografía cargada correctamente."
+    );
+
+
+    /*
+      MUY IMPORTANTE:
+      al terminar de cargar los datos volvemos a determinar
+      qué capítulo está actualmente visible.
+    */
+
+    sincronizarCapituloConScroll(
+      true
+    );
+
 
   } catch (error) {
 
@@ -211,6 +236,10 @@ async function cargarDatosCartograficos() {
 ========================================================== */
 
 function agregarFuentesYCapas() {
+
+  /* --------------------------------------------------------
+     MUNICIPIOS
+  --------------------------------------------------------- */
 
   map.addSource(
     "municipios",
@@ -276,6 +305,10 @@ function agregarFuentesYCapas() {
 
   });
 
+
+  /* --------------------------------------------------------
+     PÁRAMO
+  --------------------------------------------------------- */
 
   map.addSource(
     "paramo",
@@ -344,6 +377,10 @@ function agregarFuentesYCapas() {
 
   });
 
+
+  /* --------------------------------------------------------
+     ZRC
+  --------------------------------------------------------- */
 
   map.addSource(
     "zrc",
@@ -447,6 +484,10 @@ function agregarFuentesYCapas() {
   });
 
 
+  /* --------------------------------------------------------
+     PUNTOS DEL STORYMAP
+  --------------------------------------------------------- */
+
   map.addSource(
     "puntos-storymap",
     {
@@ -544,7 +585,9 @@ function recorrerCoordenadas(
       coordinates
     )
   ) {
+
     return;
+
   }
 
 
@@ -583,6 +626,10 @@ function recorrerCoordenadas(
 }
 
 
+/* ==========================================================
+   OBTENER BOUNDS
+========================================================== */
+
 function obtenerBounds(
   geojson
 ) {
@@ -591,8 +638,27 @@ function obtenerBounds(
     new maplibregl.LngLatBounds();
 
 
+  if (
+    !geojson ||
+    !geojson.features
+  ) {
+
+    return bounds;
+
+  }
+
+
   geojson.features.forEach(
     feature => {
+
+      if (
+        !feature.geometry
+      ) {
+
+        return;
+
+      }
+
 
       recorrerCoordenadas(
 
@@ -617,12 +683,18 @@ function obtenerBounds(
 }
 
 
+/* ==========================================================
+   AJUSTAR MAPA A LA ZRC
+========================================================== */
+
 function ajustarMapaAZRC() {
 
   if (
     !zrcData
   ) {
+
     return;
+
   }
 
 
@@ -644,22 +716,69 @@ function ajustarMapaAZRC() {
           100,
 
         bottom:
-          70,
+          80,
 
         left:
-          90,
+          80,
 
         right:
-          90
+          80
 
       },
 
       duration:
-        1200
+        1500,
+
+      maxZoom:
+        10.5
 
     }
 
   );
+
+}
+
+
+/* ==========================================================
+   FILTRAR GEOJSON
+========================================================== */
+
+function filtrarGeoJSONPorSeccion(
+  geojson,
+  section
+) {
+
+  if (
+    !geojson ||
+    !geojson.features
+  ) {
+
+    return {
+
+      type:
+        "FeatureCollection",
+
+      features:
+        []
+
+    };
+
+  }
+
+
+  return {
+
+    type:
+      "FeatureCollection",
+
+    features:
+      geojson.features.filter(
+        feature =>
+          feature.properties.section ===
+          section
+      )
+
+  };
 
 }
 
@@ -703,6 +822,10 @@ function escapeHTML(
 
 }
 
+
+/* ==========================================================
+   POPUP PUNTO
+========================================================== */
 
 function construirPopupPunto(
   properties
@@ -808,6 +931,10 @@ function construirPopupPunto(
 }
 
 
+/* ==========================================================
+   POPUP ZRC
+========================================================== */
+
 function construirPopupZRC(
   properties
 ) {
@@ -849,7 +976,9 @@ function construirPopupZRC(
           municipio
             ? `
               <p>
-                <strong>Municipio:</strong>
+                <strong>
+                  Municipio:
+                </strong>
                 ${escapeHTML(municipio)}
               </p>
             `
@@ -860,7 +989,9 @@ function construirPopupZRC(
           zona
             ? `
               <p>
-                <strong>Zona:</strong>
+                <strong>
+                  Zona:
+                </strong>
                 ${escapeHTML(zona)}
               </p>
             `
@@ -872,14 +1003,17 @@ function construirPopupZRC(
           area !== null
             ? `
               <p>
-                <strong>Área:</strong>
-                ${Number(area).toLocaleString(
-                  "es-CO",
-                  {
-                    maximumFractionDigits:
-                      2
-                  }
-                )}
+                <strong>
+                  Área:
+                </strong>
+                ${Number(area)
+                  .toLocaleString(
+                    "es-CO",
+                    {
+                      maximumFractionDigits:
+                        2
+                    }
+                  )}
                 ha
               </p>
             `
@@ -894,6 +1028,10 @@ function construirPopupZRC(
 
 }
 
+
+/* ==========================================================
+   CONFIGURAR POPUPS
+========================================================== */
 
 function configurarPopups() {
 
@@ -1068,6 +1206,10 @@ const layerGroups = {
 };
 
 
+/* ==========================================================
+   CAMBIAR VISIBILIDAD
+========================================================== */
+
 function setGroupVisibility(
   groupName,
   visible
@@ -1080,7 +1222,9 @@ function setGroupVisibility(
   if (
     !layers
   ) {
+
     return;
+
   }
 
 
@@ -1113,6 +1257,37 @@ function setGroupVisibility(
 }
 
 
+/* ==========================================================
+   ACTUALIZAR CHECKBOXES
+========================================================== */
+
+function actualizarCheckbox(
+  groupName,
+  checked
+) {
+
+  const checkbox =
+    document.querySelector(
+      `[data-layer-group="${groupName}"]`
+    );
+
+
+  if (
+    checkbox
+  ) {
+
+    checkbox.checked =
+      checked;
+
+  }
+
+}
+
+
+/* ==========================================================
+   EVENTOS DE CHECKBOX
+========================================================== */
+
 document
   .querySelectorAll(
     "[data-layer-group]"
@@ -1125,6 +1300,15 @@ document
         "change",
 
         () => {
+
+          if (
+            !cartografiaLista
+          ) {
+
+            return;
+
+          }
+
 
           setGroupVisibility(
 
@@ -1146,7 +1330,46 @@ document
    FILTROS DE PUNTOS
 ========================================================== */
 
+function mostrarTodosLosPuntos() {
+
+  if (
+    !map.getLayer(
+      "puntos-storymap-circle"
+    )
+  ) {
+
+    return;
+
+  }
+
+
+  map.setFilter(
+
+    "puntos-storymap-circle",
+
+    null
+
+  );
+
+}
+
+
+/* ==========================================================
+   JUNTANZA
+========================================================== */
+
 function mostrarPuntosJuntanza() {
+
+  if (
+    !map.getLayer(
+      "puntos-storymap-circle"
+    )
+  ) {
+
+    return;
+
+  }
+
 
   map.setFilter(
 
@@ -1167,7 +1390,22 @@ function mostrarPuntosJuntanza() {
 }
 
 
+/* ==========================================================
+   CUIDADORES
+========================================================== */
+
 function mostrarPuntosCuidadores() {
+
+  if (
+    !map.getLayer(
+      "puntos-storymap-circle"
+    )
+  ) {
+
+    return;
+
+  }
+
 
   map.setFilter(
 
@@ -1188,316 +1426,628 @@ function mostrarPuntosCuidadores() {
 }
 
 
-function filtrarGeoJSONPorSeccion(
-  geojson,
-  section
-) {
+/* ==========================================================
+   CAPÍTULO TERRITORIO
+========================================================== */
 
-  return {
+function mostrarTerritorio() {
 
-    type:
-      "FeatureCollection",
+  setGroupVisibility(
+    "municipios",
+    true
+  );
 
-    features:
-      geojson.features.filter(
-        feature =>
-          feature.properties.section ===
-          section
-      )
+  setGroupVisibility(
+    "zrc",
+    true
+  );
 
-  };
+  setGroupVisibility(
+    "paramo",
+    false
+  );
+
+  setGroupVisibility(
+    "puntos",
+    false
+  );
+
+
+  actualizarCheckbox(
+    "municipios",
+    true
+  );
+
+  actualizarCheckbox(
+    "zrc",
+    true
+  );
+
+  actualizarCheckbox(
+    "paramo",
+    false
+  );
+
+  actualizarCheckbox(
+    "puntos",
+    false
+  );
+
+
+  ajustarMapaAZRC();
 
 }
 
 
 /* ==========================================================
-   CAPÍTULOS
+   CAPÍTULO PÁRAMO
 ========================================================== */
 
-const chapterElements =
-  document.querySelectorAll(
-    ".chapter"
+function mostrarParamo() {
+
+  setGroupVisibility(
+    "municipios",
+    true
+  );
+
+  setGroupVisibility(
+    "zrc",
+    true
+  );
+
+  setGroupVisibility(
+    "paramo",
+    true
+  );
+
+  setGroupVisibility(
+    "puntos",
+    false
   );
 
 
+  actualizarCheckbox(
+    "municipios",
+    true
+  );
+
+  actualizarCheckbox(
+    "zrc",
+    true
+  );
+
+  actualizarCheckbox(
+    "paramo",
+    true
+  );
+
+  actualizarCheckbox(
+    "puntos",
+    false
+  );
+
+
+  const bounds =
+    obtenerBounds(
+      paramoData
+    );
+
+
+  map.fitBounds(
+
+    bounds,
+
+    {
+
+      padding: {
+
+        top:
+          85,
+
+        bottom:
+          85,
+
+        left:
+          80,
+
+        right:
+          80
+
+      },
+
+      duration:
+        1800,
+
+      maxZoom:
+        11.5
+
+    }
+
+  );
+
+}
+
+
+/* ==========================================================
+   CAPÍTULO JUNTANZA
+========================================================== */
+
+function mostrarJuntanza() {
+
+  setGroupVisibility(
+    "municipios",
+    false
+  );
+
+  setGroupVisibility(
+    "zrc",
+    true
+  );
+
+  setGroupVisibility(
+    "paramo",
+    true
+  );
+
+  setGroupVisibility(
+    "puntos",
+    true
+  );
+
+
+  actualizarCheckbox(
+    "municipios",
+    false
+  );
+
+  actualizarCheckbox(
+    "zrc",
+    true
+  );
+
+  actualizarCheckbox(
+    "paramo",
+    true
+  );
+
+  actualizarCheckbox(
+    "puntos",
+    true
+  );
+
+
+  mostrarPuntosJuntanza();
+
+
+  const data =
+    filtrarGeoJSONPorSeccion(
+
+      puntosData,
+
+      "Juntanza por el agua"
+
+    );
+
+
+  const bounds =
+    obtenerBounds(
+      data
+    );
+
+
+  map.fitBounds(
+
+    bounds,
+
+    {
+
+      padding: {
+
+        top:
+          110,
+
+        bottom:
+          110,
+
+        left:
+          110,
+
+        right:
+          110
+
+      },
+
+      duration:
+        1800,
+
+      maxZoom:
+        13
+
+    }
+
+  );
+
+}
+
+
+/* ==========================================================
+   CAPÍTULO CUIDADORES
+========================================================== */
+
+function mostrarCuidadores() {
+
+  setGroupVisibility(
+    "municipios",
+    false
+  );
+
+  setGroupVisibility(
+    "zrc",
+    true
+  );
+
+  setGroupVisibility(
+    "paramo",
+    true
+  );
+
+  setGroupVisibility(
+    "puntos",
+    true
+  );
+
+
+  actualizarCheckbox(
+    "municipios",
+    false
+  );
+
+  actualizarCheckbox(
+    "zrc",
+    true
+  );
+
+  actualizarCheckbox(
+    "paramo",
+    true
+  );
+
+  actualizarCheckbox(
+    "puntos",
+    true
+  );
+
+
+  mostrarPuntosCuidadores();
+
+
+  const data =
+    filtrarGeoJSONPorSeccion(
+
+      puntosData,
+
+      "Cuidadores de la montaña"
+
+    );
+
+
+  const bounds =
+    obtenerBounds(
+      data
+    );
+
+
+  map.fitBounds(
+
+    bounds,
+
+    {
+
+      padding: {
+
+        top:
+          110,
+
+        bottom:
+          110,
+
+        left:
+          110,
+
+        right:
+          110
+
+      },
+
+      duration:
+        1800,
+
+      maxZoom:
+        13
+
+    }
+
+  );
+
+}
+
+
+/* ==========================================================
+   ACTIVAR CAPÍTULO
+========================================================== */
+
 function activarCapitulo(
-  chapterId
+  chapterId,
+  force = false
 ) {
 
   if (
-    !zrcData
+    !cartografiaLista
   ) {
+
     return;
-  }
-
-
-  if (
-    chapterId ===
-    "territorio"
-  ) {
-
-    setGroupVisibility(
-      "municipios",
-      true
-    );
-
-    setGroupVisibility(
-      "zrc",
-      true
-    );
-
-    setGroupVisibility(
-      "paramo",
-      false
-    );
-
-    setGroupVisibility(
-      "puntos",
-      false
-    );
-
-
-    ajustarMapaAZRC();
 
   }
 
 
   if (
+    !force &&
     chapterId ===
-    "paramo"
+      currentChapter
   ) {
 
-    setGroupVisibility(
-      "municipios",
-      true
-    );
+    return;
 
-    setGroupVisibility(
-      "zrc",
-      true
-    );
-
-    setGroupVisibility(
-      "paramo",
-      true
-    );
-
-    setGroupVisibility(
-      "puntos",
-      false
-    );
+  }
 
 
-    const bounds =
-      obtenerBounds(
-        paramoData
-      );
+  currentChapter =
+    chapterId;
 
 
-    map.fitBounds(
+  console.log(
+    "Capítulo activo:",
+    chapterId
+  );
 
-      bounds,
 
-      {
+  document
+    .querySelectorAll(
+      ".chapter"
+    )
+    .forEach(
+      element => {
 
-        padding:
-          70,
+        element.classList.toggle(
 
-        duration:
-          1500,
+          "active",
 
-        maxZoom:
-          11
+          element.dataset.chapter ===
+            chapterId
+
+        );
 
       }
-
     );
 
-  }
 
-
-  if (
-    chapterId ===
-    "juntanza-puntos"
+  switch (
+    chapterId
   ) {
 
-    setGroupVisibility(
-      "municipios",
-      false
-    );
+    case "territorio":
 
-    setGroupVisibility(
-      "zrc",
-      true
-    );
+      mostrarTerritorio();
 
-    setGroupVisibility(
-      "paramo",
-      true
-    );
-
-    setGroupVisibility(
-      "puntos",
-      true
-    );
+      break;
 
 
-    mostrarPuntosJuntanza();
+    case "paramo":
+
+      mostrarParamo();
+
+      break;
 
 
-    const data =
-      filtrarGeoJSONPorSeccion(
+    case "juntanza-puntos":
 
-        puntosData,
+      mostrarJuntanza();
 
-        "Juntanza por el agua"
-
-      );
+      break;
 
 
-    map.fitBounds(
+    case "cuidadores-puntos":
 
-      obtenerBounds(data),
+      mostrarCuidadores();
 
-      {
-
-        padding:
-          90,
-
-        duration:
-          1500,
-
-        maxZoom:
-          13
-
-      }
-
-    );
-
-  }
-
-
-  if (
-    chapterId ===
-    "cuidadores-puntos"
-  ) {
-
-    setGroupVisibility(
-      "municipios",
-      false
-    );
-
-    setGroupVisibility(
-      "zrc",
-      true
-    );
-
-    setGroupVisibility(
-      "paramo",
-      true
-    );
-
-    setGroupVisibility(
-      "puntos",
-      true
-    );
-
-
-    mostrarPuntosCuidadores();
-
-
-    const data =
-      filtrarGeoJSONPorSeccion(
-
-        puntosData,
-
-        "Cuidadores de la montaña"
-
-      );
-
-
-    map.fitBounds(
-
-      obtenerBounds(data),
-
-      {
-
-        padding:
-          90,
-
-        duration:
-          1500,
-
-        maxZoom:
-          13
-
-      }
-
-    );
+      break;
 
   }
 
 }
 
 
-const chapterObserver =
-  new IntersectionObserver(
+/* ==========================================================
+   BUSCAR CAPÍTULO MÁS CERCANO AL CENTRO
+========================================================== */
 
-    entries => {
+function obtenerCapituloVisible() {
 
-      entries.forEach(
-        entry => {
-
-          if (
-            !entry.isIntersecting
-          ) {
-            return;
-          }
-
-
-          chapterElements.forEach(
-            element => {
-
-              element.classList.remove(
-                "active"
-              );
-
-            }
-          );
+  const chapters =
+    Array.from(
+      document.querySelectorAll(
+        ".chapter"
+      )
+    );
 
 
-          entry.target.classList.add(
-            "active"
-          );
+  if (
+    chapters.length === 0
+  ) {
+
+    return null;
+
+  }
 
 
-          activarCapitulo(
-            entry.target.dataset.chapter
-          );
+  const viewportCenter =
+    window.innerHeight / 2;
 
-        }
-      );
 
-    },
+  let closestChapter =
+    null;
 
-    {
 
-      threshold:
-        0.5
+  let closestDistance =
+    Infinity;
+
+
+  chapters.forEach(
+    chapter => {
+
+      const rect =
+        chapter.getBoundingClientRect();
+
+
+      const chapterCenter =
+        rect.top +
+        rect.height / 2;
+
+
+      const distance =
+        Math.abs(
+          chapterCenter -
+          viewportCenter
+        );
+
+
+      if (
+        distance <
+        closestDistance
+      ) {
+
+        closestDistance =
+          distance;
+
+
+        closestChapter =
+          chapter;
+
+      }
 
     }
-
   );
 
 
-chapterElements.forEach(
-  chapter => {
+  return closestChapter;
 
-    chapterObserver.observe(
-      chapter
+}
+
+
+/* ==========================================================
+   SINCRONIZAR SCROLL
+========================================================== */
+
+function sincronizarCapituloConScroll(
+  force = false
+) {
+
+  if (
+    !cartografiaLista
+  ) {
+
+    return;
+
+  }
+
+
+  const visibleChapter =
+    obtenerCapituloVisible();
+
+
+  if (
+    !visibleChapter
+  ) {
+
+    return;
+
+  }
+
+
+  activarCapitulo(
+
+    visibleChapter.dataset.chapter,
+
+    force
+
+  );
+
+}
+
+
+/* ==========================================================
+   EVENTO SCROLL
+========================================================== */
+
+window.addEventListener(
+
+  "scroll",
+
+  () => {
+
+    if (
+      scrollTicking
+    ) {
+
+      return;
+
+    }
+
+
+    scrollTicking =
+      true;
+
+
+    window.requestAnimationFrame(
+      () => {
+
+        sincronizarCapituloConScroll();
+
+        scrollTicking =
+          false;
+
+      }
+    );
+
+  },
+
+  {
+    passive:
+      true
+  }
+
+);
+
+
+/* ==========================================================
+   EVENTO RESIZE
+========================================================== */
+
+window.addEventListener(
+
+  "resize",
+
+  () => {
+
+    map.resize();
+
+
+    sincronizarCapituloConScroll(
+      true
     );
 
   }
+
 );
 
 
@@ -1703,7 +2253,9 @@ document
         !images ||
         images.length === 0
       ) {
+
         return;
+
       }
 
 
@@ -1969,6 +2521,11 @@ window.addEventListener(
 
     }
 
+  },
+
+  {
+    passive:
+      true
   }
 
 );
@@ -2096,7 +2653,7 @@ revealElements.forEach(
 
 
 /* ==========================================================
-   VIDEOS
+   SELECTOR DE VIDEOS
 ========================================================== */
 
 const biodiversityVideo =
@@ -2135,7 +2692,9 @@ videoButtons.forEach(
           !biodiversityVideo ||
           !biodiversityVideoSource
         ) {
+
           return;
+
         }
 
 
